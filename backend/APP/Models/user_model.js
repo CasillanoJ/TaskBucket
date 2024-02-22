@@ -30,11 +30,8 @@ const userSchema = new mongoose.Schema({
     isVerified:{
         type: Boolean,
         required: true,
-    },
-    TaskList:{
-      type:[String],
-      default :[]
     }
+   
 
 },{timestamps: true})
 
