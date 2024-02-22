@@ -1,37 +1,62 @@
-const { mongoose } = require("./con_db")
+const mongoose = require("mongoose");
 
+const currentDate = new Date();
+currentDate.setHours(0, 0, 0, 0);
 
-const TaskSchema = new mongoose.Schema({
+const taskSchema = mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: [true, "Please add a title"],
+    },
+    description: {
+      type: String,
+      required: [true, "Please add a description"],
+    },
+    priorityLevel: {
+      type: String,
+      enum: ["Neutral", "High", "Urgent"],
+      required: [true, "Please add a priority level"],
+    },
+    assignee: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: false,
+      ref: "User",
+      default: null,
+    },
+    dueDate: {
+      type: Date,
+      default: null,
+      min: currentDate,
+      validate: {
+        validator: function (value) {
+          const inputValue = new Date(value);
+          inputValue.setHours(0, 0, 0, 0);
 
-  title:{
-    type: String,
-    required: [true, "Title is required"]
+          return inputValue >= currentDate;
+        },
+        message: "Date must be the current date or in the future",
+      },
+    },
+    startedAt: {
+      type: Date,
+      default: "",
+    },
+    completedAt: {
+      type: Date,
+      default: "",
+    },
+    status: {
+      type: String,
+      enum: ["Unassigned", "To-do", "In progress", "Completed"],
+      required: [true, "Status is required"],
+    },
   },
-  description:{
-
-  },
-  due_date:{
-    type: Date,
-
-  },
-  startedAt:{
-    type: Date,
-  },
-  completedAt:{
-    type: Date,
-  },
-  status:{
-    type: String,
-    required: [true, "Status is required"]
-  
-  },
-  priority_level:{
-    type: String,
-    required: [true, "Priority Level is required"]
+  {
+    timestamps: true,
   }
+);
 
-},{timestamps:true})
+const Task = mongoose.model("Task", taskSchema);
 
-const Task = mongoose.model('Task',TaskSchema);
-
-module.exports = Task
+module.exports = Task;

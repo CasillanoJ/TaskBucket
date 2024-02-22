@@ -1,6 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
-
+const dontenv = require("dotenv").config();
 
 
 //IMPORT DB
