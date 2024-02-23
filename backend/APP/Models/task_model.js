@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const currentDate = new Date();
 currentDate.setHours(0, 0, 0, 0);
 
-const taskSchema = mongoose.Schema(
+const taskSchema = new mongoose.Schema(
   {
     title: {
       type: String,
