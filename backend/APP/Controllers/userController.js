@@ -1,6 +1,9 @@
 const User = require('../Models/user_model');
 
+const bcrypt = require('bcrypt')
+
 const addUser = async (req, res, next) => {
+  const saltRound = 10;
 
   try {
     
@@ -9,13 +12,15 @@ const addUser = async (req, res, next) => {
   
     const checkUser = await User.findOne({email: email})
 
+    const hashedPassword = await bcrypt.hash(password,saltRound)
+
     if(checkUser == null){
 
       const newUser = new User({
         first_name: first_name,
         last_name: last_name,
         email: email,
-        password: password,
+        password: hashedPassword,
         isAdmin: isAdmin,
         isVerified: isVerified
     })
