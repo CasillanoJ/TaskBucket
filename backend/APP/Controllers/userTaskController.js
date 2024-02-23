@@ -47,7 +47,7 @@ const getTaskAdmin = async (req, res , next) =>{
 
         res.status(200).json({
           successful: true,
-          message: "Succesfully retrieved USER details.",
+          message: "Succesfully retrieved User details.",
           count: getTask.length,
           data: getTask
         })
