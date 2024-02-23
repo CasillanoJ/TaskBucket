@@ -17,11 +17,12 @@ const userSchema = new mongoose.Schema({
     email:{
         type:String,
         required: [true, "Email is Required"],
-        unique: [true, "Email is already Taken"]
+        unique: [true, "Email is already Taken"],
+        match: [/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/, 'Please fill a valid email address']
     },
     password:{
         type:String,
-        required: true
+        required: [true,"Password is required."]
     },
     isAdmin:{
         type: Boolean,
@@ -30,6 +31,7 @@ const userSchema = new mongoose.Schema({
     isVerified:{
         type: Boolean,
         required: true,
+        default: false
     }
    
 
