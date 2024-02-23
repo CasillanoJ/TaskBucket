@@ -6,14 +6,14 @@ const getUserTask = (req, res , next) =>{
 
     try {
 
-     getUserTask = Task.find({assignee:req.params.id})
+      const  getTask = Task.find({assignee:req.params.id})
 
-      if(getUserTask != 0){
+      if(getTask != 0){
           res.status(200).json({
             successful: true,
             message: "Succesfully retrieved User details.",
-            count: getUserTask.length,
-            data: getUserTask
+            count: getTask.length,
+            data: getTask
           })
       }else{
         res.status(200).json({
