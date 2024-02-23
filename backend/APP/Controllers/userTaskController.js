@@ -2,11 +2,13 @@ const User = require('../Models/user_model')
 const Task = require('../Models/task_model')
 const { get } = require('mongoose')
 
-const getUserTask = (req, res , next) =>{
+const getUserTask = async (req, res , next) =>{
 
     try {
 
-      const  getTask = Task.find({assignee:req.params.id})
+
+      const  getTask =  await Task.find({assignee:req.params.id})
+
 
       if(getTask != 0){
           res.status(200).json({
