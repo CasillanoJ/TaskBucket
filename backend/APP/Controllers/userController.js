@@ -83,7 +83,9 @@ const getAllUsers = async (req, res, next)=>{
 
 };
 
-
+const changePassword = async(req,res,next) =>{
+  
+}
 
 
 
