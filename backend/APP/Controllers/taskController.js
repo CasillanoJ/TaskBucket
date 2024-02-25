@@ -68,12 +68,7 @@ const createTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
   try {
-<<<<<<< Updated upstream
     const { title, description, priorityLevel, assignee, status, dueDate } = req.body;
-=======
-    const { title, description, priorityLevel, assignee, status, dueDate } =
-      req.body;
->>>>>>> Stashed changes
 
     const updatedTask = await Task.findOneAndUpdate(
       { _id: req.params.id },
@@ -229,17 +224,12 @@ const sortBy = async (req, res) => {
         break;
     }
 
-    // console.log(sortValue)
-    // console.log(sortCat)
-
     var sort = {};
     sort[sortCat] = sortValue;
 
     const sortedTask = await Task.find(
 
     ).sort(sort);
-
-    //.sort(`{${sortCat}: ${sortValue}}`);
 
     handleTaskMethod(res, sortedTask, "sorted");
   } catch (err) {
