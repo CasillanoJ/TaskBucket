@@ -11,13 +11,6 @@ const createTask = async (req, res) => {
   const { title, description, priorityLevel, assignee, dueDate, status } =
     req.body;
 
-  const currentDate = new Date();
-  currentDate.setHours(0, 0, 0, 0)
-
-  const inputValue = new Date(dueDate);
-  inputValue.setHours(0, 0, 0, 0);
-  ;
-
   try {
     const task = new Task({
       title,
@@ -28,36 +21,13 @@ const createTask = async (req, res) => {
       status,
     });
 
-    if (dueDate != null) {
+    const savedTask = await task.save();
 
-      if (inputValue <= currentDate) {
-        res.status(400).send({
-          successful: false,
-          message: "Date must be the current date or in the future"
-        })
-      }
-      else {
-        const savedTask = await task.save();
-
-        res.status(201).send({
-          successful: true,
-          message: `Successfully added Task: ${savedTask.title}`,
-          task: savedTask,
-        });
-      }
-    }
-
-    else {
-
-
-      const savedTask = await task.save();
-
-      res.status(201).send({
-        successful: true,
-        message: `Successfully added Task: ${savedTask.title}`,
-        task: savedTask,
-      });
-    }
+    res.status(201).send({
+      successful: true,
+      message: `Successfully added Task: ${savedTask.title}`,
+      task: savedTask._id,
+    });
   } catch (error) {
     res.status(500).send({
       successful: false,
@@ -68,7 +38,8 @@ const createTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
   try {
-    const { title, description, priorityLevel, assignee, status, dueDate } = req.body;
+    const { title, description, priorityLevel, assignee, status, dueDate } =
+      req.body;
 
     const updatedTask = await Task.findOneAndUpdate(
       { _id: req.params.id },
@@ -80,7 +51,7 @@ const updateTask = async (req, res) => {
         dueDate,
         status,
       },
-      { new: true }
+      { new: true, runValidators: true }
     );
 
     handleTaskMethod(res, updatedTask, "updated");
@@ -176,14 +147,11 @@ const filterTasks = async (req, res) => {
   }
 };
 
-
-
 const sortBy = async (req, res) => {
   try {
-
-    let category = parseInt(req.query.category)
-    let sortCat = ""
-    let sortValue = 0
+    let category = parseInt(req.query.category);
+    let sortCat = "";
+    let sortValue = 0;
 
     //CATEGORY:
     //1 - latest task - descending
@@ -196,40 +164,38 @@ const sortBy = async (req, res) => {
       case 1:
       case 3:
       case 5:
-        sortValue = -1
+        sortValue = -1;
         break;
       case 2:
       case 4:
-        sortValue = 1
+        sortValue = 1;
         break;
       default:
-        sortValue = 1
+        sortValue = 1;
         break;
     }
 
     switch (category) {
       case 1:
       case 2:
-        sortCat = "createdAt"
+        sortCat = "createdAt";
         break;
       case 3:
       case 4:
-        sortCat = "priorityLevel"
+        sortCat = "priorityLevel";
         break;
       case 5:
-        sortCat = "dueDate"
+        sortCat = "dueDate";
         break;
       default:
-        sortCat = "createdAt"
+        sortCat = "createdAt";
         break;
     }
 
     var sort = {};
     sort[sortCat] = sortValue;
 
-    const sortedTask = await Task.find(
-
-    ).sort(sort);
+    const sortedTask = await Task.find().sort(sort);
 
     handleTaskMethod(res, sortedTask, "sorted");
   } catch (err) {
@@ -239,7 +205,6 @@ const sortBy = async (req, res) => {
     });
   }
 };
-
 
 async function handleTaskMethod(res, action, str) {
   if (!action) {
@@ -251,7 +216,7 @@ async function handleTaskMethod(res, action, str) {
     res.status(200).send({
       successful: true,
       message: `Successfully ${str} Task.`,
-      action,
+      id: action._id,
     });
   }
 }
@@ -265,5 +230,5 @@ module.exports = {
   todoTask,
   completeTask,
   sortBy,
-  filterTasks
+  filterTasks,
 };

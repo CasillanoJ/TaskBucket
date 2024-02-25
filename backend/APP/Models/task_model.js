@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 
+const currentDate = new Date();
+currentDate.setHours(0, 0, 0, 0);
+
 const taskSchema = new mongoose.Schema(
   {
     title: {
@@ -23,17 +26,20 @@ const taskSchema = new mongoose.Schema(
     },
     dueDate: {
       type: Date,
-      default: "",
-      // min: currentDate,
-      // validate: {
-      //   validator: function (value) {
-      //     const inputValue = new Date(value);
-      //     inputValue.setHours(0, 0, 0, 0);
+      default: null,
+      validate: {
+        validator: function (value) {
+          if (value === null) {
+            return true;
+          }
+          const inputValue = new Date(value);
+          const currentDate = new Date();
+          currentDate.setHours(0, 0, 0, 0);
 
-      //     return inputValue >= currentDate;
-      //   },
-      //   message: "Date must be the current date or in the future",
-      // },
+          return inputValue >= currentDate;
+        },
+        message: "Date must be the current date or in the future",
+      },
     },
     startedAt: {
       type: Date,
@@ -50,8 +56,8 @@ const taskSchema = new mongoose.Schema(
     },
     isClaimed: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   {
     timestamps: true,
