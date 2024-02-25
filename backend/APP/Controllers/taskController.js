@@ -68,7 +68,12 @@ const createTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
   try {
+<<<<<<< Updated upstream
     const { title, description, priorityLevel, assignee, status, dueDate } = req.body;
+=======
+    const { title, description, priorityLevel, assignee, status, dueDate } =
+      req.body;
+>>>>>>> Stashed changes
 
     const updatedTask = await Task.findOneAndUpdate(
       { _id: req.params.id },
@@ -78,7 +83,7 @@ const updateTask = async (req, res) => {
         priorityLevel,
         assignee,
         dueDate,
-        status
+        status,
       },
       { new: true }
     );
