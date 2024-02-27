@@ -2,7 +2,7 @@ const express = require('express');
 const {addUser, getAllUsers} = require('../Controllers/userController');
 const router = express.Router();
 
-const { getAllTaskAdmin, getUnassignedTask, getTask} = require('../Controllers/userTaskController')
+const { getAllTaskAdmin, getUnassignedTask, getTask , getCompletedTaskDateRange} = require('../Controllers/userTaskController')
 
 
 router.post('/add', addUser)
@@ -20,9 +20,11 @@ router.get('/unassignedTask/', getUnassignedTask)
 router.get('/unassignedTask/:count', getUnassignedTask)
 
 
+
 router.get('/toDoTask/', getTask)
 router.get('/toDoTask/:id', getTask)
 
+router.get('/getCompletedTask', getCompletedTaskDateRange)
 
 
 module.exports = router;
