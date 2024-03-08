@@ -1,8 +1,6 @@
 
 const { mongoose } = require("./con_db")
 
-
-
 const userSchema = new mongoose.Schema({
     first_name:{
         type:String,
