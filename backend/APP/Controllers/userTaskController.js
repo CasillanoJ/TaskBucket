@@ -1,6 +1,11 @@
 const User = require('../Models/user_model')
 const Task = require('../Models/task_model')
 
+const ExcelJS = require('exceljs');
+const fs = require('fs');
+const path = require('path');
+
+
 const getAllTaskAdmin = async (req, res , next) =>{
 
   // For Task List
@@ -242,6 +247,73 @@ const getEachUserProgression = async (req, res, next) => {
   }
 };
 
+const exportDataAsExcel = async (req, res, next)=>{
+  try{  
+
+    const { startDate, endDate } = req.body;
+
+    const tasks = await Task.find({}).populate('assignee').lean();
+    
+
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Sheet1');
+
+
+    worksheet.columns = [
+      { header: 'Title', key: 'title', width: 20 },
+      { header: 'Description', key: 'description', width: 30 },
+      { header: 'Priority Level', key: 'priorityLevel', width: 15 },
+      { header: 'Assignee First Name', key: 'assigneeFirstName', width: 20 },
+      { header: 'Assignee Last Name', key: 'assigneeLastName', width: 20 },
+      { header: 'Assignee Email', key: 'assigneeEmail', width: 30 },
+      { header: 'Due Date', key: 'dueDate', width: 15, style: { numFmt: 'yyyy-mm-dd' } },
+      { header: 'Started At', key: 'startedAt', width: 15, style: { numFmt: 'yyyy-mm-dd' } },
+      { header: 'Completed At', key: 'completedAt', width: 15, style: { numFmt: 'yyyy-mm-dd' } },
+      { header: 'Status', key: 'status', width: 15 },
+    ];
+
+    const rows = tasks.map(task => ({
+      title: task.title,
+      description: task.description,
+      priorityLevel: task.priorityLevel,
+      assigneeFirstName: task.assignee ? task.assignee.first_name : 'Unassigned',
+      assigneeLastName: task.assignee ? task.assignee.last_name : 'Unassigned',
+      assigneeEmail: task.assignee ? task.assignee.email : 'Unassigned',
+      dueDate: task.dueDate ? task.dueDate.toISOString().split('T')[0] : '', 
+      startedAt: task.startedAt ? task.startedAt.toISOString().split('T')[0] : '', 
+      completedAt: task.completedAt ? task.completedAt.toISOString().split('T')[0] : '', 
+      status: task.status,
+    }));
+
+    worksheet.addRows(rows);
+
+    // Generate the Excel file
+    const filePath = path.join(__dirname, 'tasks.xlsx');
+    await workbook.xlsx.writeFile(filePath);
+
+    res.setHeader('Content-Disposition', 'attachment; filename=tasks.xlsx');
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+
+    const fileStream = fs.createReadStream(filePath);
+    fileStream.pipe(res);
+
+    res.status(500).send({
+      successful: true,
+      message: "Sucesfully exported Tasks" 
+    });
+    
+      
+
+  }catch(error){
+    res.status(500).send({
+      successful: false,
+      message: error.message
+    });
+  }
+
+
+}
+
 
 
  const statusQuery =(requestId,field, isAdmin)=>{
@@ -259,6 +331,7 @@ module.exports ={
   getAllTaskAdmin,
   getUnassignedTask,
   getCompletedTaskDateRange,
-  getEachUserProgression
+  getEachUserProgression,
+  exportDataAsExcel
 
 }
