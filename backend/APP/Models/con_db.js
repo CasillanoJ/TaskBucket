@@ -4,8 +4,6 @@ const mongoose = require('mongoose');
 const uri = "mongodb+srv://taskbucket:ceutaskbucket@taskbucket.i0yu87n.mongodb.net/?retryWrites=true&w=majority"
 
 
-
-
 const connectDB = () => {
 
    mongoose.connect(process.env.MONGO_URI).then((result)=>{

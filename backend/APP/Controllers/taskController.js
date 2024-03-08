@@ -2,9 +2,16 @@
 const Task = require("../Models/task_model");
 
 const getTasks = async (req, res) => {
-  const tasks = await Task.find();
+  try {
+    const tasks = await Task.find();
 
-  res.status(200).json({ tasks });
+    res.status(200).json({ tasks });
+  } catch (error) {
+    res.status(500).send({
+      successful: false,
+      message: error.message,
+    });
+  }
 };
 
 const createTask = async (req, res) => {
@@ -20,6 +27,19 @@ const createTask = async (req, res) => {
       dueDate,
       status,
     });
+
+    if (!assignee) {
+      res.status(401).send({
+        successful: false,
+        message: `ID: ${assignee} is not found`,
+      });
+    }
+
+    if (assignee == null) {
+      task.status = "Unassigned";
+    } else {
+      task.status = "To-do";
+    }
 
     const savedTask = await task.save();
 
@@ -37,24 +57,70 @@ const createTask = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
+  const { title, description, priorityLevel, assignee, dueDate } = req.body;
+
   try {
-    const { title, description, priorityLevel, assignee, status, dueDate } =
-      req.body;
+    let task = await Task.findById(req.params.id);
 
-    const updatedTask = await Task.findOneAndUpdate(
-      { _id: req.params.id },
-      {
-        title,
-        description,
-        priorityLevel,
-        assignee,
-        dueDate,
-        status,
-      },
-      { new: true, runValidators: true }
-    );
+    if (!task) {
+      return handleTaskMethod(res, task, "");
+    }
 
-    handleTaskMethod(res, updatedTask, "updated");
+    task.title = title;
+    task.description = description;
+    task.priorityLevel = priorityLevel;
+    task.assignee = assignee;
+    task.dueDate = dueDate;
+
+    const taskUpdate = await task.save();
+
+    handleTaskMethod(res, taskUpdate, "updated");
+  } catch (error) {
+    if (error.message.includes("assignee")) {
+      return res.status(404).send({
+        successful: false,
+        message: "Assignee not found",
+      });
+    }
+    res.status(500).send({
+      successful: false,
+      message: error.message,
+    });
+  }
+};
+
+const updateStatus = async (req, res) => {
+  try {
+    let updatedStats = await Task.findById(req.params.id);
+
+    updatedStats.status = req.body.status;
+    updatedStats = await updatedStats.save();
+
+    handleTaskMethod(res, updatedStats, "Updated status of");
+  } catch (err) {
+    res.status(500).send({
+      successful: false,
+      message: err.message,
+    });
+  }
+};
+
+const isClaimed = async (req, res) => {
+  try {
+    let claimedTask = await Task.findById(req.params.id);
+
+    if (!claimedTask) {
+      return handleTaskMethod(res, claimedTask, "");
+    }
+
+    if (claimedTask.status != "Unassigned") {
+      claimedTask.isClaimed = true;
+    } else {
+      claimedTask.isClaimed = false;
+    }
+    claimedTask = await claimedTask.save();
+
+    handleTaskMethod(res, claimedTask, "claimed");
   } catch (err) {
     res.status(500).send({
       successful: false,
@@ -68,54 +134,6 @@ const deleteTask = async (req, res) => {
     const deletedTask = await Task.findByIdAndDelete({ _id: req.params.id });
 
     handleTaskMethod(res, deletedTask, "deleted");
-  } catch (err) {
-    res.status(500).send({
-      successful: false,
-      message: err.message,
-    });
-  }
-};
-
-const startTask = async (req, res) => {
-  try {
-    const startedTask = await Task.findOneAndUpdate(
-      { _id: req.params.id },
-      { status: "In Progress" }
-    );
-
-    handleTaskMethod(res, startedTask, "started");
-  } catch (err) {
-    res.status(500).send({
-      successful: false,
-      message: err.message,
-    });
-  }
-};
-
-const todoTask = async (req, res) => {
-  try {
-    const todo = await Task.findOneAndUpdate(
-      { _id: req.params.id },
-      { status: "To-do" }
-    );
-
-    handleTaskMethod(res, todo, "to-do");
-  } catch (err) {
-    res.status(500).send({
-      successful: false,
-      message: err.message,
-    });
-  }
-};
-
-const completeTask = async (req, res) => {
-  try {
-    const completedTask = await Task.findOneAndUpdate(
-      { _id: req.params.id },
-      { status: "Completed" }
-    );
-
-    handleTaskMethod(res, completedTask, "completed");
   } catch (err) {
     res.status(500).send({
       successful: false,
@@ -192,7 +210,7 @@ const sortBy = async (req, res) => {
         break;
     }
 
-    var sort = {};
+    let sort = {};
     sort[sortCat] = sortValue;
 
     const sortedTask = await Task.find().sort(sort);
@@ -225,10 +243,9 @@ module.exports = {
   getTasks,
   createTask,
   updateTask,
+  updateStatus,
+  isClaimed,
   deleteTask,
-  startTask,
-  todoTask,
-  completeTask,
   sortBy,
   filterTasks,
 };

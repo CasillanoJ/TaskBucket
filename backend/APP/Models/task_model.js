@@ -57,6 +57,7 @@ const taskSchema = new mongoose.Schema(
     isClaimed: {
       type: Boolean,
       default: false,
+      required: [true, "Must be either claim or not, wont accept null"]
     },
   },
   {
