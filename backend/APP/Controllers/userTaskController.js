@@ -177,6 +177,19 @@ const getCompletedTaskDateRange = async (req, res, next) =>{
 
 const getEachUserProgression = async (req, res, next) => {
   try {
+
+    const userId = req.user.userId;
+    const email = req.user.email
+    const isAdmin = req.user.isAdmin
+
+
+    // TO FIX
+    console.log(userId)
+    console.log(email)
+    console.log(isAdmin)
+
+
+
     const { id: userID, startDate, endDate } = req.body;
     const dateToday = new Date();
 
