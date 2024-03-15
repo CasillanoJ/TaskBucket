@@ -1,6 +1,7 @@
 // const mongoose = require("mongoose");
 const Task = require("../Models/task_model");
 
+
 const getTasks = async (req, res) => {
   try {
     const tasks = await Task.find();

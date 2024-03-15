@@ -3,12 +3,14 @@ const {
   addUser,
   getAllUsers,
   changePassword,
+  LoginUser
 } = require('../Controllers/userController');
 const router = express.Router();
-const { getAllTaskAdmin, 
-  getUnassignedTask,
-  getTask , getCompletedTaskDateRange, exportDataAsExcel,
-} = require('../Controllers/userTaskController');
+
+const { getAllTaskAdmin, getUnassignedTask, getTask , getCompletedTaskDateRange, exportDataAsExcel} = require('../Controllers/userTaskController')
+const {VerifyToken} = require('../Controllers/userController')
+
+
 
 router.post('/add', addUser)
 
@@ -32,7 +34,6 @@ router.get('/toDoTask/:id', getTask)
 router.get('/getCompletedTask', getCompletedTaskDateRange)
 
 router.get('/exportAsExcel', exportDataAsExcel)
-router.post('/change-password', changePassword);
 
 
 module.exports = router;

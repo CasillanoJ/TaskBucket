@@ -8,8 +8,8 @@ const dontenv = require("dotenv").config();
 
 
 // ROUTERS
-const userRouter = require('./APP/Routers/user_routes')
-const taskRouter = require('./APP/Routers/task_routes');const taskRouter = require('./APP/Routers/task_routes')
+const userRouter = require('./APP/Routers/user_routes');
+const taskRouter = require('./APP/Routers/task_routes');
 
 
 const app = express()
@@ -40,7 +40,7 @@ app.use((req, res, next)=>{
 
 //MIDDLEWARE
 app.use('/users', userRouter);
-app.use('/task', taskRouter)app.use('/tasks', taskRouter)
+app.use('/task', taskRouter)
 
 
 
