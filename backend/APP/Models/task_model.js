@@ -27,11 +27,14 @@ const taskSchema = new mongoose.Schema(
     dueDate: {
       type: Date,
       default: null,
-      min: currentDate,
       validate: {
         validator: function (value) {
+          if (value === null) {
+            return true;
+          }
           const inputValue = new Date(value);
-          inputValue.setHours(0, 0, 0, 0);
+          const currentDate = new Date();
+          currentDate.setHours(0, 0, 0, 0);
 
           return inputValue >= currentDate;
         },
@@ -50,6 +53,11 @@ const taskSchema = new mongoose.Schema(
       type: String,
       enum: ["Unassigned", "To-do", "In progress", "Completed"],
       required: [true, "Status is required"],
+    },
+    isClaimed: {
+      type: Boolean,
+      default: false,
+      required: [true, "Must be either claim or not, wont accept null"]
     },
   },
   {

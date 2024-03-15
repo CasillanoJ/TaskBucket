@@ -1,12 +1,20 @@
 const express = require("express");
 const router = express.Router();
 
-const { getTasks, createTask, updateTask,getTotalcompletedofuser,getHistoryLogs} = require('../Controllers/taskController');
+const {getEachUserProgression} = require('../Controllers/userTaskController')
+const { getTasks, createTask, updateTask, sortBy, filterTasks, updateStatus, isClaimed,getTotalcompletedofuser,getHistoryLogs} = require('../Controllers/taskController');
 
 router.route("/").get(getTasks).post(createTask);
+router.get('/sortBy/', sortBy)
+router.get('/filter/', filterTasks)
 router.put("/:id", updateTask);
 router.route("/completed/:userId").get(getTotalcompletedofuser);
 router.get("/logs", getHistoryLogs); 
+
+router.put("/stats/:id", updateStatus);
+router.put("/claim/:id", isClaimed)
+
+router.get('/getProgress', getEachUserProgression)
 
 
 module.exports = router;
