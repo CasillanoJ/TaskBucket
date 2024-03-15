@@ -109,9 +109,13 @@ const LoginUser = async (req, res, next)=>{
     const accessToken = jwt.sign({ userId: user._id, email: user.email, isAdmin: user.isAdmin, isVerified: user.isVerified }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
     const refreshToken = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
 
-
-    res.json({ accessToken, refreshToken });
-
+    
+    res.status(200).json({
+      successful: true,
+      message: "Succesfully Logged In.",
+      AccessToken: accessToken,
+       RefreshToken: refreshToken
+})
 
 } catch (error) {
   res.status(500).send({
