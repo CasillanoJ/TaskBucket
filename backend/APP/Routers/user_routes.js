@@ -32,6 +32,7 @@ router.get('/toDoTask/:id', getTask)
 router.get('/getCompletedTask', getCompletedTaskDateRange)
 
 router.get('/exportAsExcel', exportDataAsExcel)
+router.post('/change-password', changePassword);
 
 
 module.exports = router;
