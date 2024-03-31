@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 
 const {getEachUserProgression} = require('../Controllers/userTaskController')
-const { getTasks, createTask, updateTask, sortBy, filterTasks, updateStatus, isClaimed } = require('../Controllers/taskController');
 const {VerifyToken} = require('../Controllers/userController')
 
 
