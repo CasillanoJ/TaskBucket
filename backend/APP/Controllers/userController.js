@@ -61,7 +61,7 @@ const addUser = async (req, res, next) => {
 const getAllUsers = async (req, res, next)=>{
 
   try{
-      const users = await User.find()
+      const users = await User.find().select('-password')
       if(users.length != 0){
           res.status(200).json({
               successful: true,
@@ -89,7 +89,7 @@ const LoginUser = async (req, res, next)=>{
 
   try {
     const { email, password } = req.body;
-
+    
 
     const user = await User.findOne({ email: email });
     if (!user) {
@@ -106,11 +106,23 @@ const LoginUser = async (req, res, next)=>{
       });
 
     }
-    const accessToken = jwt.sign({ userId: user._id, email: user.email, isAdmin: user.isAdmin, isVerified: user.isVerified }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-    const refreshToken = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
 
-
-    res.json({ accessToken, refreshToken });
+    if(!user.isVerified){
+      res.status(400).json({
+        successful : false,
+        message: "User is not verified",
+      })
+    }else{
+      const accessToken = jwt.sign({ userId: user._id, email: user.email, first_name: user.first_name, last_name: user.last_name, isAdmin: user.isAdmin, isVerified: user.isVerified }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
+      const refreshToken = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+      res.status(200).json({
+        successful : true,
+        message: "Succesfully Logged In",
+        "Acess Token" :accessToken,
+         "Refresh Token" : refreshToken
+        });
+    }
+  
 
 
 } catch (error) {

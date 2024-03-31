@@ -6,16 +6,26 @@ const fs = require('fs');
 const path = require('path');
 
 
-const getAllTaskAdmin = async (req, res , next) =>{
+const getTaskList = async (req, res , next) =>{
 
   // For Task List
-  const count = req.params.count
+
 
   try {
+    
+  const userId = req.user.userId;
+  const isAdmin = req.user.isAdmin
 
-    const  getTask =  await Task.find().populate('assignee','first_name last_name email').limit(10).skip(count)
+  const count = req.params.count
+
+
+    let getTask ={}
     if(isAdmin){
-      if(getTask != 0){
+       getTask =  await Task.find().populate('assignee','first_name last_name email').limit(10).skip(count)
+    }else{
+      getTask = await Task.find({assignee:userId}).populate('assignee','first_name last_name email').limit(10).skip(count)
+    }
+     if(getTask != 0){
           res.status(200).json({
             successful: true,
             message: "Succesfully retrieved Task details.",
@@ -28,12 +38,7 @@ const getAllTaskAdmin = async (req, res , next) =>{
           message:"No task created yet"
         })
       }
-  }else{
-    res.status(200).json({
-      successful: true,
-      message:"No task created yet"
-    })
-  }
+  
 
   } catch (error) {
     res.status(500).send({
@@ -47,7 +52,13 @@ const getAllTaskAdmin = async (req, res , next) =>{
 const getUnassignedTask = async(req,res, next)=>{
   try{
       //For Dashboard 
-      const getTask = await Task.find({status: "Unassigned"}).limit(5).skip(req.params.count)
+      const userId = req.user.userId;
+      const isAdmin = req.user.isAdmin
+
+      const count = req.params.count
+
+
+      const getTask = await Task.find({status: "Unassigned"}).limit(5).skip(count)
     
       if(getTask != 0){
         res.status(200).json({
@@ -76,18 +87,13 @@ const getUnassignedTask = async(req,res, next)=>{
 const getTask = async(req,res, next)=>{
   try{
       //For Dashboard
-      let requestId = req.params.id
+
+      const requestId = req.user.userId
       const count = req.query.count;
       const status = req.body.status
-      const isAdmin = req.body.isAdmin
+      const isAdmin = req.user.isAdmin
 
   
-      if(!isAdmin && !requestId){
-        res.status(404).json({
-          successful: false,
-          message:"Need request ID"
-        })
-      }else{
           if(status == "To-do" || status == "In Progress" ){
             let findQuery = statusQuery(requestId, status, isAdmin)
             const  getTotal = await Task.find(findQuery);
@@ -116,7 +122,7 @@ const getTask = async(req,res, next)=>{
             message:"Invalid Task Status "
           })
       }
-    }
+    
 
   }catch(error){
       res.status(500).send({
@@ -129,6 +135,12 @@ const getTask = async(req,res, next)=>{
 const getCompletedTaskDateRange = async (req, res, next) =>{
 
   try {
+
+
+    const isAdmin = req.user.isAdmin
+    const userId = req.user.userId
+
+
     //For Dashboard
     const count = req.query.count;
     const dateToday = new Date()
@@ -138,15 +150,29 @@ const getCompletedTaskDateRange = async (req, res, next) =>{
     const currentDate = new Date(); 
     currentDate.setHours(0, 0, 0, 0)
     currentDate.setDate(currentDate.getDate() + 11); 
+
+    let getCompletedTasks ={}
+
+    if(isAdmin){
+      getCompletedTasks = await Task.find({
+        completedAt: {
+          $lte: currentDate,
+          $gte: dateToday
+        },
+        status: "Completed"
+      }).populate('assignee', 'first_name last_name').limit(5).skip(count);
+    }else{
+      getCompletedTasks = await Task.find({
+        completedAt: {
+          $lte: currentDate,
+          $gte: dateToday
+        },
+        status: "Completed",
+        assignee: userId
+      }).populate('assignee', 'first_name last_name').limit(5).skip(count);
+    }
     
- 
-    const getCompletedTasks = await Task.find({
-      completedAt: {
-        $lte: currentDate,
-        $gte: dateToday
-      },
-      status: "Completed"
-    }).populate('assignee', 'first_name last_name').limit(5).skip(count);
+    
 
 
     if(getCompletedTasks != 0){
@@ -161,7 +187,7 @@ const getCompletedTaskDateRange = async (req, res, next) =>{
     }else{
       res.status(200).json({
         successful: true,
-        message:"No task to display"
+        message:"No Completed Task yet to display"
       })
     }
 
@@ -177,17 +203,6 @@ const getCompletedTaskDateRange = async (req, res, next) =>{
 
 const getEachUserProgression = async (req, res, next) => {
   try {
-
-    const userId = req.user.userId;
-    const email = req.user.email
-    const isAdmin = req.user.isAdmin
-
-
-    // TO FIX
-    console.log(userId)
-    console.log(email)
-    console.log(isAdmin)
-
 
 
     const { id: userID, startDate, endDate } = req.body;
@@ -265,7 +280,10 @@ const exportDataAsExcel = async (req, res, next)=>{
 
     const { startDate, endDate } = req.body;
 
-    const tasks = await Task.find({}).populate('assignee').lean();
+    const tasks = await Task.find({
+      completedAt: { $gte: startDate, $lte: endDate },
+      status: "Completed"
+  }).populate('assignee').lean();
     
 
     const workbook = new ExcelJS.Workbook();
@@ -292,7 +310,7 @@ const exportDataAsExcel = async (req, res, next)=>{
       assigneeFirstName: task.assignee ? task.assignee.first_name : 'Unassigned',
       assigneeLastName: task.assignee ? task.assignee.last_name : 'Unassigned',
       assigneeEmail: task.assignee ? task.assignee.email : 'Unassigned',
-      dueDate: task.dueDate ? task.dueDate.toISOString().split('T')[0] : '', 
+      dueDate: task.dueDate ? task.dueDate.toISOString().split('T')[0] : 'No Due date Assigned ', 
       startedAt: task.startedAt ? task.startedAt.toISOString().split('T')[0] : '', 
       completedAt: task.completedAt ? task.completedAt.toISOString().split('T')[0] : '', 
       status: task.status,
@@ -330,9 +348,6 @@ const exportDataAsExcel = async (req, res, next)=>{
 
 
  const statusQuery =(requestId,field, isAdmin)=>{
-
-  
-
   if (isAdmin == true) {
     return { status: `${field}` };
   } else {
@@ -343,7 +358,7 @@ const exportDataAsExcel = async (req, res, next)=>{
 
 module.exports ={
   getTask,
-  getAllTaskAdmin,
+   getTaskList,
   getUnassignedTask,
   getCompletedTaskDateRange,
   getEachUserProgression,
