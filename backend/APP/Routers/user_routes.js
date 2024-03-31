@@ -1,5 +1,5 @@
 const express = require('express');
-const {addUser, getAllUsers, LoginUser} = require('../Controllers/userController');
+const {getAllUsers, changePassword} = require('../Controllers/userController');
 
 
 const router = express.Router();
@@ -18,12 +18,13 @@ router.get('/unassignedTask/', getUnassignedTask)
 router.get('/unassignedTask/:count', getUnassignedTask)
 
 
-
 router.get('/toDoTask', getTask)
 
 router.get('/getCompletedTask', getCompletedTaskDateRange)
 
 router.get('/exportAsExcel', exportDataAsExcel)
+
+router.post('/changePassword' ,changePassword)
 
 
 
