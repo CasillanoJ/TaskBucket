@@ -26,6 +26,7 @@ const createTask = async (req, res) => {
   try {
     
     const isAdmin = req.user.isAdmin
+
     if(isAdmin){
     const task = new Task({
       title,
@@ -43,16 +44,19 @@ const createTask = async (req, res) => {
     }
 
     const savedTask = await task.save();
+    await savedTask.populate('assignee', 'email').execPopulate();
+
 
     console.log(assignee)
     let NotificationMessage 
     if(savedTask.assignee != null){
       NotificationMessage =  await CreateNotification("Create Task", savedTask.assignee, savedTask.title)
+      SendEmail(NotificationMessage, "Created Task",savedTask.assignee.email)
+
     }else{
       NotificationMessage = await CreateNotification("Unassigned Task", savedTask.assignee, savedTask.title)
     }
 
-     SendEmail(NotificationMessage, "Created Task")
 
 
     res.status(201).send({
@@ -100,9 +104,13 @@ const updateTask = async (req, res) => {
     task.dueDate = dueDate;
 
     const taskUpdate = await task.save();
+    await taskUpdate.populate('assignee', 'email').execPopulate();
+
    const NotificationMessage = await CreateNotification("Update Task", taskUpdate.assignee, taskUpdate.title)
 
-    SendEmail(NotificationMessage, "Updated Task")
+   if(taskUpdate.assignee != null || taskUpdate.assignee != "" ){
+    SendEmail(NotificationMessage, "Updated Status", taskUpdate.assignee.email)
+   }
 
     handleTaskMethod(res, taskUpdate, "updated");
   } catch (error) {
@@ -125,9 +133,12 @@ const updateStatus = async (req, res) => {
 
     updatedStats.status = req.body.status;
     updatedStats = await updatedStats.save();
+   await updatedStats.populate('assignee','email').execPopulate();
 
    const NotificationMessage =  await CreateNotification("Update Status", updatedStats.assignee, updatedStats.title)
-    SendEmail(NotificationMessage, "Updated Status")
+   if(updatedStats.assignee != null || updatedStats.assignee != "" ){
+    SendEmail(NotificationMessage, "Updated Status", updatedStats.assignee.email)
+   }
 
     handleTaskMethod(res, updatedStats, "Updated status of");
   } catch (err) {

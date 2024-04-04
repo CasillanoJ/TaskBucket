@@ -1,9 +1,9 @@
 const transporter = require('../Models/nodeEmailer_model')
 
-const SendEmail = (message, header)=>{
+const SendEmail = (message, header, userEmail)=>{
   const mailOptions = {
     from: process.env.EMAIL_ADDRESS,
-    to: process.env.EMAIL_ADDRESS,
+    to: userEmail,
     subject: header,
     text: message
   };

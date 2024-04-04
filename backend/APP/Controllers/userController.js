@@ -7,7 +7,7 @@ const addUser = async (req, res, next) => {
   const saltRound = 10;
 
   try {
-    let { first_name, last_name, email, password, isAdmin, isVerified } = req.body;
+    let { first_name, last_name, email, password,  } = req.body;
 
     const checkUser = await User.findOne({ email: email });
 
@@ -19,8 +19,8 @@ const addUser = async (req, res, next) => {
         last_name: last_name,
         email: email,
         password: hashedPassword,
-        isAdmin: isAdmin,
-        isVerified: isVerified,
+        isAdmin: false,
+        isVerified: false,
       });
 
       await newUser
@@ -82,7 +82,9 @@ const changePassword = async (req, res, next) => {
   const saltRound = 10;
 
   try {
-    const { email, oldPassword, newPassword, confirmPassword } = req.body;
+    const {  oldPassword, newPassword, confirmPassword } = req.body;
+    const userId = req.user.userId
+
 
     if (newPassword !== confirmPassword) {
       return res.status(400).json({
@@ -91,7 +93,7 @@ const changePassword = async (req, res, next) => {
       });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({
@@ -195,6 +197,53 @@ function VerifyToken(req, res, next) {
   });
 }
 
+const VerifyUser = async(req,res,next) =>{
+  try {
+    const isAdmin = req.user.isAdmin
+    const user = req.body.userID
+
+    if(isAdmin){
+      const user = await User.findOne(user)
+
+      if(!user){
+        res.status(404).json({
+          successful: false,
+          message: `Cannot Find the user`,
+        })
+
+      }else{
+        user.isVerified = true;
+        await user.save()
+  
+        res.status(200).json({
+          successful : true,
+          message: "Succesfully Verified the User",
+          user: user.id
+          });
+
+      }
+
+     
+    }else{
+      res.status(401).json({
+        successful: false,
+        message: `Unauthorized access`,
+      })
+    }
+
+    
+
+  } catch (error) {
+    res.status(500).send({
+      successful: false,
+      message: error.message
+  })
+    
+  }
+}
+
+
+
 
 
 
@@ -204,4 +253,5 @@ module.exports = {
   LoginUser,
   VerifyToken,
   changePassword,
+  VerifyUser
 };

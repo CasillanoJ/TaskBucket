@@ -1,4 +1,5 @@
 const Notification = require('../Models/notification_model')
+const {SendEmail} = require('../Controllers/nodeEmailerController')
 
  async function CreateNotification(method, userID, title  ){
 
@@ -6,20 +7,27 @@ const Notification = require('../Models/notification_model')
     if(userID == "" || userID == null){
       userID = null
     }
+    let emailHeader;
 
     let message;
     switch (method) {
         case "Create Task":
             message = `A new task titled "${title}" has been assigned to you.`;
+            emailHeader = `Created Task`
+
             break;
         case "Update Task":
             message = `The task titled "${title}" has been updated.`;
+            emailHeader = `Updated Task`
+
             break;
         case "Update Status":
             message = `The status of the task titled "${title}" has been updated.`;
+            emailHeader = `Updated Status`
             break;
         case "Unassigned Task":
             message = `A new task titled "${title}" has been created and Unassigned`;
+            emailHeader = `Created Task without an Assignee`
             userID = null
             break;
         default:
@@ -32,6 +40,7 @@ const Notification = require('../Models/notification_model')
       recipient: userID,
       message: message
     })
+
   
     await newNotification.save()
     
