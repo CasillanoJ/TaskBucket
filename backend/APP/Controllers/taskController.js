@@ -1,5 +1,6 @@
 
 const Task = require("../Models/task_model");
+const User = require("../Models/user_model");
 const {SendEmail} = require('./nodeEmailerController')
 
 const {CreateNotification} = require('./notificationController')
@@ -28,6 +29,7 @@ const createTask = async (req, res) => {
     const isAdmin = req.user.isAdmin
 
     if(isAdmin){
+      
     const task = new Task({
       title,
       description,
@@ -41,18 +43,19 @@ const createTask = async (req, res) => {
       task.status = "Unassigned";
     } else {
       task.status = "To-do";
+
     }
 
     const savedTask = await task.save();
-    await savedTask.populate('assignee', 'email').execPopulate();
+    
 
 
     console.log(assignee)
     let NotificationMessage 
     if(savedTask.assignee != null){
       NotificationMessage =  await CreateNotification("Create Task", savedTask.assignee, savedTask.title)
-      SendEmail(NotificationMessage, "Created Task",savedTask.assignee.email)
-
+      const { email } = await User.findById(savedTask.assignee);
+      SendEmail(NotificationMessage, "Created Task", email);
     }else{
       NotificationMessage = await CreateNotification("Unassigned Task", savedTask.assignee, savedTask.title)
     }
@@ -104,12 +107,13 @@ const updateTask = async (req, res) => {
     task.dueDate = dueDate;
 
     const taskUpdate = await task.save();
-    await taskUpdate.populate('assignee', 'email').execPopulate();
+  
 
    const NotificationMessage = await CreateNotification("Update Task", taskUpdate.assignee, taskUpdate.title)
 
    if(taskUpdate.assignee != null || taskUpdate.assignee != "" ){
-    SendEmail(NotificationMessage, "Updated Status", taskUpdate.assignee.email)
+    const { email } = await User.findById(taskUpdate.assignee);
+    SendEmail(NotificationMessage, "Updated Task", email)
    }
 
     handleTaskMethod(res, taskUpdate, "updated");
@@ -133,11 +137,15 @@ const updateStatus = async (req, res) => {
 
     updatedStats.status = req.body.status;
     updatedStats = await updatedStats.save();
-   await updatedStats.populate('assignee','email').execPopulate();
+  
 
    const NotificationMessage =  await CreateNotification("Update Status", updatedStats.assignee, updatedStats.title)
    if(updatedStats.assignee != null || updatedStats.assignee != "" ){
-    SendEmail(NotificationMessage, "Updated Status", updatedStats.assignee.email)
+
+    const { email } = await User.findById(updatedStats.assignee);
+    SendEmail(NotificationMessage, "Updated Status", email)
+    
+   
    }
 
     handleTaskMethod(res, updatedStats, "Updated status of");
