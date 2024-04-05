@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
 .card {
   @apply bg-white rounded overflow-hidden shadow-md relative;
 }
@@ -14,3 +16,28 @@
   @apply rounded-full py-2 px-3 uppercase text-xs font-bold cursor-pointer tracking-wider;
 }
 
+.bg-custom {
+  @apply bg-custom-bg bg-cover bg-center;
+  background-image: url("../assets/images/wavybg.png");
+  background-blend-mode: overlay;
+}
+
+.baloo-2-bold {
+  @apply font-baloo;
+  font-weight: 700;
+  font-style: normal;
+}
+
+@layer components {
+  .rubik-regular {
+    @apply font-rubik font-normal;
+    font-weight: "400";
+    font-style: normal;
+    font-optical-sizing: auto;
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+  font-size: 48px;
+}
