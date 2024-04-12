@@ -258,7 +258,7 @@ const filterTasks = async (req, res) => {
 
 const sortBy = async (req, res) => {
   try {
-    let category = parseInt(req.query.category);
+    let category = parseInt(req.search.category);
     let sortCat = "";
     let sortValue = 0;
 
@@ -331,7 +331,7 @@ async function handleTaskMethod(res, action, str) {
 }
 
 const getTotalcompletedofuser = async (req, res) => {
-  const { userId, startDate, endDate } = req.query;
+  const { userId, startDate, endDate } = req.search;
 
   try {
     const user = await User.findById(userId);
@@ -363,7 +363,7 @@ const getTotalcompletedofuser = async (req, res) => {
 };
 
 const getHistoryLogs = async (req, res) => {
-  const { startDate, endDate } = req.query;
+  const { startDate, endDate } = req.search;
 
   try {
     const tasks = await Task.find({
@@ -379,6 +379,40 @@ const getHistoryLogs = async (req, res) => {
   }
 };
 
+const searchTasks = async (req, res) => {
+  try {
+    const { query } = req.query;
+    if (!query || query.trim().length === 0) {
+      return res
+        .status(400)
+        .send("Query parameter is required and cannot be empty.");
+    }
+
+    const tasks = await Task.find(
+      { $text: { $search: query } },
+      { score: { $meta: "textScore" } }
+    ) // Sorting by textScore to show best matches first
+      .sort({ score: { $meta: "textScore" } })
+      .limit(10);
+
+    if (tasks.length === 0) {
+      const partialTasks = await Task.find({
+        $or: [
+          { title: { $regex: query, $options: "i" } }, // Partial search on title
+          { description: { $regex: query, $options: "i" } }, // Partial search on description
+        ],
+      }).limit(10);
+
+      res.json({ count: partialTasks.length, data: partialTasks });
+    } else {
+      res.json({ count: tasks.length, data: tasks });
+    }
+  } catch (error) {
+    console.error("Search Task Error:", error);
+    res.status(500).send("An error occurred while searching for tasks.");
+  }
+};
+
 module.exports = {
   getTasks,
   createTask,
@@ -390,4 +424,5 @@ module.exports = {
   filterTasks,
   getTotalcompletedofuser,
   getHistoryLogs,
+  searchTasks,
 };

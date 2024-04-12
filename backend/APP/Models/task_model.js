@@ -59,13 +59,19 @@ const taskSchema = new mongoose.Schema(
       default: false,
       required: [true, "Must be either claim or not, wont accept null"],
     },
-    attachedFiles: { 
-      type: [String], 
-      default: [] },
+    attachedFiles: {
+      type: [String],
+      default: [],
+    },
   },
   {
     timestamps: true,
   }
+);
+
+taskSchema.index(
+  { title: "text", description: "text" },
+  { weights: { title: 3, description: 1 } }
 );
 
 const Task = mongoose.model("Task", taskSchema);
