@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const dontenv = require("dotenv").config();
+const cookieParser = require('cookie-parser');
 
 
 //IMPORT DB
@@ -16,6 +17,7 @@ const notificationRouter = require('./APP/Routers/notification_routes')
 
 const app = express()
 
+app.use(cookieParser());
 app.use(morgan('dev'));
 
 const db = require('./APP/Models/con_db')

@@ -2,6 +2,7 @@ const User = require('../Models/user_model');
 const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken')
+const {GenerateToken} = require('./Authentication_Controller')
 
 const addUser = async (req, res, next) => {
   const saltRound = 10;
@@ -55,7 +56,7 @@ const addUser = async (req, res, next) => {
 const getAllUsers = async (req, res, next)=>{
 
   try{
-      const users = await User.find().select('-password')
+      const users = await User.find({isVerified:true}).select('-password')
       if(users.length != 0){
           res.status(200).json({
               successful: true,
@@ -155,8 +156,13 @@ const LoginUser = async (req, res, next)=>{
         message: "User is not verified",
       })
     }else{
-      const accessToken = jwt.sign({ userId: user._id, email: user.email, first_name: user.first_name, last_name: user.last_name, isAdmin: user.isAdmin, isVerified: user.isVerified }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-      const refreshToken = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
+      const accessToken = GenerateToken(user, "1h");
+      const refreshToken = GenerateToken(user,"7d");
+
+      res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 3600000 }); // Max age in milliseconds (1 hour)
+      res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 604800000 }); // Max age in milliseconds (7 days)
+
+
       res.status(200).json({
         successful : true,
         message: "Succesfully Logged In",
@@ -175,27 +181,6 @@ const LoginUser = async (req, res, next)=>{
 }
 }
 
-function VerifyToken(req, res, next) {
-  const token = req.headers['authorization'];
-  if (!token) {
-      return res.status(401).json({
-        successful: "False",
-         message: 'Token is required' 
-        });
-  }
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET , (err, decoded) => {
-      if (err) {
-          return res.status(401).json({
-            successful: "False",
-             message: 'Invalid Token' 
-            });
-      }
-      req.user = decoded;
-
-      console.log(decoded)
-      next();
-  });
-}
 
 const VerifyUser = async(req,res,next) =>{
   try {
@@ -243,15 +228,10 @@ const VerifyUser = async(req,res,next) =>{
 }
 
 
-
-
-
-
 module.exports = {
   addUser,
   getAllUsers,
   LoginUser,
-  VerifyToken,
   changePassword,
   VerifyUser
 };

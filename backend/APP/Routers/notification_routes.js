@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {VerifyToken} = require('../Controllers/userController')
+const {VerifyToken} = require('../Controllers/Authentication_Controller')
 const {GetNotification, ReadNotification} = require('../Controllers/notificationController')
 
 router.use(VerifyToken)

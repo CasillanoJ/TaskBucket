@@ -17,18 +17,24 @@ const getTaskList = async (req, res , next) =>{
   const isAdmin = req.user.isAdmin
 
   const count = req.params.count
+  const limit = req.query.limit
 
 
     let getTask ={}
+    let taskCount ={}
     if(isAdmin){
-       getTask =  await Task.find().populate('assignee','first_name last_name email').limit(10).skip(count)
+       getTask =  await Task.find().populate('assignee','first_name last_name email').limit(limit).skip(count)
+       taskCount = await Task.find().countDocuments()
     }else{
       getTask = await Task.find({assignee:userId}).populate('assignee','first_name last_name email').limit(10).skip(count)
+      taskCount = await Task.find({assignee:userId}).countDocuments()
+
     }
      if(getTask != 0){
           res.status(200).json({
             successful: true,
             message: "Succesfully retrieved Task details.",
+            totalTask :taskCount,
             count: getTask.length,
             data: getTask
           })
@@ -217,7 +223,7 @@ const getEachUserProgression = async (req, res, next) => {
       };
 
       const getTotalTask = await Task.countDocuments(filter);
-      const getTotalCompleted = await Task.countDocuments({ ...filter, completedAt: { $lte: endDate, $gte: startDate } });
+      const getTotalCompleted = await Task.countDocuments({ ...filter,status: "Completed", completedAt: { $lte: endDate, $gte: startDate } });
       const getTotalTodo = await Task.countDocuments({ ...filter, status: "To-do" , dueDate: { $lte: dateToday }});
       const getTotalInprogress = await Task.countDocuments({ ...filter, status: "In progress" });
 

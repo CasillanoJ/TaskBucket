@@ -5,7 +5,9 @@ const {getAllUsers, changePassword} = require('../Controllers/userController');
 const router = express.Router();
 
 const { getTaskList, getUnassignedTask, getTask , getCompletedTaskDateRange, exportDataAsExcel} = require('../Controllers/userTaskController')
-const {VerifyToken, VerifyUser} = require('../Controllers/userController')
+const {VerifyUser} = require('../Controllers/userController')
+const {VerifyToken} = require('../Controllers/Authentication_Controller')
+
 
 
 router.use(VerifyToken)
