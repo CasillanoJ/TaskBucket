@@ -1,5 +1,9 @@
-// const mongoose = require("mongoose");
+
 const Task = require("../Models/task_model");
+const User = require("../Models/user_model");
+const {SendEmail} = require('./nodeEmailerController')
+
+const {CreateNotification} = require('./notificationController')
 
 
 const getTasks = async (req, res) => {
@@ -19,9 +23,13 @@ const createTask = async (req, res) => {
   const { title, description, priorityLevel, assignee, dueDate, status } =
     req.body;
 
-    
 
   try {
+    
+    const isAdmin = req.user.isAdmin
+
+    if(isAdmin){
+      
     const task = new Task({
       title,
       description,
@@ -31,33 +39,56 @@ const createTask = async (req, res) => {
       status,
     });
 
-    if (!assignee) {
-      res.status(401).send({
-        successful: false,
-        message: `ID: ${assignee} is not found`,
-      });
-    }
-
     if (assignee == null) {
       task.status = "Unassigned";
     } else {
       task.status = "To-do";
+
     }
 
     const savedTask = await task.save();
+    
+
+
+    console.log(assignee)
+    let NotificationMessage 
+    if(savedTask.assignee != null){
+      NotificationMessage =  await CreateNotification("Create Task", savedTask.assignee, savedTask.title)
+      const { email } = await User.findById(savedTask.assignee);
+      SendEmail(NotificationMessage, "Created Task", email);
+    }else{
+      NotificationMessage = await CreateNotification("Unassigned Task", savedTask.assignee, savedTask.title)
+    }
+
+
 
     res.status(201).send({
       successful: true,
       message: `Successfully added Task: ${savedTask.title}`,
       task: savedTask._id,
     });
+  }else{
+    res.status(401).json({
+      successful: false,
+      message: `Unauthorized access`,
+    })
+
+  }
+
   } catch (error) {
+    if (error.message.includes("assignee")) {
+      return res.status(404).send({
+        successful: false,
+        message: "Assignee not found",
+      });
+    }
     res.status(500).send({
       successful: false,
       message: error.message,
     });
   }
 };
+
 
 const updateTask = async (req, res) => {
   const { title, description, priorityLevel, assignee, dueDate } = req.body;
@@ -76,6 +107,14 @@ const updateTask = async (req, res) => {
     task.dueDate = dueDate;
 
     const taskUpdate = await task.save();
+  
+
+   const NotificationMessage = await CreateNotification("Update Task", taskUpdate.assignee, taskUpdate.title)
+
+   if(taskUpdate.assignee != null || taskUpdate.assignee != "" ){
+    const { email } = await User.findById(taskUpdate.assignee);
+    SendEmail(NotificationMessage, "Updated Task", email)
+   }
 
     handleTaskMethod(res, taskUpdate, "updated");
   } catch (error) {
@@ -98,6 +137,16 @@ const updateStatus = async (req, res) => {
 
     updatedStats.status = req.body.status;
     updatedStats = await updatedStats.save();
+  
+
+   const NotificationMessage =  await CreateNotification("Update Status", updatedStats.assignee, updatedStats.title)
+   if(updatedStats.assignee != null || updatedStats.assignee != "" ){
+
+    const { email } = await User.findById(updatedStats.assignee);
+    SendEmail(NotificationMessage, "Updated Status", email)
+    
+   
+   }
 
     handleTaskMethod(res, updatedStats, "Updated status of");
   } catch (err) {

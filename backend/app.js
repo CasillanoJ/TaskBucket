@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const dontenv = require("dotenv").config();
+const cookieParser = require('cookie-parser');
 
 
 //IMPORT DB
@@ -8,12 +9,15 @@ const dontenv = require("dotenv").config();
 
 
 // ROUTERS
-const userRouter = require('./APP/Routers/user_routes');
+const loginRoutes = require('./APP/Routers/login_routes')
+const userRouter = require('./APP/Routers/user_routes')
 const taskRouter = require('./APP/Routers/task_routes');
+const notificationRouter = require('./APP/Routers/notification_routes')
 
 
 const app = express()
 
+app.use(cookieParser());
 app.use(morgan('dev'));
 
 const db = require('./APP/Models/con_db')
@@ -39,8 +43,10 @@ app.use((req, res, next)=>{
 })
 
 //MIDDLEWARE
+app.use(loginRoutes)
 app.use('/users', userRouter);
 app.use('/task', taskRouter)
+app.use("/notification",notificationRouter)
 
 
 
