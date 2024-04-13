@@ -4,12 +4,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "custom-bg": "#211f35",
+        "custom-bg": "#21212F",
         primary: "#C595FF",
-        secondary: {
-          100: "#E2E2D5",
-          200: "#888883",
-        },
+        secondary: "#2D2A44",
+        nav: "#12121C",
+        row: "#27253B",
+        txt: {
+          100: "#D2D0E5",
+          200: "#8E97A8"
+        }
       },
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],
