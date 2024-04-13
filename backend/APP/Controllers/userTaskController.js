@@ -6,205 +6,205 @@ const fs = require('fs');
 const path = require('path');
 
 
-const getTaskList = async (req, res , next) =>{
+// const getTaskList = async (req, res , next) =>{
 
-  // For Task List
+//   // For Task List
 
 
-  try {
+//   try {
     
-  const userId = req.user.userId;
-  const isAdmin = req.user.isAdmin
+//   const userId = req.user.userId;
+//   const isAdmin = req.user.isAdmin
 
-  const count = req.params.count
-  const limit = req.query.limit
+//   const count = req.params.count
+//   const limit = req.query.limit
 
 
-    let getTask ={}
-    let taskCount ={}
-    if(isAdmin){
-       getTask =  await Task.find().populate('assignee','first_name last_name email').limit(limit).skip(count)
-       taskCount = await Task.find().countDocuments()
-    }else{
-      getTask = await Task.find({assignee:userId}).populate('assignee','first_name last_name email').limit(10).skip(count)
-      taskCount = await Task.find({assignee:userId}).countDocuments()
+//     let getTask ={}
+//     let taskCount ={}
+//     if(isAdmin){
+//        getTask =  await Task.find().populate('assignee','first_name last_name email').limit(limit).skip(count)
+//        taskCount = await Task.find().countDocuments()
+//     }else{
+//       getTask = await Task.find({assignee:userId}).populate('assignee','first_name last_name email').limit(10).skip(count)
+//       taskCount = await Task.find({assignee:userId}).countDocuments()
 
-    }
-     if(getTask != 0){
-          res.status(200).json({
-            successful: true,
-            message: "Succesfully retrieved Task details.",
-            totalTask :taskCount,
-            count: getTask.length,
-            data: getTask
-          })
-      }else{
-        res.status(200).json({
-          successful: true,
-          message:"No task created yet"
-        })
-      }
+//     }
+//      if(getTask != 0){
+//           res.status(200).json({
+//             successful: true,
+//             message: "Succesfully retrieved Task details.",
+//             totalTask :taskCount,
+//             count: getTask.length,
+//             data: getTask
+//           })
+//       }else{
+//         res.status(200).json({
+//           successful: true,
+//           message:"No task created yet"
+//         })
+//       }
   
 
-  } catch (error) {
-    res.status(500).send({
-      successful: false,
-      message: error.message
-  })
-  }  
+//   } catch (error) {
+//     res.status(500).send({
+//       successful: false,
+//       message: error.message
+//   })
+//   }  
   
-}
+// }
 
-const getUnassignedTask = async(req,res, next)=>{
-  try{
-      //For Dashboard 
-      const userId = req.user.userId;
-      const isAdmin = req.user.isAdmin
+// const getUnassignedTask = async(req,res, next)=>{
+//   try{
+//       //For Dashboard 
+//       const userId = req.user.userId;
+//       const isAdmin = req.user.isAdmin
 
-      const count = req.params.count
+//       const count = req.params.count
 
 
-      const getTask = await Task.find({status: "Unassigned"}).limit(5).skip(count)
+//       const getTask = await Task.find({status: "Unassigned"}).limit(5).skip(count)
     
-      if(getTask != 0){
-        res.status(200).json({
-          successful: true,
-          message: "Succesfully retrieved Task details.",
-          count: getTask.length,
-          data: getTask
-        })
-    }else{
-      res.status(200).json({
-        successful: true,
-        message:"No task to display"
-      })
-    }
+//       if(getTask != 0){
+//         res.status(200).json({
+//           successful: true,
+//           message: "Succesfully retrieved Task details.",
+//           count: getTask.length,
+//           data: getTask
+//         })
+//     }else{
+//       res.status(200).json({
+//         successful: true,
+//         message:"No task to display"
+//       })
+//     }
 
-  }catch(error){
-      res.status(500).send({
-        successful: false,
-        message: error.message
-    })
-  }
-}
+//   }catch(error){
+//       res.status(500).send({
+//         successful: false,
+//         message: error.message
+//     })
+//   }
+// }
 
 
 
-const getTask = async(req,res, next)=>{
-  try{
-      //For Dashboard
+// const getTask = async(req,res, next)=>{
+//   try{
+//       //For Dashboard
 
-      const requestId = req.user.userId
-      const count = req.query.count;
-      const status = req.body.status
-      const isAdmin = req.user.isAdmin
+//       const requestId = req.user.userId
+//       const count = req.query.count;
+//       const status = req.body.status
+//       const isAdmin = req.user.isAdmin
 
   
-          if(status == "To-do" || status == "In Progress" ){
-            let findQuery = statusQuery(requestId, status, isAdmin)
-            const  getTotal = await Task.find(findQuery);
-            const  getTask = await Task.find(findQuery).populate('assignee', 'first_name last_name').limit(5).skip(count);
+//           if(status == "To-do" || status == "In Progress" ){
+//             let findQuery = statusQuery(requestId, status, isAdmin)
+//             const  getTotal = await Task.find(findQuery);
+//             const  getTask = await Task.find(findQuery).populate('assignee', 'first_name last_name').limit(5).skip(count);
 
-            if(getTask != 0 && getTotal !=0){
+//             if(getTask != 0 && getTotal !=0){
 
-              res.status(200).json({
-                successful: true,
-                message: "Succesfully retrieved Task details.",
-                totalCount: getTotal.length,
-                limitCount: getTask.length,
-                data: getTask
-              })
+//               res.status(200).json({
+//                 successful: true,
+//                 message: "Succesfully retrieved Task details.",
+//                 totalCount: getTotal.length,
+//                 limitCount: getTask.length,
+//                 data: getTask
+//               })
 
-          }else{
-            res.status(200).json({
-              successful: true,
-              message:"No task to display"
-            })
-          }
+//           }else{
+//             res.status(200).json({
+//               successful: true,
+//               message:"No task to display"
+//             })
+//           }
               
-          }else{
-          res.status(404).json({
-            successful: false,
-            message:"Invalid Task Status "
-          })
-      }
+//           }else{
+//           res.status(404).json({
+//             successful: false,
+//             message:"Invalid Task Status "
+//           })
+//       }
     
 
-  }catch(error){
-      res.status(500).send({
-        successful: false,
-        message: error.message
-    })
-  }
-}
+//   }catch(error){
+//       res.status(500).send({
+//         successful: false,
+//         message: error.message
+//     })
+//   }
+// }
 
-const getCompletedTaskDateRange = async (req, res, next) =>{
+// const getCompletedTaskDateRange = async (req, res, next) =>{
 
-  try {
-
-
-    const isAdmin = req.user.isAdmin
-    const userId = req.user.userId
+//   try {
 
 
-    //For Dashboard
-    const count = req.query.count;
-    const dateToday = new Date()
-    dateToday.setHours(0, 0, 0, 0);
+//     const isAdmin = req.user.isAdmin
+//     const userId = req.user.userId
+
+
+//     //For Dashboard
+//     const count = req.query.count;
+//     const dateToday = new Date()
+//     dateToday.setHours(0, 0, 0, 0);
     
 
-    const currentDate = new Date(); 
-    currentDate.setHours(0, 0, 0, 0)
-    currentDate.setDate(currentDate.getDate() + 11); 
+//     const currentDate = new Date(); 
+//     currentDate.setHours(0, 0, 0, 0)
+//     currentDate.setDate(currentDate.getDate() + 11); 
 
-    let getCompletedTasks ={}
+//     let getCompletedTasks ={}
 
-    if(isAdmin){
-      getCompletedTasks = await Task.find({
-        completedAt: {
-          $lte: currentDate,
-          $gte: dateToday
-        },
-        status: "Completed"
-      }).populate('assignee', 'first_name last_name').limit(5).skip(count);
-    }else{
-      getCompletedTasks = await Task.find({
-        completedAt: {
-          $lte: currentDate,
-          $gte: dateToday
-        },
-        status: "Completed",
-        assignee: userId
-      }).populate('assignee', 'first_name last_name').limit(5).skip(count);
-    }
+//     if(isAdmin){
+//       getCompletedTasks = await Task.find({
+//         completedAt: {
+//           $lte: currentDate,
+//           $gte: dateToday
+//         },
+//         status: "Completed"
+//       }).populate('assignee', 'first_name last_name').limit(5).skip(count);
+//     }else{
+//       getCompletedTasks = await Task.find({
+//         completedAt: {
+//           $lte: currentDate,
+//           $gte: dateToday
+//         },
+//         status: "Completed",
+//         assignee: userId
+//       }).populate('assignee', 'first_name last_name').limit(5).skip(count);
+//     }
     
     
 
 
-    if(getCompletedTasks != 0){
+//     if(getCompletedTasks != 0){
 
-      res.status(200).json({
-        successful: true,
-        message: "Succesfully retrieved Task details.",
-        totalCount: getCompletedTasks.length,
-        limitCount: getCompletedTasks.length,
-        data: getCompletedTasks
-      })
-    }else{
-      res.status(200).json({
-        successful: true,
-        message:"No Completed Task yet to display"
-      })
-    }
+//       res.status(200).json({
+//         successful: true,
+//         message: "Succesfully retrieved Task details.",
+//         totalCount: getCompletedTasks.length,
+//         limitCount: getCompletedTasks.length,
+//         data: getCompletedTasks
+//       })
+//     }else{
+//       res.status(200).json({
+//         successful: true,
+//         message:"No Completed Task yet to display"
+//       })
+//     }
 
 
-  } catch (error) {
-    res.status(500).send({
-      successful: false,
-      message: error.message
-  })
-  }
-}
+//   } catch (error) {
+//     res.status(500).send({
+//       successful: false,
+//       message: error.message
+//   })
+//   }
+// }
 
 
 const getEachUserProgression = async (req, res, next) => {
