@@ -8,9 +8,10 @@ const {CreateNotification} = require('./notificationController')
 
 const getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find();
+    const tasks = await User.find();
 
     res.status(200).json({ tasks });
+    console.log(tasks)
   } catch (error) {
     res.status(500).send({
       successful: false,
@@ -47,20 +48,25 @@ const createTask = async (req, res) => {
     }
 
     const savedTask = await task.save();
+    const email  = await User.find();
+    console.log(email)
     
-
-
-    console.log(assignee)
     let NotificationMessage 
     if(savedTask.assignee != null){
       NotificationMessage =  await CreateNotification("Create Task", savedTask.assignee, savedTask.title)
       const { email } = await User.findById(savedTask.assignee);
       SendEmail(NotificationMessage, "Created Task", email);
-    }else{
+    }else if (assignee == null){
       NotificationMessage = await CreateNotification("Unassigned Task", savedTask.assignee, savedTask.title)
+      const  user = await User.find();
+      user.forEach(element => {
+        savedTask.assignee = element
+      });
+      const { email } = await User.findById(savedTask.assignee);
+      SendEmail(NotificationMessage, "Created Task", email);
     }
 
-
+    
 
     res.status(201).send({
       successful: true,
