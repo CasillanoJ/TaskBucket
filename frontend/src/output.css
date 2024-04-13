@@ -1302,6 +1302,10 @@ input:checked + .toggle-bg {
   margin-right: 0.75rem;
 }
 
+.me-5 {
+  margin-inline-end: 1.25rem;
+}
+
 .block {
   display: block;
 }
@@ -2685,6 +2689,26 @@ input:checked + .toggle-bg {
 @media (min-width: 640px) {
   .sm\:mb-5 {
     margin-bottom: 1.25rem;
+  }
+
+  .sm\:ml-2 {
+    margin-left: 0.5rem;
+  }
+
+  .sm\:ml-5 {
+    margin-left: 1.25rem;
+  }
+
+  .sm\:ml-20 {
+    margin-left: 5rem;
+  }
+
+  .sm\:ms-2 {
+    margin-inline-start: 0.5rem;
+  }
+
+  .sm\:ms-5 {
+    margin-inline-start: 1.25rem;
   }
 
   .sm\:hidden {
