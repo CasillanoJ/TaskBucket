@@ -1,7 +1,7 @@
 const Notification = require('../Models/notification_model')
 const {SendEmail} = require('../Controllers/nodeEmailerController')
 
- async function CreateNotification(method, userID, title  ){
+ async function CreateNotification(method, userID, title){
 
   try{
     if(userID == "" || userID == null){
