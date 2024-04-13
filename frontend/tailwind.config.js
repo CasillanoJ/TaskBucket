@@ -10,6 +10,7 @@ module.exports = {
       "main-body" : "#21212F",
       "task-bg": "#2D2A44",
       "task-content" :"#3B3854",
+      "second-text-color": "#AEA9D6"
       
 
     },
