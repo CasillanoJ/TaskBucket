@@ -3,13 +3,13 @@ module.exports = {
   content: ["./views/**/*.{html,js}"],
   theme: {
     extend: {
+      backgroundImage: {
+        "hero": "url('assets/images/wavybg.png')",
+      },
       colors: {
         "custom-bg": "#211f35",
         primary: "#C595FF",
-        secondary: {
-          100: "#E2E2D5",
-          200: "#888883",
-        },
+        secondary: "#12121C",
       },
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],
