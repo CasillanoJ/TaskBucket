@@ -3,6 +3,9 @@ module.exports = {
   content: ["./views/**/*.{html,js}"],
   theme: {
     extend: {
+      backgroundImage: {
+        "hero": "url('assets/images/wavybg.png')",
+      },
       colors: {
         "custom-bg": "#21212F",
         primary: "#C595FF",
