@@ -9,7 +9,7 @@
 }
 
 .switch-btn {
-  @apply rounded-lg py-2 px-3 uppercase font-bold cursor-pointer tracking-wider text-xl hover:bg-nav
+  @apply rounded-lg py-2 px-3 uppercase font-bold cursor-pointer tracking-wider text-lg hover:bg-nav
 }
 
 .checkbox {
@@ -23,7 +23,7 @@
 }
 
 .trow {
-  @apply p-3 text-sm text-txt-200;
+  @apply p-3 text-lg text-txt-200;
 }
 
 .baloo-2-bold {

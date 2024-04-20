@@ -6,6 +6,9 @@ module.exports = {
       backgroundImage: {
         "hero": "url('assets/images/wavybg.png')",
       },
+      width: {
+        btn: "30rem"
+      },
       colors: {
         "custom-bg": "#21212F",
         primary: "#C595FF",
