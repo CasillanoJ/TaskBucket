@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../assets/css/styles.css" />
+    <title>Bucket</title>
+  </head>
+
+  <body>
+    <nav>
+      <div class="bg-nav p-5">
+        <div class="flex justify-center md:justify-end">
+          <a
+            href="#"
+            class="btn text-primary md:border-primary border-2 hover:bg-primary hover:text-white transition ease-out duration-500"
+            >Filter</a
+          >
+          <a
+            href="#"
+            class="btn ml-4 text-primary md:border-primary border-2 hover:bg-primary hover:text-white transition ease-out duration-500"
+            >Sort</a
+          >
+        </div>
+      </div>
+    </nav>
+    <main>
+      <div class="p-20 h-screen bg-custom-bg">
+        <div class="mb-6 flex justify-center md:justify-start bg-secondary pl-6 p-3 text-primary w-96 rounded-xl ">
+            <div class="switch-btn">
+                <span>My Team</span>
+            </div>
+            <div class="border-r-2 my-2"></div>
+            <div class="switch-btn">
+                <span>To be Memmbers</span>
+            </div>
+        </div>
+        <div class="bg-secondary p-5 rounded-xl px-14">
+          <table class="w-full">
+            <thead class="text-txt-100">
+              <tr>
+                <th class="p3 text-md tracking-wide text-left">Name</th>
+                <th class="p3 text-md tracking-wide text-left">Email</th>
+                <th class="p3 text-md tracking-wide text-left">Role</th>
+                <th class="p3 text-md tracking-wide text-left"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr >
+                <td class="trow">John Doe</td>
+                <td class="trow">user@gmail.com</td>
+                <td class="trow">Admin</td>
+              </tr>
+              <tr class="bg-row">
+                <td class="trow">John Doe</td>
+                <td class="trow">user@gmail.com</td>
+                <td class="trow">Employee</td>
+              </tr>
+              <tr>
+                <td class="trow">John Doe</td>
+                <td class="trow">user@gmail.com</td>
+                <td class="trow">Employee</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
