@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Dashboard</title>
   <link rel="stylesheet" href="../src/output.css">
   <link rel="stylesheet" href="../node_modules/flowbite/dist/flowbite.min.css">
   <!-- <link href="https://cdn.jsdelivr.net/npm/daisyui@4.10.2/dist/full.min.css" rel="stylesheet" type="text/css" /> -->
@@ -92,7 +92,7 @@
 
             <span class="sr-only">View notifications</span>
             <div
-              class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full top-1 -end-1 dark:border-gray-900">
+              class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full top-1  dark:border-gray-900">
               20</div>
             <!-- Bell icon -->
             <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
@@ -270,7 +270,7 @@
 
     <!-- Sidebar -->
     <aside id="default-sidebar"
-      class="fixed mt-14 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+      class="fixed mt-14 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 md:translate-x-0"
       aria-label="Sidenav">
       <div class="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-nav dark:border-gray-700">
         <ul class="space-y-2">
@@ -439,14 +439,14 @@
                   </div>
                 </div>
                 <div class="ml-5 mt-3 flex-grow">
-                  <h1 class="text-white text-xl mt-5">Title</h1>
-                  <p class="text-second-text-color mt-1">Owner: Pending</p>
-                  <p class="text-second-text-color mt-1">Due Date: 25/15/2023</p>
+                  <h1 class="text-white text-xl mt-3 md:text-md lg:text-lg ">Title</h1>
+                  <p class="text-second-text-color mt-1 md:text-sm">Owner: Pending</p>
+                  <p class="text-second-text-color mt-1 md:text-sm">Due Date: 25/15/2023</p>
                 </div>
                 <div class="items-center  mr-5 p-3  mt-14">
                   <button class="group ms-2 group-hover:visible invisible">
                     <svg class="w-6 h-6 text-gray-800 dark:text-white   " aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      xmlns="http://www.w3.org/2000/svg" width="24  " height="24" class="" fill="none" viewBox="0 0 24 24">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M10.779 17.779 4.36 19.918 6.5 13.5m4.279 4.279 8.364-8.643a3.027 3.027 0 0 0-2.14-5.165 3.03 3.03 0 0 0-2.14.886L6.5 13.5m4.279 4.279L6.499 13.5m2.14 2.14 6.213-6.504M12.75 7.04 17 11.28" />
                     </svg>
@@ -1013,7 +1013,7 @@
       document.documentElement.classList.remove('dark')
     }
   </script>
-  <script src="./scripts/Search_bar.js"></script>
+  <script src="../Controller/Search_bar.js"></script>
 
 
 </body>

@@ -4,6 +4,7 @@ module.exports = {
   "./node_modules/flowbite/**/*.js"
 ],
   theme: {
+
     colors:{
       "nav" :"#12121C ",
       "task": "#D4B0FF",
