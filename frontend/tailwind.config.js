@@ -1,24 +1,28 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./views/**/*.{html,js}"],
+  content: ["./views/**/*.{html,js}", "./node_modules/flowbite/**/*.js"],
   theme: {
     extend: {
       backgroundImage: {
-        "hero": "url('assets/images/wavybg.png')",
-      },
-      width: {
-        btn: "30rem"
+        hero: "url('assets/images/wavybg.png')",
       },
       colors: {
-        "custom-bg": "#21212F",
-        primary: "#C595FF",
+        primary: {
+          100: "#C595FF",
+          200: "#D4B0FF",
+        },
         secondary: "#2D2A44",
-        nav: "#12121C",
         row: "#27253B",
         txt: {
           100: "#D2D0E5",
-          200: "#8E97A8"
-        }
+          200: "#8E97A8",
+        },
+        nav: "#12121C ",
+        task: "#D4B0FF",
+        "main-body": "#21212F",
+        "task-content": "#3B3854",
+        "second-text-color": "#AEA9D6",
+        "table-hover": "#3B3854",
       },
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],
@@ -30,5 +34,5 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("flowbite/plugin"), require("daisyui")],
 };
