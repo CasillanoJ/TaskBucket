@@ -87,21 +87,20 @@
           </form>
 
           <!-- Notifications -->
-          <button type="button" data-dropdown-toggle="notification-dropdown"
+          <div class="indicator">
+            <span class="indicator-item badge  bg-red-500 mt-1 mr-3 text-black">20</span> 
+            <button type="button" data-dropdown-toggle="notification-dropdown"
             class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 ml-2">
 
             <span class="sr-only">View notifications</span>
-            <div
-              class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full top-1  dark:border-gray-900">
-              20</div>
+         
             <!-- Bell icon -->
-            <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-              </path>
-            </svg>
+            <svg  class="w-8 h-8" viewBox="0 0 31 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15.5219 40.0168C16.7649 40.0195 17.9781 39.6361 18.9938 38.9196C20.0095 38.2031 20.7776 37.1887 21.1919 36.0168H9.85194C10.2663 37.1887 11.0344 38.2031 12.0501 38.9196C13.0658 39.6361 14.2789 40.0195 15.5219 40.0168ZM30.9019 31.2768L29.5219 27.8268V18.0168C29.5207 14.775 28.3945 11.6341 26.3356 9.13013C24.2766 6.62616 21.4124 4.91434 18.2319 4.28682C18.4491 3.82955 18.547 3.32477 18.5165 2.81948C18.486 2.31419 18.3282 1.82483 18.0577 1.39695C17.7872 0.969072 17.4129 0.616598 16.9695 0.372344C16.5261 0.12809 16.0281 0 15.5219 0C15.0157 0 14.5178 0.12809 14.0744 0.372344C13.631 0.616598 13.2566 0.969072 12.9861 1.39695C12.7157 1.82483 12.5578 2.31419 12.5274 2.81948C12.4969 3.32477 12.5948 3.82955 12.8119 4.28682C9.63145 4.91434 6.76731 6.62616 4.70832 9.13013C2.64934 11.6341 1.52314 14.775 1.52194 18.0168V27.8268L0.141938 31.2768C0.02104 31.5804 -0.0236416 31.9089 0.0118011 32.2338C0.0472437 32.5586 0.161731 32.8698 0.345249 33.1401C0.528768 33.4105 0.775729 33.6317 1.06453 33.7846C1.35334 33.9374 1.67519 34.0171 2.00194 34.0168H29.0019C29.3287 34.0171 29.6505 33.9374 29.9393 33.7846C30.2281 33.6317 30.4751 33.4105 30.6586 33.1401C30.8421 32.8698 30.9566 32.5586 30.9921 32.2338C31.0275 31.9089 30.9828 31.5804 30.8619 31.2768H30.9019Z" fill="#2D2A44"/>
+              </svg>
           </button>
+          </div>
+     
           <!-- Dropdown menu -->
           <div
             class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white  divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl"

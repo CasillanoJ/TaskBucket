@@ -12,7 +12,7 @@
 </head>
 
 
-<body class="dark:bg-main-body h-[1500px] w-full bg-white">
+<body class="dark:bg-main-body h-screen w-full bg-white overflow-x-hidden">
     <div class="antialiased bg-gray-50 dark:bg-gray-900">
         <nav
             class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-nav dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
@@ -30,7 +30,7 @@
                         </svg>
 
                     </button>
-                    <a href="https://flowbite.com" class="flex items-center justify-between mr-4">
+                    <a href="#" class="flex items-center justify-between mr-4">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_172_1568)">
                                 <path
@@ -61,6 +61,11 @@
                     </a>
 
                 </div>
+
+
+
+
+
                 <div class="flex items-center lg:order-2">
                     <button type="button" id="toggleSearchBar"
                         class="p-2 mr-1 text-gray-500 rounded-lg md:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
@@ -71,6 +76,20 @@
                         </svg>
 
                     </button>
+                    <button class="px-3 py-1 border text-black border-task mr-2 flex justify-between dark:text-task hover:bg-task rounded-md dark:hover:text-black group">
+                        <svg class="w-6 h-6 text-gray-800 dark:group-hover:text-black dark:text-task" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                                d="M20 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6h-2m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4m16 6H10m0 0a2 2 0 1 0-4 0m4 0a2 2 0 1 1-4 0m0 0H4" />
+                        </svg>
+
+
+                        Filter
+
+
+                    </button>
+                    <h1 class="text-2xl mb-2  text-gray-500">|</h1>
+
                     <form action="#" method="GET" class="hidden md:block md:pl-2 me-5" id="searchBar">
                         <label for="topbar-search" class="sr-only">Search</label>
                         <div class="relative  md:w-96">
@@ -88,22 +107,23 @@
                         </div>
                     </form>
 
-                    <!-- Notifications -->
-                    <button type="button" data-dropdown-toggle="notification-dropdown"
-                        class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 ml-2">
 
+
+                    <!-- Notifications -->
+                    <div class="indicator">
+                        <span class="indicator-item badge  bg-red-500 mt-1 mr-3 text-black">20</span> 
+                        <button type="button" data-dropdown-toggle="notification-dropdown"
+                        class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 ml-2">
+            
                         <span class="sr-only">View notifications</span>
-                        <div
-                            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full top-1  dark:border-gray-900">
-                            20</div>
+                     
                         <!-- Bell icon -->
-                        <svg aria-hidden="true" class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z">
-                            </path>
-                        </svg>
-                    </button>
+                        <svg  class="w-8 h-8" viewBox="0 0 31 41" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15.5219 40.0168C16.7649 40.0195 17.9781 39.6361 18.9938 38.9196C20.0095 38.2031 20.7776 37.1887 21.1919 36.0168H9.85194C10.2663 37.1887 11.0344 38.2031 12.0501 38.9196C13.0658 39.6361 14.2789 40.0195 15.5219 40.0168ZM30.9019 31.2768L29.5219 27.8268V18.0168C29.5207 14.775 28.3945 11.6341 26.3356 9.13013C24.2766 6.62616 21.4124 4.91434 18.2319 4.28682C18.4491 3.82955 18.547 3.32477 18.5165 2.81948C18.486 2.31419 18.3282 1.82483 18.0577 1.39695C17.7872 0.969072 17.4129 0.616598 16.9695 0.372344C16.5261 0.12809 16.0281 0 15.5219 0C15.0157 0 14.5178 0.12809 14.0744 0.372344C13.631 0.616598 13.2566 0.969072 12.9861 1.39695C12.7157 1.82483 12.5578 2.31419 12.5274 2.81948C12.4969 3.32477 12.5948 3.82955 12.8119 4.28682C9.63145 4.91434 6.76731 6.62616 4.70832 9.13013C2.64934 11.6341 1.52314 14.775 1.52194 18.0168V27.8268L0.141938 31.2768C0.02104 31.5804 -0.0236416 31.9089 0.0118011 32.2338C0.0472437 32.5586 0.161731 32.8698 0.345249 33.1401C0.528768 33.4105 0.775729 33.6317 1.06453 33.7846C1.35334 33.9374 1.67519 34.0171 2.00194 34.0168H29.0019C29.3287 34.0171 29.6505 33.9374 29.9393 33.7846C30.2281 33.6317 30.4751 33.4105 30.6586 33.1401C30.8421 32.8698 30.9566 32.5586 30.9921 32.2338C31.0275 31.9089 30.9828 31.5804 30.8619 31.2768H30.9019Z" fill="#2D2A44"/>
+                            </svg>
+                      </button>
+                      </div>
+                 
                     <!-- Dropdown menu -->
                     <div class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white  divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl"
                         id="notification-dropdown">
@@ -278,8 +298,8 @@
 
         <!-- Sidebar -->
         <aside id="default-sidebar"
-            class="fixed mt-14 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 md:translate-x-0"
-            aria-label="Sidenav">
+            class="fixed mt-14 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0 md:translate-x-0 "
+            aria-label="">
             <div
                 class="overflow-y-auto py-5 px-3 h-full bg-white border-r border-gray-200 dark:bg-nav dark:border-gray-700">
                 <ul class="space-y-2">
@@ -310,7 +330,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="side-nav-item group">
+                        <a href="#" class="side-nav-item group bg-task">
                             <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                                 viewBox="0 0 24 24">
@@ -372,19 +392,28 @@
                     </li>
 
                 </ul>
-                <button id="theme-toggle" type="button"
-                    class="text-black border  border-task dark:text-yellow-400 dark:hover:text-yellow-400 hover:bg-gray-100 dark:hover:bg-task focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
-                    <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
-                    </svg>
-                    <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                            fill-rule="evenodd" clip-rule="evenodd"></path>
-                    </svg>
-                </button>
+                <div class="flex justify-center ">
+                    <button id="theme-toggle" type="button"
+                        class="text-black border  border-task dark:text-yellow-400 dark:hover:text-yellow-400 hover:bg-gray-100 dark:hover:bg-task focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 tooltip tooltip-top"
+                        data-tip="Hello">
+                        <svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                        <svg id="theme-toggle-light-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                                fill-rule="evenodd" clip-rule="evenodd"></path>
+                        </svg>
+                    </button>
+                </div>
+
+
+
+
+
+
             </div>
 
 
@@ -400,14 +429,14 @@
                 <div class="sm:hidden ">
                     <label for="tabs" class="sr-only">Select your Option</label>
                     <select id="tabs"
-                        class="bg-gray-50 border   border-gray-300 text-gray-900 text-sm font-extrabold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option>Profile</option>
-                        <option>Dashboard</option>
+                        class=" border   border-gray-300 text-task text-sm font-extrabold rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 bg-task-content">
+                        <option>My Team</option>
+                        <option>To-be Members</option>
 
                     </select>
                 </div>
                 <ul
-                    class="hidden text-sm font-medium text-center text-gray-500 rounded-lg shadow sm:flex dark:divide-gray-700 dark:bg-task-bg dark:text-gray-400">
+                    class="hidden text-sm font-medium text-center text-gray-500 rounded-lg shadow sm:flex dark:divide-gray-700 dark:bg-task-content dark:text-gray-400">
                     <li class=" w-full focus-within:z-10  p-2">
 
 
@@ -461,12 +490,12 @@
 
 
 
-                <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 dark:bg-task-content">
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 dark:bg-task-bg">
 
                     <table
-                        class="w-[1400px] text-md text-left rtl:text-right  text-gray-500 dark:text-gray-400 dark:bg-task-content">
+                        class="w-[1400px] text-md text-left rtl:text-right  text-gray-500 dark:text-gray-400 dark:bg-task-bg">
                         <thead
-                            class="text-lg text-gray-700 uppercase bg-gray-50 border-b-2 border-gray-500 dark:bg-task-content dark:text-gray-400">
+                            class="text-lg text-gray-700 uppercase bg-gray-50 border-b-2 border-gray-500 dark:bg-task-bg dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
                                     Name
@@ -485,7 +514,7 @@
                         </thead>
                         <tbody>
                             <tr
-                                class="odd:bg-white odd:dark:bg-task-content even:bg-gray-300  even:dark:bg-gray-700 border-b dark:border-gray-700 dark:hover:bg-task-bg hover:bg-task-content hover:cursor-pointer group">
+                                class="odd:bg-white odd:dark:bg-task-bg even:bg-gray-300  even:dark:bg-gray-700 border-b dark:border-gray-700 dark:hover:bg-task-content hover:bg-task-content hover:cursor-pointer group">
                                 <th scope="row" class="px-6 py-4 font-medium  whitespace-nowrap ">
                                     Jade
                                 </th>
@@ -636,25 +665,26 @@
 
         </main>
 
-        <!-- <div class="h-[1000px] dark:bg-main-body">
-
     </div>
-   -->
 
 
-        <!-- <script src="https://cdn.tailwindcss.com"></script> -->
-        <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
-        <script src="../node_modules/flowbite/dist/datepicker.js"></script>
-        <script>
-            // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark')
-            }
-        </script>
-        <script src="../Controller/Search_bar.js"></script>
-        <script src="../Controller/darkmode.js"></script>
+
+
+
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
+    <script src="../node_modules/flowbite/dist/datepicker.js"></script>
+    <script>
+        // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window
+                .matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark')
+        }
+    </script>
+    <script src="../Controllers/Search_bar.js"></script>
+    <script src="../Controllers/darkmode.js"></script>
 
 
 </body>
