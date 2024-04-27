@@ -401,7 +401,7 @@
     <main class="p-4 md:ml-64 h-full pt-20 bg-white dark:bg-main-body">
 
 
-      <div class=" md:grid md:grid-cols2 md:space-y-6 lg:flex lg:justify-between mt-5 md:mt-12">
+      <div class=" md:grid md:grid-cols-1 md:space-y-6 lg:flex  lg:justify-between mt-5 md:mt-12">
         <div>
           <ul class=" text-sm font-medium text-center bg-gray-200 border border-gray-400 dark:border-0 text-task rounded-lg shadow sm:flex dark:divide-gray-700 dark:bg-task-content 
           mb-10 lg:mb-0 md:mb-0  ">
@@ -493,7 +493,7 @@
 
       <h1 class="text-3xl text-black dark:text-white  font-bold mt-3">Overall stats</h1>
 
-      <div class="  mt-5 space-x-2 grid grid-cols-1 md:grid-cols-2 space-y-5">
+      <div class="  mt-5 space-x-2 grid  xl:grid-cols-2 lg:grid-cols-1 md:grid-cols-1 space-y-5">
         <div class="bg-secondary   rounded-lg">
           <div class=" p-6 flex ml-2 justify-center text-xl space-x-5">
             <h1 class="text-white font-medium">Employee Progression</h1>
@@ -501,7 +501,7 @@
             <h1 class="text-progress-count">Total completed tasks / Total tasks</h1>
           </div>
 
-          <div id="progress-container" class="justify-center space-y-1 px-20 pb-10 ml-20">
+          <div id="progress-container" class="flex flex-col space-y-1  lg:px-2 pb-10 ml-20">
             <div class="p-2 ">
               <h1 class="text-white text-md">Employee 1</h1>
               <div class="flex  space-x-5 ">
@@ -515,15 +515,15 @@
               </div>
             </div>
             <div class="p-2 ">
-              <h1 class="text-white text-md">Employee 2</h1>
+              <h1 class=" text-white text-md">Employee 2</h1>
               <div class="flex  space-x-5 ">
                 <div class="w-96 bg-gray-200 rounded-sm dark:bg-gray-700">
                   <div
                     class="bg-progress-green  text-lg  font-medium text-blue-100 text-center p-2 leading-none rounded-sm"
-                    style="width: 50%"> 50%</div>
+                    style="width: 17%"> 17%</div>
 
                 </div>
-                <span class="text-progress-count text-xl mt-1 ">50/100</span>
+                <span class="text-progress-count text-xl mt-1 ">17/100</span>
               </div>
             </div>
 
@@ -533,10 +533,10 @@
                 <div class="w-96 bg-gray-200 rounded-sm dark:bg-gray-700">
                   <div
                     class="bg-progress-green  text-lg  font-medium text-blue-100 text-center p-2 leading-none rounded-sm"
-                    style="width: 50%"> 50%</div>
+                    style="width: 76%"> 76%</div>
 
                 </div>
-                <span class="text-progress-count text-xl mt-1 ">50/100</span>
+                <span class="text-progress-count text-xl mt-1 ">76/100</span>
               </div>
             </div>
 
@@ -603,8 +603,8 @@
           </div>
 
         </div>
-        <div class="bg-secondary p-20 rounded-lg ">
-          <div class="text-black dark:text-white flex space-x-5 mb-10">
+        <div class="bg-secondary  rounded-lg ">
+          <div class="text-black dark:text-white flex p-4 space-x-5 mb-10">
             <h1>Task Progression</h1>
             <h1>|</h1>
             <h1 class="text-progress-count">Total task: 100</h1>
@@ -613,49 +613,51 @@
         
 
 
-            <div class="flex flex-col justify-center items-center">
-              <div id="hs-doughnut-chart"></div>
+            <div class="flex justify-center ">
+              <div id="hs-doughnut-chart" class="md:-mt-10 lg:mt-1"></div>
 
               <!-- Legend Indicator -->
-              <div class="flex justify-center sm:justify-end items-center gap-x-4 mt-10 sm:mt-6">
-                <div class="inline-flex items-center">
+              <div class="space-y-2">
+                <div class=" ">
                   <span class="size-5 inline-block bg-black rounded-sm me-2"></span>
                   <span class="text-[13px] text-gray-600 dark:text-white">
                     Unassgined
                   </span>
                 </div>
 
-                <div class="inline-flex items-center">
-                  <span class="size-5 inline-block bg-teal-300 rounded-sm me-2"></span>
-                  <span class="text-[13px] text-gray-600 dark:text-white">
+                <div class="">
+                  <span class="size-5 inline-block bg-teal-300 rounded-sm  me-2"></span>
+                  <span class="text-[13px] -mt-5 text-gray-600 dark:text-white">
                     To do
                   </span>
                 </div>
 
-                <div class="inline-flex items-center">
+                <div class="">
                   <span class="size-5 inline-block bg-pink-500 rounded-sm me-2"></span>
                   <span class="text-[13px] text-gray-600 dark:text-white">
                     In porgress
                   </span>
                 </div>
 
-                <div class="inline-flex items-center">
+                <div class="">
                   <span class="size-5 inline-block bg-progress-green rounded-sm me-2"></span>
                   <span class="text-[13px] text-gray-600 dark:text-white">
                     Completed
                   </span>
                 </div>
 
-                <div class="inline-flex items-center">
+                <div class="">
                   <span class="size-5 inline-block bg-red-600 rounded-sm me-2"></span>
                   <span class="text-[13px] text-gray-600 dark:text-white">
-                    Unassgined
+                    Late Task
                   </span>
                 </div>
 
               </div>
               <!-- End Legend Indicator -->
             </div>
+            
+            
          
 
         </div>
@@ -686,77 +688,7 @@
 
   <script src="https://preline.co/assets/js/hs-apexcharts-helpers.js"></script>
 
-  <script>
-    window.addEventListener('load', () => {
-      // Apex Doughnut Chart
-      (function () {
-        buildChart('#hs-doughnut-chart', (mode) => ({
-          chart: {
-            height: 325,
-            width: 400,
-            type: 'donut',
-            zoom: {
-              enabled: false
-            }
-          },
-          plotOptions: {
-            pie: {
-              donut: {
-                size: '76%'
-              }
-            }
-          },
-          series: [20, 20, 20, 20, 20],
-          labels: ['Unassgined', 'To do', 'In progress', 'Completed', 'Late tasks'],
-          legend: {
-            show: false
-          },
-          dataLabels: {
-            enabled: false
-          },
-          stroke: {
-            width: 5
-          },
-          grid: {
-            padding: {
-              top: -12,
-              bottom: -11,
-              left: -12,
-              right: -12
-            }
-          },
-          states: {
-            hover: {
-              filter: {
-                type: 'none'
-              }
-            }
-          },
-          tooltip: {
-            enabled: true,
-            custom: function (props) {
-              return buildTooltipForDonut(
-                props,
-                mode === 'dark' ? ['#000000', '#000000', '#000000', '#000000'] : ['#000000', '#000000',
-                  '#000000', '#000000', '#000000'
-                ]
-              );
-            }
-          }
-        }), {
-          colors: ['#3b82f6', '#22d3ee', '#e5e7eb', '#FF433E', '#FF433E'],
-          stroke: {
-            colors: ['rgb(255, 255, 255)']
-          }
-        }, {
-          colors: ['#000000', '#00B8CE', '#FA59A0', '#6CC000', '#FF433E'],
-          stroke: {
-            colors: ['']
-          }
-        });
-      })();
-    });
-  </script>
+  <script src="../Controllers/Performance_tab_charts.js"></script>
 </body>
 
 </html>
