@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Task</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-purple-900 text-white flex justify-center items-center h-screen m-0 font-sans">
+    <div class="bg-gray-800 p-8 rounded-lg w-full max-w-lg">
+        <h2 class="text-3xl font-bold mb-8">Add New Task</h2>
+        <label for="title" class="block text-gray-400 text-sm mb-2">Title *</label>
+        <input type="text" id="title" placeholder="e.g. Encode this Certificate" class="w-full mb-5 bg-transparent border-2 border-gray-700 text-white placeholder-gray-400 rounded-lg p-2" />
+        <label for="description" class="block text-gray-400 text-sm mb-2">Description *</label>
+        <textarea id="description" placeholder="e.g. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." class="w-full h-32 mb-5 bg-transparent border-2 border-gray-700 text-white placeholder-gray-400 rounded-lg p-2"></textarea>
+        <label for="assignee" class="block text-gray-400 text-sm mb-2">Assign to</label>
+        <select id="assignee" class="w-full mb-5 bg-transparent border-2 border-gray-700 text-white rounded-lg p-2">
+            <option value="">Select Assignee</option>
+            <option value="For anyone">For anyone</option>
+            <option value="assignee1">Assignee 1</option>
+        </select>
+        <div class="flex justify-between mb-8">
+            <div>
+                <label for="dueDate" class="block text-gray-400 text-sm mb-2">Select Due Date</label>
+                <input type="date" id="dueDate" class="w-60 bg-transparent border-2 border-gray-700 text-white rounded-lg p-2" />
+            </div>
+            <div>
+                <label for="priority" class="block text-gray-400 text-sm mb-2">Priority Level *</label>
+                <select id="priority" class="w-40 bg-transparent border-2 border-gray-700 text-white rounded-lg p-2">
+                    <option value="Neutral">Neutral</option>
+                    <option value="High">High</option>
+                    <option value="Urgent">Urgent</option>
+                </select>
+            </div>
+        </div>
+        <label for="add-file" class="block text-gray-400 text-sm mb-2">Add file</label>
+        <div class="add-file flex items-center bg-transparent border-2 border-gray-700 rounded-md p-3 mb-8">
+            <button class="bg-transparent text-white flex items-center font-sans font-bold">Browse file <i class="fas fa-plus ml-2"></i></button>
+        </div>
+        <div class="flex justify-between">
+            <button class="create-task bg-purple-600 text-black py-2 px-5 rounded-full font-bold" style="background-color: #C595FF;">CREATE TASK</button>
+            <button class="cancel-task bg-gray-800 text-white py-2 px-5 rounded-full font-bold border-2 border-purple-600 outline-none focus:ring-purple-600" style="color: #C595FF;">CANCEL</button>
+        </div>
+    </div>
+</body>
+</html>
