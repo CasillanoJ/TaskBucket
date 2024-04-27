@@ -3,8 +3,8 @@ window.addEventListener('load', () => {
     (function () {
       buildChart('#hs-doughnut-chart', (mode) => ({
         chart: {
-          height: 325,
-          width: 400,
+          height: 350,
+          width: 450,
           type: 'donut',
           zoom: {
             enabled: false
@@ -23,7 +23,13 @@ window.addEventListener('load', () => {
           show: false
         },
         dataLabels: {
-          enabled: false
+          enabled: true,
+          style: {
+            fontSize: '50px' 
+          },
+          formatter: function (val) {
+            return val + "%"
+          },
         },
         stroke: {
           width: 5
