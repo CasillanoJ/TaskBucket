@@ -3890,6 +3890,10 @@ details.collapse summary::-webkit-details-marker {
   margin-top: 2rem;
 }
 
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
 .block {
   display: block;
 }
@@ -4148,6 +4152,10 @@ details.collapse summary::-webkit-details-marker {
   justify-content: space-between;
 }
 
+.justify-around {
+  justify-content: space-around;
+}
+
 .gap-10 {
   gap: 2.5rem;
 }
@@ -4201,6 +4209,10 @@ details.collapse summary::-webkit-details-marker {
 
 .self-center {
   align-self: center;
+}
+
+.justify-self-auto {
+  justify-self: auto;
 }
 
 .overflow-hidden {
