@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>View Team</title>
+    <title>Bucket</title>
     <link rel="stylesheet" href="../assets/css/styles.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
@@ -15,7 +15,7 @@
     />
   </head>
 
-  <body class="dark:bg-main-body h-[1500px] w-full bg-white">
+  <body class="dark:bg-main-body h-[1500px] w-full bg-white font-rubik">
     <div class="antialiased bg-gray-50 dark:bg-gray-900">
       <nav
         class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-nav dark:border-gray-700 fixed left-0 right-0 top-0 z-50"
@@ -93,6 +93,26 @@
             </a>
           </div>
           <div class="flex items-center lg:order-2">
+            <button
+              class="border-2 px-4 py-2 flex justify-start rounded-lg border-primary-100 space-x-2 mr-6"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#C595FF"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
+                />
+              </svg>
+              <span class="text-primary-100 font-semibold">Filter</span>
+            </button>
+
             <button
               type="button"
               id="toggleSearchBar"
@@ -643,15 +663,35 @@
               <option>Dashboard</option>
             </select>
           </div>
-
-          <div class="ml-20">
-            <button
-              class="border-2 px-5 py-2 hover:bg-task text-black text-lg font-extrabold bg-primary-100 border-primary-100 rounded-lg mr-10 dark:bg-primary-100 dark:hover:bg-task"
-            >
-              ADD TASK
-            </button>
-          </div>
         </div>
+
+          <button
+            class="btn text-main-body bg-primary-100 hover:bg-primary-200 focus:ring-4 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl text-lg w-auto base:w-auto md:px-10 py-2.5 text-center dark:bg-primary-100 dark:hover:bg-primary-200 dark:focus:ring-primary-100 mb-6"
+          >
+            ADD TASK
+          </button>
+
+          
+          <button
+            class="border-2 px-4 py-2 flex justify-start rounded-lg border-primary-100 space-x-2 mr-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="#C595FF"
+              class="w-6 h-6"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75"
+              />
+            </svg>
+            <span class="text-primary-100 font-semibold">Priority Level</span>
+          </button>
+      
 
         <div class="flex justify-center mt-5">
           <div
