@@ -88,6 +88,12 @@ const createTask = async (req, res) => {
         message: "Assignee not found",
       });
     }
+    if (error.message.includes("assignee")) {
+      return res.status(404).send({
+        successful: false,
+        message: "Assignee not found",
+      });
+    }
     res.status(500).send({
       successful: false,
       message: error.message,
@@ -298,40 +304,36 @@ async function handleTaskMethod(res, action, str) {
 }
 
 const getTotalcompletedofuser = async (req, res) => {
-
   const { userId, startDate, endDate } = req.query;
 
   try {
-    
     const user = await User.findById(userId);
 
-    if(!user) {
+    if (!user) {
       return res.status(404).json({
-        message: "User not found"
+        message: "User not found",
       });
     }
 
-    const tasks = await Task.find({ 
+    const tasks = await Task.find({
       assignee: userId,
       status: "Completed",
       dueDate: {
         $gte: startDate,
-        $lte: endDate  
-      }
+        $lte: endDate,
+      },
     });
 
     res.json({
       message: `${user.first_name} has completed ${tasks.length} tasks`,
-      data: tasks
+      data: tasks,
     });
-
   } catch (err) {
     res.status(500).json({
-      message: err.message
+      message: err.message,
     });
   }
-
-}
+};
 
 const getHistoryLogs = async (req, res) => {
   const { startDate, endDate } = req.query;
@@ -340,16 +342,15 @@ const getHistoryLogs = async (req, res) => {
     const tasks = await Task.find({
       createdAt: {
         $gte: new Date(startDate),
-        $lte: new Date(endDate)
-      }
+        $lte: new Date(endDate),
+      },
     });
 
     res.json(tasks);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-}
+};
 
 module.exports = {
   getTasks,
