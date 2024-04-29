@@ -2,12 +2,13 @@ const User = require('../Models/user_model');
 const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken')
+const {GenerateTokens} = require('./Authentication_Controller')
 
 const addUser = async (req, res, next) => {
   const saltRound = 10;
 
   try {
-    let { first_name, last_name, email, password, isAdmin, isVerified } = req.body;
+    let { first_name, last_name, email, password,  } = req.body;
 
     const checkUser = await User.findOne({ email: email });
 
@@ -19,8 +20,8 @@ const addUser = async (req, res, next) => {
         last_name: last_name,
         email: email,
         password: hashedPassword,
-        isAdmin: isAdmin,
-        isVerified: isVerified,
+        isAdmin: false,
+        isVerified: false,
       });
 
       await newUser
@@ -52,17 +53,18 @@ const addUser = async (req, res, next) => {
   }
 };
 
-const getAllUsers = async (req, res, next) => {
-  try {
-    const users = await User.find();
-    if (users.length != 0) {
-      res.status(200).json({
-        successful: true,
-        message: 'Successfully retrieved User details.',
-        count: users.length,
-        data: users,
-      });
-    } else {
+const getAllUsers = async (req, res, next)=>{
+
+  try{
+      const users = await User.find({isVerified:true}).select('-password')
+      if(users.length != 0){
+          res.status(200).json({
+              successful: true,
+              message: "Succesfully retrieved User details.",
+              count: users.length,
+               data: users
+      })
+    }else{
       res.status(200).json({
         successful: true,
         message: 'No User data yet',
@@ -81,7 +83,9 @@ const changePassword = async (req, res, next) => {
   const saltRound = 10;
 
   try {
-    const { email, oldPassword, newPassword, confirmPassword } = req.body;
+    const {  oldPassword, newPassword, confirmPassword } = req.body;
+    const userId = req.user.userId
+
 
     if (newPassword !== confirmPassword) {
       return res.status(400).json({
@@ -90,7 +94,7 @@ const changePassword = async (req, res, next) => {
       });
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findById(userId);
 
     if (!user) {
       return res.status(404).json({
@@ -128,7 +132,7 @@ const LoginUser = async (req, res, next)=>{
 
   try {
     const { email, password } = req.body;
-
+    
 
     const user = await User.findOne({ email: email });
     if (!user) {
@@ -145,16 +149,29 @@ const LoginUser = async (req, res, next)=>{
       });
 
     }
-    const accessToken = jwt.sign({ userId: user._id, email: user.email, isAdmin: user.isAdmin, isVerified: user.isVerified }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1h' });
-    const refreshToken = jwt.sign({ userId: user._id }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
 
+    if(!user.isVerified){
+      res.status(400).json({
+        successful : false,
+        message: "User is not verified",
+      })
+    }else{
+
+      const {accessToken, refreshToken} = GenerateTokens(user)
     
-    res.status(200).json({
-      successful: true,
-      message: "Succesfully Logged In.",
-      AccessToken: accessToken,
-       RefreshToken: refreshToken
-})
+      res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 3600000 }); // Max age in milliseconds (1 hour)
+      res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 604800000 }); // Max age in milliseconds (7 days)
+
+
+      res.status(200).json({
+        successful : true,
+        message: "Succesfully Logged In",
+        "Acess Token" :accessToken,
+         "Refresh Token" : refreshToken
+        });
+    }
+  
+
 
 } catch (error) {
   res.status(500).send({
@@ -164,35 +181,57 @@ const LoginUser = async (req, res, next)=>{
 }
 }
 
-function VerifyToken(req, res, next) {
-  const token = req.headers['authorization'];
-  if (!token) {
-      return res.status(401).json({
-        successful: "False",
-         message: 'Token is required' 
-        });
-  }
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET , (err, decoded) => {
-      if (err) {
-          return res.status(401).json({
-            successful: "False",
-             message: 'Invalid Token' 
-            });
+
+const VerifyUser = async(req,res,next) =>{
+  try {
+    const isAdmin = req.user.isAdmin
+    const user = req.body.userID
+
+    if(isAdmin){
+      const user = await User.findOne(user)
+
+      if(!user){
+        res.status(404).json({
+          successful: false,
+          message: `Cannot Find the user`,
+        })
+
+      }else{
+        user.isVerified = true;
+        await user.save()
+  
+        res.status(200).json({
+          successful : true,
+          message: "Succesfully Verified the User",
+          user: user.id
+          });
+
       }
-      req.user = decoded;
 
-      console.log(decoded)
-      next();
-  });
+     
+    }else{
+      res.status(401).json({
+        successful: false,
+        message: `Unauthorized access`,
+      })
+    }
+
+    
+
+  } catch (error) {
+    res.status(500).send({
+      successful: false,
+      message: error.message
+  })
+    
+  }
 }
-
-
 
 
 module.exports = {
   addUser,
   getAllUsers,
   LoginUser,
-  VerifyToken,
   changePassword,
+  VerifyUser
 };
