@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 
 
 //IMPORT DB
+const app = express()
+app.use(cookieParser());
 
 
 
@@ -15,9 +17,8 @@ const taskRouter = require('./APP/Routers/task_routes');
 const notificationRouter = require('./APP/Routers/notification_routes')
 
 
-const app = express()
 
-app.use(cookieParser());
+
 app.use(morgan('dev'));
 
 const db = require('./APP/Models/con_db')
