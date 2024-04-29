@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+.side-nav-item {
+  @apply flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-task dark:hover:text-black dark:hover:rounded-full;
+}
+
+@layer components {
+  .rubik-regular {
+    @apply font-rubik font-normal;
+    font-weight: "400";
+    font-style: normal;
+    font-optical-sizing: auto;
+  }
+}

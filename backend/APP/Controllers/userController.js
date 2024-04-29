@@ -2,7 +2,7 @@ const User = require('../Models/user_model');
 const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken')
-const {GenerateToken} = require('./Authentication_Controller')
+const {GenerateTokens} = require('./Authentication_Controller')
 
 const addUser = async (req, res, next) => {
   const saltRound = 10;
@@ -156,9 +156,9 @@ const LoginUser = async (req, res, next)=>{
         message: "User is not verified",
       })
     }else{
-      const accessToken = GenerateToken(user, "1h");
-      const refreshToken = GenerateToken(user,"7d");
 
+      const {accessToken, refreshToken} = GenerateTokens(user)
+    
       res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 3600000 }); // Max age in milliseconds (1 hour)
       res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 604800000 }); // Max age in milliseconds (7 days)
 

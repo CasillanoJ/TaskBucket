@@ -8,9 +8,10 @@ const {CreateNotification} = require('./notificationController')
 
 const getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find();
+    const tasks = await User.find();
 
     res.status(200).json({ tasks });
+    console.log(tasks)
   } catch (error) {
     res.status(500).send({
       successful: false,
@@ -47,20 +48,25 @@ const createTask = async (req, res) => {
     }
 
     const savedTask = await task.save();
+    const email  = await User.find();
+    console.log(email)
     
-
-
-    console.log(assignee)
     let NotificationMessage 
     if(savedTask.assignee != null){
       NotificationMessage =  await CreateNotification("Create Task", savedTask.assignee, savedTask.title)
       const { email } = await User.findById(savedTask.assignee);
       SendEmail(NotificationMessage, "Created Task", email);
-    }else{
+    }else if (assignee == null){
       NotificationMessage = await CreateNotification("Unassigned Task", savedTask.assignee, savedTask.title)
+      const  user = await User.find();
+      user.forEach(element => {
+        savedTask.assignee = element
+      });
+      const { email } = await User.findById(savedTask.assignee);
+      SendEmail(NotificationMessage, "Created Task", email);
     }
 
-
+    
 
     res.status(201).send({
       successful: true,
@@ -76,6 +82,12 @@ const createTask = async (req, res) => {
   }
 
   } catch (error) {
+    if (error.message.includes("assignee")) {
+      return res.status(404).send({
+        successful: false,
+        message: "Assignee not found",
+      });
+    }
     if (error.message.includes("assignee")) {
       return res.status(404).send({
         successful: false,
@@ -292,40 +304,36 @@ async function handleTaskMethod(res, action, str) {
 }
 
 const getTotalcompletedofuser = async (req, res) => {
-
   const { userId, startDate, endDate } = req.query;
 
   try {
-    
     const user = await User.findById(userId);
 
-    if(!user) {
+    if (!user) {
       return res.status(404).json({
-        message: "User not found"
+        message: "User not found",
       });
     }
 
-    const tasks = await Task.find({ 
+    const tasks = await Task.find({
       assignee: userId,
       status: "Completed",
       dueDate: {
         $gte: startDate,
-        $lte: endDate  
-      }
+        $lte: endDate,
+      },
     });
 
     res.json({
       message: `${user.first_name} has completed ${tasks.length} tasks`,
-      data: tasks
+      data: tasks,
     });
-
   } catch (err) {
     res.status(500).json({
-      message: err.message
+      message: err.message,
     });
   }
-
-}
+};
 
 const getHistoryLogs = async (req, res) => {
   const { startDate, endDate } = req.query;
@@ -334,16 +342,15 @@ const getHistoryLogs = async (req, res) => {
     const tasks = await Task.find({
       createdAt: {
         $gte: new Date(startDate),
-        $lte: new Date(endDate)
-      }
+        $lte: new Date(endDate),
+      },
     });
 
     res.json(tasks);
-
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-}
+};
 
 module.exports = {
   getTasks,
