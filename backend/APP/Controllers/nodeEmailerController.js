@@ -5,7 +5,8 @@ const SendEmail = (message, header, userEmail)=>{
     from: process.env.EMAIL_ADDRESS,
     to: userEmail,
     subject: header,
-    text: message
+    text: message,
+    html: `<h2>${message}</h2>`
   };
   
   transporter.sendMail(mailOptions, (error, info) => {
