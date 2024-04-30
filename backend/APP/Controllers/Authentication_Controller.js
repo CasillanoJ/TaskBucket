@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken')
 
 function GenerateTokens(user) {
-    // Ensure the secrets are defined in environment variables
+ 
     const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
     const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET;
   
@@ -28,7 +28,10 @@ function GenerateTokens(user) {
 
 
 function VerifyToken(req, res, next) {
+    // FOR TESTING PURPOSE
   const token = req.headers['authorization'];
+
+    // FOR COOKIES
     // const token = req.cookies.accessToken;
      const refreshToken = req.cookies.refreshToken;
 

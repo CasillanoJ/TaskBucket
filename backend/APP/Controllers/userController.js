@@ -227,11 +227,32 @@ const VerifyUser = async(req,res,next) =>{
   }
 }
 
+const LogoutUser = async(req,res,next) =>{
+
+  res.clearCookie('accessToken', {httpOnly: true});
+
+  res.clearCookie('refreshToken', {httpOnly: true});
+
+
+  if (req.session) {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ successful: false, message: 'Failed to logout' });
+      }
+    });
+  }
+
+  // Send a successful response indicating logout is complete
+  return res.status(200).json({ successful: true, message: 'Logout successful' });
+
+}
+
 
 module.exports = {
   addUser,
   getAllUsers,
   LoginUser,
   changePassword,
-  VerifyUser
+  VerifyUser,
+  LogoutUser
 };

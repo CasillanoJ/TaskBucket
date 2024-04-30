@@ -1,5 +1,5 @@
 const express = require('express');
-const {getAllUsers, changePassword} = require('../Controllers/userController');
+const {getAllUsers, changePassword, LogoutUser} = require('../Controllers/userController');
 
 
 const router = express.Router();
@@ -30,6 +30,6 @@ router.post('/changePassword' ,changePassword)
 
 router.post('/verfiyUser', VerifyUser)
 
-
+router.post('/logout',LogoutUser)
 
 module.exports = router;
