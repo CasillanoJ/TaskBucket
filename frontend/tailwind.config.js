@@ -33,6 +33,7 @@ module.exports = {
           200: "#8E97A8",
         },
        "progress-green":"#6CC000",
+       "nav-toggle-btn":"#484B63",
       },
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],

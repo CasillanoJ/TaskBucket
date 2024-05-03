@@ -1,0 +1,13 @@
+ /* Classes to define expanded and collapsed state */
+ .sidebar-expanded {
+  width: 16rem; /* 64 in tailwind units */
+}
+
+.sidebar-collapsed {
+  width: 4rem; /* 16 in tailwind units */
+}
+
+/* Helper class to hide text when collapsed */
+.hidden-text {
+  display: none;
+}
