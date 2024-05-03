@@ -92,8 +92,126 @@
               >
             </a>
           </div>
+          <form action="#" method="GET" class="hidden" id="filterStatus">
+            <div class="flex justify-center space-x-6">
+              <div
+                class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
+              >
+                <input
+                  id="checkbox-unassigned"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-primary-100 bg-gray-100 border-gray-300 rounded focus:bg-primary-100 dark:focus:ring-primary-100 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="checkbox-unassigned"
+                  class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
+                  >Unassigned</label
+                >
+              </div>
+              <div
+                class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
+              >
+                <input
+                  id="checkbox-to-do"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-primary-100 bg-gray-100 border-gray-300 rounded focus:bg-primary-100 dark:focus:ring-primary-100 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="checkbox-to-do"
+                  class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
+                  >To do</label
+                >
+              </div>
+              <div
+                class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
+              >
+                <input
+                  id="checkbox-in-progress"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="checkbox-in-progress"
+                  class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
+                  >In progress</label
+                >
+              </div>
+              <div
+                class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
+              >
+                <input
+                  id="checkbox-completed"
+                  type="checkbox"
+                  value=""
+                  class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                />
+                <label
+                  for="checkbox-completed"
+                  class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300"
+                  >Completed</label
+                >
+              </div>
+            </div>
+          </form>
+
+          <form action="#" method="GET" class="hidden" id="filterPriority">
+            <div class="flex justify-center space-x-6">
+              <div
+                class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
+              >
+                <label for="checkbox-neutral" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                  <input
+                    type="checkbox"
+                    id="checkbox-neutral"
+                    class="w-4 h-4 text-primary-100 bg-gray-100 border-gray-300 rounded focus:bg-primary-100 dark:focus:ring-primary-100 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  />
+                  <span>Neutral</span>
+                </label>
+              </div>
+              <div
+                class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
+              >
+                <label for="checkbox-high" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                  <input
+                    type="checkbox"
+                    id="checkbox-high"
+                    class="w-4 h-4 text-primary-100 bg-gray-100 border-gray-300 rounded focus:bg-primary-100 dark:focus:ring-primary-100 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  />
+                  <span>High</span>
+                </label>
+              </div>
+              <div
+                class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600"
+              >
+                <label for="checkbox-urgent" class="w-full ms-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
+                  <input
+                    type="checkbox"
+                    id="checkbox-urgent"
+                    class="w-4 h-4 text-primary-100 bg-gray-100 border-gray-300 rounded focus:bg-primary-100 dark:focus:ring-primary-100 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
+                  />
+                  <span>Urgent</span>
+                </label>
+              </div>
+            </div>
+          </form>
+
           <div class="flex items-center lg:order-2">
+            <form action="#" method="GET" class="hidden" id="filterTask">
+              <div class="flex justify-around">
+                <button id="toggleStatus" class="secondary-btn">Status</button>
+
+                <button id="togglePriority" class="secondary-btn">
+                  Priority
+                </button>
+              </div>
+            </form>
+
             <button
+              type="button"
+              id="toggleFilter"
               class="border-2 px-4 py-2 flex justify-start rounded-lg border-primary-100 space-x-2 mr-6"
             >
               <svg
@@ -652,41 +770,39 @@
       </aside>
 
       <main class="p-4 md:ml-64 h-full pt-20 dark:bg-main-body">
-
-        <div class="flex justify-between mb-10">
-          <button
-            class="btn text-main-body bg-primary-100 hover:bg-primary-200 focus:ring-4 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-auto base:w-auto md:px-10 py-2.5 text-center dark:bg-primary-100 dark:hover:bg-primary-200 dark:focus:ring-primary-100"
-          >
-            ADD TASK
-          </button>
-
-          <button
-            class="border-2 px-4 py-2 flex justify-start items-center rounded-lg border-primary-100 space-x-2"
-          >
-            <?xml version="1.0" encoding="UTF-8"?>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              id="Layer_1"
-              fill="#C595FF"
-              data-name="Layer 1"
-              viewBox="0 0 24 24"
-              class="h-auto w-4"
+        <div class="mt-5 mx-10">
+          <div class="flex justify-between mb-10">
+            <button
+              class="btn text-main-body bg-primary-100 hover:bg-primary-200 focus:ring-4 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-auto base:w-auto md:px-10 py-2.5 text-center dark:bg-primary-100 dark:hover:bg-primary-200 dark:focus:ring-primary-100"
             >
-              <path
-                d="M12.067,17.445c.582,.589,.577,1.539-.012,2.121l-3.793,3.75c-.484,.483-1.121,.726-1.759,.726s-1.282-.243-1.77-.731l-3.787-3.744c-.589-.582-.594-1.532-.012-2.121,.582-.59,1.533-.594,2.122-.012l1.945,1.923V1.5c0-.828,.671-1.5,1.5-1.5s1.5,.672,1.5,1.5V19.357l1.945-1.923c.59-.582,1.539-.578,2.122,.012ZM23.055,4.477l-3.787-3.744c-.974-.975-2.56-.975-3.529-.006l-3.793,3.75c-.589,.582-.594,1.532-.012,2.121,.582,.59,1.533,.594,2.122,.012l1.945-1.923V22.5c0,.828,.671,1.5,1.5,1.5s1.5-.672,1.5-1.5V4.686l1.945,1.923c.292,.289,.674,.434,1.055,.434,.387,0,.773-.148,1.067-.445,.582-.589,.577-1.539-.012-2.121Z"
-              />
-            </svg>
+              ADD TASK
+            </button>
 
-            <span class="text-primary-100 font-semibold">Priority Level</span>
-          </button>
-        </div>
+            <button
+              class="border-2 px-4 py-2 flex justify-start items-center rounded-lg border-primary-100 space-x-2"
+            >
+              <?xml version="1.0" encoding="UTF-8"?>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                id="Layer_1"
+                fill="#C595FF"
+                data-name="Layer 1"
+                viewBox="0 0 24 24"
+                class="h-auto w-4"
+              >
+                <path
+                  d="M12.067,17.445c.582,.589,.577,1.539-.012,2.121l-3.793,3.75c-.484,.483-1.121,.726-1.759,.726s-1.282-.243-1.77-.731l-3.787-3.744c-.589-.582-.594-1.532-.012-2.121,.582-.59,1.533-.594,2.122-.012l1.945,1.923V1.5c0-.828,.671-1.5,1.5-1.5s1.5,.672,1.5,1.5V19.357l1.945-1.923c.59-.582,1.539-.578,2.122,.012ZM23.055,4.477l-3.787-3.744c-.974-.975-2.56-.975-3.529-.006l-3.793,3.75c-.589,.582-.594,1.532-.012,2.121,.582,.59,1.533,.594,2.122,.012l1.945-1.923V22.5c0,.828,.671,1.5,1.5,1.5s1.5-.672,1.5-1.5V4.686l1.945,1.923c.292,.289,.674,.434,1.055,.434,.387,0,.773-.148,1.067-.445,.582-.589,.577-1.539-.012-2.121Z"
+                />
+              </svg>
 
-        <div class="flex justify-center mt-5">
+              <span class="text-primary-100 font-semibold">Priority Level</span>
+            </button>
+          </div>
           <div
-            class="relative overflow-x-auto shadow-md sm:rounded-lg p-8 dark:bg-secondary"
+            class="relative overflow-x-auto shadow-md sm:rounded-lg dark:bg-secondary p-8 flex justify-center"
           >
             <table
-              class="w-[1400px] text-md text-left rtl:text-right text-gray-500 dark:text-gray-400 dark:bg-secondary"
+              class="w-[1400px] text-md rtl:text-right text-gray-500 dark:text-gray-400 dark:bg-secondary text-center"
             >
               <thead
                 class="text-lg text-gray-700 uppercase bg-gray-50 border-b-2 border-gray-500 dark:bg-secondary dark:text-txt-100"
@@ -924,5 +1040,6 @@
     <script src="../node_modules/flowbite/dist/datepicker.js"></script>
     <script src="../controllers/search_bar.js"></script>
     <script src="../controllers/darkmode.js"></script>
+    <script src="../controllers/filter_task.js"></script>
   </body>
 </html>
