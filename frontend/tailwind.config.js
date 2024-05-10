@@ -38,7 +38,7 @@ module.exports = {
        "light-row" :'#F8F6FB',
        "light-active" : '#EDE2FA',
        "light-bg" :'#F2EFFB',
-       "light-overiew-bg" :"#F5F7FA"
+       "light-overiew-bg" :"#F5F7FA",
        
       },
       fontFamily: {

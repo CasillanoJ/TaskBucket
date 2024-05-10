@@ -5,7 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
 .side-nav-item {
-  @apply flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-light-active hover:text-light-primary dark:hover:bg-task dark:hover:text-black hover:rounded-full;
+  @apply flex items-center p-2 text-base font-medium text-gray-900  dark:text-white hover:bg-light-active hover:text-light-primary dark:hover:bg-task dark:hover:text-black hover:rounded-full rounded-full;
 }
 .table-item-row{
   @apply odd:bg-white odd:dark:bg-task-bg even:bg-light-row even:dark:bg-row dark:border-gray-700 dark:hover:bg-task-content hover:bg-light-active hover:cursor-pointer ;
@@ -26,6 +26,13 @@
   @apply  text-light-primary dark:text-progress-count
 }
 
+html {
+  @apply transition-colors duration-1000;
+}
+
+.priority-lvl-item{
+  @apply block px-4 py-2 hover:bg-light-active text-light-primary dark:text-primary  dark:hover:bg-task dark:hover:text-black;
+}
 @layer components {
   .rubik-regular {
     @apply font-rubik font-normal;
