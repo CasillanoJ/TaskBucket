@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bucket</title>
     <link rel="stylesheet" href="../assets/css/styles.css" />
+    <link rel="stylesheet" href="../assets/css/Sidebar.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
       rel="stylesheet"
@@ -96,7 +97,7 @@
           </div>
 
           <div class="flex items-center lg:order-2">
-            <button type="button" id="toggleFilter" class="secondary-btn mx-6">
+            <button type="button" id="toggleFilter" class="toggle-sidebar secondary-btn mx-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -468,7 +469,7 @@
 
       <!-- Filter sidebar -->
       <aside
-        class="fixed ml-10 mt-14 right-0 z-40 w-56 h-screen filter-section hidden"
+        class="fixed mt-14 right-0 z-40 w-56 h-screen "
         id="filter-sidebar"
       >
         <div
@@ -591,13 +592,13 @@
       <!-- Sidebar -->
       <aside
         id="default-sidebar"
-        class="fixed mt-14 left-0 z-40 h-screen -translate-x-full sm:translate-x-0 bg-white dark:bg-nav transition-all duration-300 sidebar-expanded"
+        class="fixed mt-14 left-0 z-40 h-screen border-e-2 shadow-md dark:border-gray-700 -translate-x-full sm:translate-x-0 bg-white dark:bg-nav transition-all duration-300 sidebar-expanded"
       >
         <div class="overflow-y-auto py-5 px-3 h-full">
           <div class="top-0 right-14">
             <button
               id="toggle-sidebar"
-              class="p-1 bg-nav-toggle-btn rounded-full ml-8 transition-transform duration-100 absolute top-8 -translate-y-1/2 -right-3 text-white flex items-center"
+              class=" p-1 bg-nav-toggle-btn rounded-full ml-8 transition-transform duration-100 absolute top-8 -translate-y-1/2 -right-3 text-white flex items-center"
             >
               <div id="sidebar-toggle-icon">
                 <svg
@@ -625,7 +626,7 @@
             <li>
               <a href="#" class="side-nav-item group dashboard-item">
                 <svg
-                  class="w-6 h-6 text-gray-800 dark:text-white group-hover:text-black"
+                  class="w-6 h-6 dark:text-white dark:group-hover:text-black"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -648,7 +649,7 @@
             <li>
               <a href="#" class="side-nav-item group dashboard-item">
                 <svg
-                  class="w-6 h-6 text-gray-800 dark:text-white group-hover:text-black"
+                  class="w-6 h-6 dark:text-white dark:group-hover:text-black"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -669,9 +670,12 @@
               </a>
             </li>
             <li>
-              <a href="#" class="side-nav-item group dashboard-item">
+              <a
+                href="#"
+                class="side-nav-item group dashboard-item rounded-full"
+              >
                 <svg
-                  class="w-6 h-6 text-black dark:text-white group-hover:text-black"
+                  class="w-6 h-6 dark:group-hover:text-black"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -693,10 +697,10 @@
             <li>
               <a
                 href="#"
-                class="side-nav-item group dashboard-item rounded-full bg-task"
+                class="side-nav-item group dashboard-item bg-light-active text-light-primary dark:bg-primary dark:text-black rounded-full"
               >
                 <svg
-                  class="w-6 h-6 text-gray-800 dark:text-black group-hover:text-black"
+                  class="w-6 h-6 text-light-primary dark:text-white dark:group-hover:text-white"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -713,7 +717,10 @@
                   />
                 </svg>
 
-                <span class="ml-3 text-black dashboard-text">Performance</span>
+                <span
+                  class="ml-3 text-light-primary dark:text-white dashboard-text"
+                  >Performance</span
+                >
               </a>
             </li>
           </ul>
@@ -723,7 +730,7 @@
             <li>
               <a href="#" class="side-nav-item group dashboard-item">
                 <svg
-                  class="w-6 h-6 text-gray-800 dark:text-white group-hover:text-black"
+                  class="w-6 h-6 dark:text-white dark:group-hover:text-black"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -746,26 +753,27 @@
             <li>
               <a
                 href="#"
-                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-red-600 dark:text-white group dark:hover:text-task dashboard-item"
+                class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-red-600 dark:hover:bg-red-600 dark:text-white group dark:hover:text-primary dashboard-item group"
               >
                 <svg
                   width="27"
                   height="27"
                   viewBox="0 0 27 27"
-                  fill="none"
+                  class="fill-light-primary dark:fill-white group-hover:fill-black"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
                     d="M22.4145 13.9241C22.4225 13.9008 22.434 13.8793 22.4417 13.856C22.5197 13.6247 22.5197 13.3754 22.4417 13.1441C22.434 13.1207 22.4224 13.0992 22.4145 13.0761C22.4112 13.068 22.4084 13.0602 22.4049 13.0522C21.5705 10.6488 19.6461 8.73806 17.2309 7.93278C16.6377 7.73445 16.0049 8.05473 15.8083 8.64468C15.6116 9.23407 15.9302 9.87071 16.5191 10.0674C17.7684 10.4835 18.8382 11.3061 19.5703 12.3751H11.25C10.6282 12.3751 10.125 12.8788 10.125 13.5001C10.125 14.1213 10.6282 14.6251 11.25 14.6251H19.5703C18.8381 15.6939 17.7684 16.5165 16.5191 16.9328C15.9302 17.1294 15.6116 17.7661 15.8083 18.3555C15.9653 18.8273 16.4037 19.1256 16.875 19.1256C16.9926 19.1256 17.1123 19.107 17.2309 19.0674C19.6461 18.2621 21.5705 16.3514 22.4049 13.9479C22.4084 13.9399 22.4112 13.9322 22.4145 13.9241Z"
-                    fill="#C595FF"
                   />
                   <path
                     d="M5.25935 20.1752C5.76144 22.3461 7.42363 23.9897 9.49239 24.3627L9.86038 24.4292C11.0491 24.644 12.2444 24.7511 13.4408 24.7511C14.6372 24.7511 15.8337 24.644 17.0212 24.4298C18.4945 24.1639 19.7975 23.2394 20.5951 21.8936C20.9116 21.3591 20.7358 20.6691 20.2007 20.3522C19.6657 20.0353 18.9757 20.2127 18.6593 20.7466C18.1946 21.53 17.452 22.0656 16.6214 22.2155C14.512 22.5957 12.3708 22.5957 10.2614 22.2155L9.89345 22.1485C8.70916 21.9353 7.75111 20.9619 7.45231 19.6689C6.51958 15.633 6.51958 11.367 7.45231 7.33122C7.751 6.03804 8.70905 5.06469 9.89446 4.85094L10.2603 4.78445C12.3697 4.40431 14.512 4.40431 16.6214 4.78445C17.3828 4.92237 18.0617 5.37327 18.5319 6.05559C18.8857 6.56645 19.5854 6.69335 20.0974 6.34179C20.6083 5.98854 20.7369 5.28822 20.3842 4.7768C19.5701 3.59847 18.3758 2.81514 17.0212 2.57079C14.646 2.14126 12.2367 2.14228 9.85925 2.57079L9.49352 2.63671C7.42374 3.01021 5.76144 4.65384 5.25935 6.82475C4.25079 11.1917 4.25079 15.8082 5.25935 20.1752Z"
-                    fill="#C595FF"
                   />
                 </svg>
 
-                <span class="ml-3 dashboard-text">Logout</span>
+                <span
+                  class="ml-3 text-light-primary dark:text-primary font-medium dashboard-text group-hover:text-black"
+                  >Logout</span
+                >
               </a>
             </li>
             <li></li>
@@ -773,7 +781,7 @@
           <button
             id="theme-toggle"
             type="button"
-            class="text-black border border-task dark:text-yellow-400 dark:hover:text-yellow-400 hover:bg-gray-100 dark:hover:bg-task focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 tooltip tooltip-top"
+            class="text-white border border-primary dark:text-yellow-400 dark:hover:text-yellow-400 hover:bg-gray-100 dark:hover:bg-primary focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 tooltip tooltip-top"
           >
             <svg
               id="theme-toggle-dark-icon"
@@ -804,10 +812,10 @@
       </aside>
 
       <main
-        class="p-4 md:ml-64 h-full pt-20 dark:bg-main-body"
+        class="p-4 ml-24 md:ml-24 lg:ml-64 sm:ml-5 md:mr-12 lg:mr-10 sm:mr-10 h-full pt-20 bg-light-bg dark:bg-main-body transition-all duration-100"
         id="main-container"
       >
-        <div class="mt-5 mx-10">
+        <div class="mt-5 mx-28 md:mx-10 md:mt-12">
           <div class="flex justify-between mb-10">
             <button
               class="btn text-main-body bg-primary-100 hover:bg-primary-200 focus:ring-4 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-auto base:w-auto md:px-10 py-2.5 text-center dark:bg-primary-100 dark:hover:bg-primary-200 dark:focus:ring-primary-100"

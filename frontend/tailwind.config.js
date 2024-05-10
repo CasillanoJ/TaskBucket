@@ -2,14 +2,14 @@
 module.exports = {
   content: ["./views/**/*.{html,js}", "./node_modules/flowbite/**/*.js"],
   theme: {
-    screens: {
-      sm: "640px",
-      md: "768px",
-      lg: "1024px",
-      xl: "1280px",
-      "2xl": "1536px",
-    },
     extend: {
+      screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
+        "2xl": "1536px",
+      },
       backgroundImage: {
         hero: "url('assets/images/wavybg.png')",
       },
@@ -32,6 +32,7 @@ module.exports = {
         "main-body": "#21212F",
         "task-content": "#3B3854",
         "second-text-color": "#AEA9D6",
+        "nav-toggle-btn": "#484B63",
       },
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],
