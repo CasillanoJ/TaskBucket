@@ -34,6 +34,12 @@ module.exports = {
         },
        "progress-green":"#6CC000",
        "nav-toggle-btn":"#484B63",
+       "light-primary" : "#7232C2",
+       "light-row" :'#F8F6FB',
+       "light-active" : '#EDE2FA',
+       "light-bg" :'#F2EFFB',
+       "light-overiew-bg" :"#F5F7FA"
+       
       },
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],

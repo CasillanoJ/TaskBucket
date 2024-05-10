@@ -5,7 +5,25 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
 .side-nav-item {
-  @apply flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-task dark:hover:text-black dark:hover:rounded-full;
+  @apply flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-light-active hover:text-light-primary dark:hover:bg-task dark:hover:text-black hover:rounded-full;
+}
+.table-item-row{
+  @apply odd:bg-white odd:dark:bg-task-bg even:bg-light-row even:dark:bg-row dark:border-gray-700 dark:hover:bg-task-content hover:bg-light-active hover:cursor-pointer ;
+}
+
+.performance-overview-name{
+@apply text-black dark:text-white text-lg font-medium left-2 px-4 py-2  ;
+}
+.performance-overview-text{
+  @apply text-lg text-gray-400  dark:text-gray-400 px-4 py-2 font-rubik font-medium flex justify-between;
+}
+
+.performance-overview-container{
+  @apply bg-light-overiew-bg dark:bg-task-content h-60 lg:h-96 xl:h-64  rounded-xl mt-2 px-2 py-5 w-auto;
+}
+
+.performance-text-counter{
+  @apply  text-light-primary dark:text-progress-count
 }
 
 @layer components {
