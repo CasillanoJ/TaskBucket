@@ -8,8 +8,12 @@
   @apply rounded-xl py-1 px-2 md:py-2 md:px-3 text-base md:text-lg font-bold cursor-pointer tracking-wider;
 }
 
+.clear-btn {
+  @apply btn rounded-xl py-1 px-2 md:py-2 md:px-3 text-sm md:text-base font-semibold cursor-pointer tracking-wider;
+}
+
 .secondary-btn {
-  @apply border-2 px-4 py-2 flex justify-start rounded-lg border-primary-100 space-x-2 mr-6 text-primary-100;
+  @apply border-2 flex justify-start rounded-lg border-primary-100 space-x-2 text-primary-100 py-1 px-2 md:py-2 md:px-3 text-base md:text-lg font-semibold btn focus:ring-4 focus:outline-none focus:ring-primary-200 w-auto text-center dark:focus:ring-primary-100;
 }
 
 /* .filter-checkbox {
@@ -60,4 +64,8 @@
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
   font-size: 48px;
+}
+
+.category-label {
+  @apply font-normal mr-1 text-sm text-txt-100;
 }

@@ -2,6 +2,13 @@
 module.exports = {
   content: ["./views/**/*.{html,js}", "./node_modules/flowbite/**/*.js"],
   theme: {
+    screens: {
+      sm: "640px",
+      md: "768px",
+      lg: "1024px",
+      xl: "1280px",
+      "2xl": "1536px",
+    },
     extend: {
       backgroundImage: {
         hero: "url('assets/images/wavybg.png')",
@@ -22,11 +29,9 @@ module.exports = {
         "in-progress": "#FA59A0",
         completed: "#6CC000",
         nav: "#12121C ",
-        task: "#D4B0FF",
         "main-body": "#21212F",
         "task-content": "#3B3854",
         "second-text-color": "#AEA9D6",
-        "table-hover": "#3B3854",
       },
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],
