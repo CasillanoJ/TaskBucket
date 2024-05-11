@@ -15,7 +15,7 @@ router.use(VerifyToken)
 router.get('/', getAllUsers)
 
 // For testing Only need to fix
-router.get('/getTaskList/:count', getTaskList)
+router.post('/getTaskList/:count', getTaskList)
 router.get('/unassignedTask/', getUnassignedTask)
 router.get('/unassignedTask/:count', getUnassignedTask)
 

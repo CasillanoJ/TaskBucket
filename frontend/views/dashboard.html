@@ -960,8 +960,8 @@
           </div>
           <button type="button"
             class="inline-flex items-center text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xl px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900 dark:hover:text-black"
-            data-modal-target="Unassigned-Task-1-modal-delete" data-modal-toggle="Unassigned-Task-1-modal-delete"
-            data-modal-hide="Unassigned-Task-1-modal">
+           
+           >
             <svg aria-hidden="true" class="w-5 h-5 mr-1.5 -ml-1" fill="currentColor" viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
@@ -992,7 +992,7 @@
 
 
 
-  <    <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
+ <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
   <script src="../node_modules/flowbite/dist/datepicker.js"></script>
   <script>
       // On page load or when changing themes, best to add inline in `head` to avoid FOUC
@@ -1003,11 +1003,16 @@
           document.documentElement.classList.remove('dark')
       }
   </script>
+  <script src="../API/api_client.js"></script>
+  <script src="../API/Get_taskList.js"></script>
+  <script src="../API/routes.js"></script>
+  <script src="../Components/create_Task_card.js"></script>
+  <script src="../Components/create_modal.js"></script>
+
   <script src="../Controllers/Search_bar.js"></script>
   <script src="../Controllers/darkmode.js"></script>
   <script src="../Controllers/sidebar_controller.js"></script>
-
-
+  <script src="../Controllers/dashboard_unassigned.js"></script>
 </body>
 
 </html>
