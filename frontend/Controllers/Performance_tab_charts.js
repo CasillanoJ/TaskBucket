@@ -66,9 +66,9 @@ window.addEventListener('load', () => {
           colors: ['rgb(255, 255, 255)']
         }
       }, {
-        colors: ['#000000', '#00B8CE', '#FA59A0', '#6CC000', '#FF433E'],
+        colors: ['#3b82f6', '#22d3ee', '#e5e7eb', '#FF433E', '#FF433E'],
         stroke: {
-          colors: ['']
+          colors: ['rgb(255, 255, 255)']
         }
       });
     })();

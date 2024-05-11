@@ -4337,6 +4337,10 @@ details.collapse summary::-webkit-details-marker {
   width: 0.625rem;
 }
 
+.w-24 {
+  width: 6rem;
+}
+
 .w-3 {
   width: 0.75rem;
 }
@@ -4375,10 +4379,6 @@ details.collapse summary::-webkit-details-marker {
 
 .w-96 {
   width: 24rem;
-}
-
-.w-\[1400px\] {
-  width: 1400px;
 }
 
 .w-\[400px\] {
@@ -6372,6 +6372,10 @@ html {
     width: 24rem;
   }
 
+  .md\:w-\[600px\] {
+    width: 600px;
+  }
+
   .md\:w-full {
     width: 100%;
   }
@@ -6477,6 +6481,10 @@ html {
     width: 2rem;
   }
 
+  .lg\:w-full {
+    width: 100%;
+  }
+
   .lg\:grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
@@ -6540,6 +6548,10 @@ html {
 @media (min-width: 1280px) {
   .xl\:w-40 {
     width: 10rem;
+  }
+
+  .xl\:w-\[1400px\] {
+    width: 1400px;
   }
 
   .xl\:grid-cols-2 {
