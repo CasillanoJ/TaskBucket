@@ -1,18 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
   const toggleFilterButton = document.getElementById("toggleFilter");
+  const toggleFilterIcon = document.getElementById("toggleFilterIcon");
   const filterSidebar = document.getElementById("filter-sidebar");
   const mainContainer = document.getElementById("main-container");
 
   toggleFilterButton.addEventListener("click", function () {
     toggleFilterSection(filterSidebar, mainContainer);
-  });
+  }); 
+  
+  toggleFilterIcon.addEventListener("click", function () {
+    toggleFilterSection(filterSidebar, mainContainer);
+  }); 
 
   function toggleFilterSection(section, container) {
     section.classList.toggle("hidden");
     section.classList.toggle("w-56");
 
     if (section.classList.contains("hidden")) {
-      section.classList.add("w-56");
       container.classList.remove("lg:mr-64");
       container.classList.add("lg:mr-10");
     } else {
