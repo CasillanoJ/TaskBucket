@@ -4,7 +4,9 @@ const getEndpoint = (data)=>{
         case "user":
             endpoint = "/users"
             break;
-    
+       case "task":
+           endpoint = "/tasks"
+          break;
         default:
             endpoint =""
             break;

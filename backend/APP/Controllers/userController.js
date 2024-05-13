@@ -242,7 +242,6 @@ const LogoutUser = async(req,res,next) =>{
     });
   }
 
-  // Send a successful response indicating logout is complete
   return res.status(200).json({ successful: true, message: 'Logout successful' });
 
 }

@@ -1,7 +1,15 @@
 const CreateModal = (task) => {
 
     const dateTimeString = task.dueDate;
-    const datePart = dateTimeString.split('T')[0];
+    let datePart =''
+    if(!dateTimeString){
+      datePart = "None"
+    }else{
+      datePart = dateTimeString.split('T')[0];
+    }
+  
+
+
   
     let assignee
   

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const currentDate = new Date();
 currentDate.setHours(0, 0, 0, 0);
 
+
 const taskSchema = new mongoose.Schema(
   {
     title: {
@@ -64,6 +65,8 @@ const taskSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+
 
 const Task = mongoose.model("Task", taskSchema);
 

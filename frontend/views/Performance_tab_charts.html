@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Performance/Charts</title>
-  <link rel="stylesheet" href="../src/output.css">
+  <link rel="stylesheet" href="../assets/css/styles.css">
   <link rel="stylesheet" href="../node_modules/flowbite/dist/flowbite.min.css">
   <link
     href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
@@ -405,15 +405,15 @@
     <main class="p-4  md:ml-24 lg:ml-64 sm:ml-10    h-full pt-20 bg-light-bg dark:bg-main-body transition-all duration-100  " id="main-container">
 
 
-      <div class=" md:grid md:grid-cols-1 md:space-y-6 lg:flex  lg:justify-between mt-5 md:mt-12">
+      <div class=" md:grid md:grid-cols2 md:space-y-6 lg:flex lg:justify-between mt-5 md:mt-12">
         <div>
           <ul
-          class=" text-sm font-medium text-center bg-white  border-none dark:border-0 text-primary rounded-lg shadow sm:flex dark:divide-gray-700 dark:bg-task-content 
+          class=" text-sm font-medium text-center bg-white border-none dark:border-0 text-primary rounded-lg shadow sm:flex dark:divide-gray-700 dark:bg-task-content 
           mb-10 lg:mb-0 md:mb-0  ">
           <li class="w-full focus-within:z-10  p-1 lg:p-2">
 
 
-            <button class="w-full  sm:w-full lg:w-40 xl:w-40 2xl md:w-40 lg:px-4  lg:h-12 h-10 flex space-x-3 mt-1 text-light-primary dark:text-primary md:text-xl text-base  lg:text-xl font-bold   rounded-xl ">
+            <button class="w-full  sm:w-full lg:w-40 xl:w-40 2xl md:w-40 lg:px-4  lg:h-12 h-10 flex space-x-3 mt-1 text-light-primary dark:text-primary md:text-xl text-base  lg:text-xl font-bold  rounded-xl ">
               <svg  class="mt-3 ml-2 h-5 w-7 lg:h-6 lg:w-8 fill-light-primary dark:fill-primary" viewBox="0 0 25 29" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" clip-rule="evenodd"
@@ -425,11 +425,9 @@
 
             </button>
           </li>
-          <li class="w-full   focus-within:z-10 p-2 ">
+          <li class="w-full   focus-within:z-10 p-1 ">
 
-            <button class=" h-12 md:w-full sm:w-full lg:w-40 flex space-x-3 text-light-primary text-base mt-.5 lg:px-5  dark:text-primary md:text-xl  lg:text-xl font-bold  rounded-xl 
-            bg-light-active dark:bg-black
-            ">
+            <button class=" w-full  sm:w-full lg:w-40 xl:w-40 2xl md:w-40 lg:px-4  lg:h-12 h-10 flex space-x-3 mt-1 text-light-primary dark:text-primary md:text-xl text-base  lg:text-xl font-bold  rounded-xl  bg-light-active dark:bg-black">
               <svg  class="mt-1 h-8 w-8  lg:h-9 lg:w-8 md:h-9 md:w-8 fill-light-primary dark:fill-primary" c viewBox="0 0 36 36" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -450,7 +448,7 @@
         </ul>
 
         </div>
-
+       
 
 
 
@@ -459,38 +457,38 @@
 
         <!-- Date Picker -->
         <div>
-          <div class="flex items-center " date-rangepicker>
-            <div class="relative w-1/2 indicator">
-              <span class="indicator-item indicator-start bg-light-bg  dark:bg-main-body ml-14 -mt-1   mr-3  text-light-primary dark:text-white px-1">Start
-                Date</span>
-              <input name="start" type="text"
-                class="bg-transparent  border  border-light-primary text-light-primary text-sm font-bold rounded-lg focus:ring-light-primary focus:border-light-primary block w-full pr-10 pt-4 pb-2.5 dark:bg-transparent dark:border-white dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-primary dark:focus:border-primary" />
-              <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none">
-                <svg width="24" height="24" viewBox="0 0 24 24" class="fill-light-primary dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M18.4069 12.5938H12.5944V18.4062H18.4069V12.5938ZM16.4694 0V1.9375H6.78186V0H3.87561V1.9375H2.42188C1.08972 1.9375 0 3.02722 0 4.35938V20.8281C0 22.1603 1.08972 23.25 2.42188 23.25H20.8287C22.1609 23.25 23.2506 22.1603 23.2506 20.8281V4.35938C23.2506 3.02722 22.1609 1.9375 20.8287 1.9375H19.3756V0H16.4694ZM20.8287 20.8281H2.42188V7.99219H20.8287V20.8281Z"
-                    />
-                </svg>
-  
-              </div>
+        <div class="flex items-center " date-rangepicker>
+          <div class="relative w-1/2 indicator">
+            <span class="indicator-item indicator-start bg-light-bg  dark:bg-main-body ml-14 -mt-1   mr-3  text-light-primary dark:text-white px-1">Start
+              Date</span>
+            <input name="start" type="text"
+              class="bg-transparent  border  border-light-primary text-light-primary text-sm font-bold rounded-lg focus:ring-light-primary focus:border-light-primary block w-full pr-10 pt-4 pb-2.5 dark:bg-transparent dark:border-white dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-primary dark:focus:border-primary" />
+            <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none">
+              <svg width="24" height="24" viewBox="0 0 24 24" class="fill-light-primary dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M18.4069 12.5938H12.5944V18.4062H18.4069V12.5938ZM16.4694 0V1.9375H6.78186V0H3.87561V1.9375H2.42188C1.08972 1.9375 0 3.02722 0 4.35938V20.8281C0 22.1603 1.08972 23.25 2.42188 23.25H20.8287C22.1609 23.25 23.2506 22.1603 23.2506 20.8281V4.35938C23.2506 3.02722 22.1609 1.9375 20.8287 1.9375H19.3756V0H16.4694ZM20.8287 20.8281H2.42188V7.99219H20.8287V20.8281Z"
+                  />
+              </svg>
+
             </div>
-  
-  
-            <span class="mx-2 text-gray-500"></span>
-            <div class="relative w-1/2 indicator">
-              <span class="indicator-item indicator-start bg-light-bg text-light-primary dark:bg-main-body ml-14 -mt-1 mr-3 dark:text-white px-1">End Date</span>
-              <input name="end" type="text"
-                class="bg-transparent   text-light-primary text-sm rounded-lg font-bold  focus:ring-light-primary focus:border-light-primary block w-full pr-10 pt-4 pb-2.5 dark:bg-transparent dark:border-white border-light-primary dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-primary dark:focus:border-primary" />
-              <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none">
-                <svg width="24"  height="24"  viewBox="0 0 24 24" class="fill-light-primary dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M18.4069 12.5938H12.5944V18.4062H18.4069V12.5938ZM16.4694 0V1.9375H6.78186V0H3.87561V1.9375H2.42188C1.08972 1.9375 0 3.02722 0 4.35938V20.8281C0 22.1603 1.08972 23.25 2.42188 23.25H20.8287C22.1609 23.25 23.2506 22.1603 23.2506 20.8281V4.35938C23.2506 3.02722 22.1609 1.9375 20.8287 1.9375H19.3756V0H16.4694ZM20.8287 20.8281H2.42188V7.99219H20.8287V20.8281Z"
-                    />
-                </svg>
-              </div>
+          </div>
+
+
+          <span class="mx-2 text-gray-500"></span>
+          <div class="relative w-1/2 indicator">
+            <span class="indicator-item indicator-start bg-light-bg text-light-primary dark:bg-main-body ml-14 -mt-1 mr-3 dark:text-white px-1">End Date</span>
+            <input name="end" type="text"
+              class="bg-transparent   text-light-primary text-sm rounded-lg font-bold  focus:ring-light-primary focus:border-light-primary block w-full pr-10 pt-4 pb-2.5 dark:bg-transparent dark:border-white border-light-primary dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-primary dark:focus:border-primary" />
+            <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none">
+              <svg width="24"  height="24"  viewBox="0 0 24 24" class="fill-light-primary dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M18.4069 12.5938H12.5944V18.4062H18.4069V12.5938ZM16.4694 0V1.9375H6.78186V0H3.87561V1.9375H2.42188C1.08972 1.9375 0 3.02722 0 4.35938V20.8281C0 22.1603 1.08972 23.25 2.42188 23.25H20.8287C22.1609 23.25 23.2506 22.1603 23.2506 20.8281V4.35938C23.2506 3.02722 22.1609 1.9375 20.8287 1.9375H19.3756V0H16.4694ZM20.8287 20.8281H2.42188V7.99219H20.8287V20.8281Z"
+                  />
+              </svg>
             </div>
           </div>
         </div>
+      </div>
       </div>
 
       <h1 class="text-3xl text-black dark:text-white  font-bold mt-3">Overall stats</h1>
