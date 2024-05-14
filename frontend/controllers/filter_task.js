@@ -1,3 +1,4 @@
+// Toggle filter
 document.addEventListener("DOMContentLoaded", function () {
   const toggleFilterButton = document.getElementById("toggleFilter");
   const toggleFilterIcon = document.getElementById("toggleFilterIcon");
@@ -6,11 +7,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   toggleFilterButton.addEventListener("click", function () {
     toggleFilterSection(filterSidebar, mainContainer);
-  }); 
-  
+  });
+
   toggleFilterIcon.addEventListener("click", function () {
     toggleFilterSection(filterSidebar, mainContainer);
-  }); 
+  });
 
   function toggleFilterSection(section, container) {
     section.classList.toggle("hidden");
@@ -26,15 +27,74 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+// Filter tasks
 document.addEventListener("DOMContentLoaded", function () {
   const filterCheckboxes = document.querySelectorAll(".filterCheckbox");
   const selectedFiltersContainer = document.getElementById("selectedFilters");
+  const statusElements = document.querySelectorAll(".status");
+  const priorityElements = document.querySelectorAll(".priority");
 
-  filterCheckboxes.forEach(function (checkbox) {
-    checkbox.addEventListener("change", function () {
-      updateSelectedFilters();
+  function resetVisibility() {
+    statusElements.forEach(function (statusElement) {
+      const trElement = statusElement.closest("tr");
+      trElement.classList.remove("hidden");
     });
-  });
+    priorityElements.forEach(function (priorityElement) {
+      const trElement = priorityElement.closest("tr");
+      trElement.classList.remove("hidden");
+    });
+  }
+
+  // Function to update visibility based on selected filters
+  function updateVisibility(selectedStatusFilters, selectedPriorityFilters) {
+    statusElements.forEach(function (statusElement) {
+      const trElement = statusElement.closest("tr");
+      const statusValue = statusElement.textContent.trim();
+      if (
+        selectedStatusFilters.length > 0 &&
+        !selectedStatusFilters.includes(statusValue)
+      ) {
+        trElement.classList.add("hidden");
+      }
+    });
+
+    priorityElements.forEach(function (priorityElement) {
+      const trElement = priorityElement.closest("tr");
+      const priorityValue = priorityElement.textContent.trim();
+      if (
+        selectedPriorityFilters.length > 0 &&
+        !selectedPriorityFilters.includes(priorityValue)
+      ) {
+        trElement.classList.add("hidden");
+      }
+    });
+  }
+
+  function filterTask() {
+    filterCheckboxes.forEach(function (checkbox) {
+      checkbox.addEventListener("change", function () {
+        resetVisibility();
+
+        const selectedStatusFilters = [];
+        const selectedPriorityFilters = [];
+
+        filterCheckboxes.forEach(function (checkbox) {
+          filterType = checkbox.getAttribute("data-filter-type");
+          if (checkbox.checked) {
+            console.log(checkbox.checked);
+            if (filterType === "status") {
+              selectedStatusFilters.push(checkbox.value);
+            } else if (filterType === "priority") {
+              selectedPriorityFilters.push(checkbox.value);
+            }
+          }
+        });
+
+        updateVisibility(selectedStatusFilters, selectedPriorityFilters);
+        updateSelectedFilters();
+      });
+    });
+  }
 
   function getCategoryLabel(filterType) {
     switch (filterType) {
@@ -74,21 +134,34 @@ document.addEventListener("DOMContentLoaded", function () {
         filterButton.appendChild(document.createTextNode(filter.value));
 
         const closeBtn = `
-                    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4 flex justify-center" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
-                    </svg>
-                `;
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="w-4 h-4 flex justify-center" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        `;
 
         filterButton.insertAdjacentHTML("beforeend", closeBtn);
 
         filterButton.classList.add("secondary-btn");
         filterButton.addEventListener("click", function () {
-          // Remove the filter when the button is clicked
+          const selectedStatusFilters = [];
+          const selectedPriorityFilters = [];
+
           filterCheckboxes.forEach(function (checkbox) {
             if (checkbox.value === filter.value) {
               checkbox.checked = false;
             }
+            if (checkbox.checked) {
+              const filterType = checkbox.getAttribute("data-filter-type");
+              if (filterType === "status") {
+                selectedStatusFilters.push(checkbox.value);
+              } else if (filterType === "priority") {
+                selectedPriorityFilters.push(checkbox.value);
+              }
+            }
           });
+
+          resetVisibility();
+          updateVisibility(selectedStatusFilters, selectedPriorityFilters);
           updateSelectedFilters();
         });
 
@@ -97,7 +170,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // Append or remove the "Clear All" button
     let clearAllButton = document.getElementById("clearAll");
     if (!clearAllButton) {
       clearAllButton = document.createElement("button");
@@ -105,17 +177,18 @@ document.addEventListener("DOMContentLoaded", function () {
       clearAllButton.classList.add("secondary-btn");
       clearAllButton.textContent = "Clear all";
       clearAllButton.addEventListener("click", function () {
-        // Uncheck all filter checkboxes
         filterCheckboxes.forEach(function (checkbox) {
           checkbox.checked = false;
         });
-        // Update the selected filters list
+
         updateSelectedFilters();
+        resetVisibility();
       });
       selectedFiltersContainer.appendChild(clearAllButton);
     }
     clearAllButton.style.display =
       selectedFilters.length >= 2 ? "block" : "none";
   }
+  filterTask();
   updateSelectedFilters();
 });

@@ -69,3 +69,16 @@
 .category-label {
   @apply font-normal mr-1 text-xs md:text-sm text-black dark:text-txt-100;
 }
+
+.unassigned {
+  @apply  p-1.5 tracking-wider text-white bg-gray-200 rounded-lg bg-opacity-10
+}
+.to-do {
+  @apply p-1.5 tracking-wider text-to-do bg-to-do rounded-lg bg-opacity-10
+}
+.in-progress {
+  @apply p-1.5 tracking-wider text-in-progress bg-in-progress rounded-lg bg-opacity-10
+}
+.completed {
+  @apply p-1.5 tracking-wider text-completed bg-completed rounded-lg bg-opacity-10
+}

@@ -1,39 +1,31 @@
 const express = require('express');
-const {
-  addUser,
-  getAllUsers,
-  changePassword,
-  LoginUser
-} = require('../Controllers/userController');
+const {getAllUsers, changePassword, LogoutUser} = require('../Controllers/userController');
+
+
 const router = express.Router();
 
-const { getAllTaskAdmin, getUnassignedTask, getTask , getCompletedTaskDateRange, exportDataAsExcel} = require('../Controllers/userTaskController')
-const {VerifyToken} = require('../Controllers/userController')
+const { getTaskList,  exportDataAsExcel} = require('../Controllers/userTaskController')
+const {VerifyUser} = require('../Controllers/userController')
+const {VerifyToken} = require('../Controllers/Authentication_Controller')
 
 
 
-router.post('/add', addUser)
+router.use(VerifyToken)
 
 router.get('/', getAllUsers)
 
-
-
-
-
 // For testing Only need to fix
-router.get('/getTaskAdmin/:count', getAllTaskAdmin)
-router.get('/getTaskAdmin/', getAllTaskAdmin);
-router.post('/change-password', changePassword);router.get('/unassignedTask/', getUnassignedTask)
-router.get('/unassignedTask/:count', getUnassignedTask)
+router.post('/getTaskList/:count', getTaskList)
 
 
 
-router.get('/toDoTask/', getTask)
-router.get('/toDoTask/:id', getTask)
-
-router.get('/getCompletedTask', getCompletedTaskDateRange)
 
 router.get('/exportAsExcel', exportDataAsExcel)
 
+router.post('/changePassword' ,changePassword)
+
+router.post('/verfiyUser', VerifyUser)
+
+router.post('/logout',LogoutUser)
 
 module.exports = router;
