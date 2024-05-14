@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>You're Registered!</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark-purple': '#21212F',
+            'light-purple': '#C595FF',
+          },
+          fontFamily: {
+            sans: ['sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="bg-dark-purple text-white font-sans flex flex-col items-center justify-center min-h-screen">
+  <h1 class="text-4xl font-bold mb-4">You're Registered!</h1>
+  <p class="text-lg mb-8">Welcome aboard! 🚀 Exciting times ahead! You're now part of Bucket</p>
+  <button class="bg-light-purple text-black font-bold px-6 py-3 rounded-lg">Login</button>
+</body>
+</html>
