@@ -3,8 +3,8 @@ window.addEventListener('load', () => {
     (function () {
       buildChart('#hs-doughnut-chart', (mode) => ({
         chart: {
-          height: 350,
-          width: 450,
+          height: 380,
+          width: 460,
           type: 'donut',
           zoom: {
             enabled: false
@@ -13,26 +13,33 @@ window.addEventListener('load', () => {
         plotOptions: {
           pie: {
             donut: {
-              size: '76%'
+              size: '55%'
             }
           }
         },
         series: [20, 20, 20, 20, 20],
         labels: ['Unassgined', 'To do', 'In progress', 'Completed', 'Late tasks'],
-        legend: {
-          show: false
-        },
+         legend: {
+                show: false,
+                markers: {
+                    fillColors: ['#3b82f6', '#22d3ee', '#FA59A0', '#FF433E', '#6CC000']
+                },
+                labels: {
+                    colors: ['#000000', '#000000', '#000000', '#000000', '#000000'] // Specify text color of legend labels here
+                }
+            },
         dataLabels: {
           enabled: true,
           style: {
-            fontSize: '50px' 
+              fontSize: '50px' 
           },
           formatter: function (val) {
-            return val + "%"
+              return val + "%"
           },
-        },
+          
+      },
         stroke: {
-          width: 5
+          width: 0
         },
         grid: {
           padding: {
@@ -58,17 +65,20 @@ window.addEventListener('load', () => {
                 '#000000', '#000000', '#000000'
               ]
             );
+          },
+          style:{
+           
           }
         }
       }), {
-        colors: ['#3b82f6', '#22d3ee', '#e5e7eb', '#FF433E', '#FF433E'],
+        colors: ['#3b82f6', '#22d3ee', '#FA59A0', '#FF433E', '#6CC000'],
         stroke: {
           colors: ['rgb(255, 255, 255)']
         }
       }, {
-        colors: ['#000000', '#00B8CE', '#FA59A0', '#6CC000', '#FF433E'],
+        colors: ['#3b82f6', '#22d3ee', '#FA59A0', '#FF433E', '#6CC000'],
         stroke: {
-          colors: ['']
+          colors: ['rgb(255, 255, 255)']
         }
       });
     })();

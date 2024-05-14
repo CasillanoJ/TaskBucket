@@ -166,7 +166,7 @@ const LoginUser = async (req, res, next)=>{
       res.status(200).json({
         successful : true,
         message: "Succesfully Logged In",
-        "Acess Token" :accessToken,
+        "Access Token" :accessToken,
          "Refresh Token" : refreshToken
         });
     }
@@ -242,7 +242,6 @@ const LogoutUser = async(req,res,next) =>{
     });
   }
 
-  // Send a successful response indicating logout is complete
   return res.status(200).json({ successful: true, message: 'Logout successful' });
 
 }

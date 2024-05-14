@@ -29,10 +29,10 @@ function GenerateTokens(user) {
 
 function VerifyToken(req, res, next) {
     // FOR TESTING PURPOSE
-  const token = req.headers['authorization'];
+//   const token = req.headers['authorization'];
 
     // FOR COOKIES
-    // const token = req.cookies.accessToken;
+    const token = req.cookies.accessToken;
      const refreshToken = req.cookies.refreshToken;
 
   if (!token) {

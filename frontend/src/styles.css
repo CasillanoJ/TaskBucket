@@ -4,23 +4,13 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
-.card {
-  @apply bg-white rounded overflow-hidden shadow-md relative;
-}
 
-.badge {
-  @apply bg-secondary-100 text-secondary-200 text-xs uppercase font-bold rounded-full p-2 absolute top-0 ml-2 mt-2;
-}
 
 .btn {
   @apply rounded-full py-2 px-3 uppercase text-xs font-bold cursor-pointer tracking-wider;
 }
 
-.bg-custom {
-  @apply bg-custom-bg bg-cover bg-center;
-  background-image: url("../assets/images/wavybg.png");
-  background-blend-mode: overlay;
-}
+
 
 .baloo-2-bold {
   @apply font-baloo;
@@ -40,4 +30,34 @@
 .material-symbols-outlined {
   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
   font-size: 48px;
+}
+
+.side-nav-item {
+  @apply flex items-center p-2 text-base font-medium text-gray-900  dark:text-white hover:bg-light-active hover:text-light-primary dark:hover:bg-task dark:hover:text-black hover:rounded-full rounded-full;
+}
+.table-item-row{
+  @apply odd:bg-white odd:dark:bg-task-bg even:bg-light-row even:dark:bg-row dark:border-gray-700 dark:hover:bg-task-content hover:bg-light-active hover:cursor-pointer  ;
+}
+
+.performance-overview-name{
+@apply text-black dark:text-white text-lg font-medium left-2 px-4 py-2  ;
+}
+.performance-overview-text{
+  @apply text-lg text-gray-400  dark:text-gray-400 px-4 py-2 font-rubik font-medium flex justify-between;
+}
+
+.performance-overview-container{
+  @apply bg-light-overiew-bg dark:bg-task-content h-60 lg:h-96 xl:h-64  rounded-xl mt-2 px-2 py-5 w-auto;
+}
+
+.performance-text-counter{
+  @apply  text-light-primary dark:text-progress-count
+}
+
+html {
+  @apply transition-colors duration-1000;
+}
+
+.priority-lvl-item{
+  @apply block px-4 py-2 hover:bg-light-active text-light-primary dark:text-primary-100  dark:hover:bg-task dark:hover:text-black;
 }
