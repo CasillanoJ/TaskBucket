@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up to Bucket</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'custom-bg': '#21212F',
+                        'primary': '#C595FF',
+                        'secondary': '#2D2A44',
+                        'input-bg': '#27253B',
+                        'text-color': '#D2D0E5',
+                    },
+                    fontFamily: {
+                        'rubik': ['Rubik', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-custom-bg text-text-color font-rubik">
+    <div class="flex justify-center items-center min-h-screen">
+        <div class="bg-secondary rounded-lg p-8">
+            
+    
+            
+            <div style="display: flex; justify-content: space-between;">
+                <div>
+                    <!-- Your form content goes here -->
+                </div>
+                <button class="mt-4 text-primary font-bold" onclick="closeForm()">X</button>
+            </div>
+            
+
+            
+
+   
+                       <!-- Centered SVG -->
+            <div class="flex justify-center items-center h-full">
+                <svg width="67" height="67" viewBox="0 0 67 67" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M58.9597 39.3348C59.6856 37.604 59.2947 35.594 57.9547 34.2819L35.4818 11.8089L32.1318 8.45895C29.0889 5.41603 24.1477 5.41603 21.1048 8.45895C18.0618 11.4739 18.0618 16.4431 21.1048 19.4581L22.4727 20.826L7.36975 35.9569C5.72267 37.5761 4.91309 39.7256 4.91309 41.8752C4.91309 44.0248 5.72267 46.1744 7.36975 47.7936L19.2064 59.6302C20.8256 61.2773 22.9752 62.0869 25.1248 62.0869C27.2743 62.0869 29.4239 61.2773 31.0431 59.6302L46.8439 43.8573L47.6535 43.0198C48.1839 42.4894 48.8818 42.2102 49.6356 42.2102H54.6606C56.5589 42.2102 58.2339 41.0936 58.9597 39.3348ZM25.041 12.3952C25.9064 11.5298 27.3302 11.5298 28.1956 12.3952L29.5635 13.7631L26.4089 16.8898L25.041 15.5219C24.2035 14.6564 24.2035 13.2606 25.041 12.3952ZM27.1068 55.694C26.0181 56.7827 24.2314 56.7827 23.1427 55.694L12.1156 44.6669H38.1339L27.1068 55.694ZM61.4164 55.8336C61.4164 58.9044 58.9039 61.4169 55.8331 61.4169C52.7622 61.4169 50.2497 58.9044 50.2497 55.8336C50.2497 53.8515 52.0364 50.8365 53.5439 48.659C54.6047 47.1515 57.0893 47.1515 58.1501 48.659C59.6576 50.8365 61.4443 53.8236 61.4443 55.8336H61.4164Z" fill="#C595FF"/>
+                    <g clip-path="url(#clip0_198_2457)">
+                        <path d="M46.3977 39.2642C46.0734 39.5885 45.6843 39.7506 45.2302 39.7506H27.6207H24.3128C23.8588 39.7506 23.4696 39.5885 23.1453 39.2642C22.821 38.9399 22.6589 38.5507 22.6589 38.0967L22.6589 34.7888L22.6589 25.9841C22.6589 25.53 22.821 25.1409 23.1453 24.8166C23.4696 24.4923 23.8588 24.3301 24.3128 24.3301L27.6207 24.3301C28.0747 24.3301 28.4639 24.4923 28.7882 24.8166C29.1125 25.1409 29.2746 25.53 29.2746 25.9841L29.2625 33.1471L45.2302 33.1349C45.6843 33.1349 46.0734 33.2971 46.3977 33.6214C46.722 33.9457 46.8842 34.3348 46.8842 34.7888L46.8842 38.0967C46.8842 38.5507 46.722 38.9399 46.3977 39.2642Z" fill="#EB6F3A"/>
+                    </g>
+                    <defs>
+                        <clipPath id="clip0_198_2457">
+                            <rect width="30.82" height="30.82" fill="white" transform="translate(32.96 12.0596) rotate(45)"/>
+                        </clipPath>
+                    </defs>
+                </svg>
+            </div>
+            <div class="mb-8 flex justify-center">
+                <div class="text-2xl font-bold mt-4">Sign up to Bucket</div>
+            </div>
+            <div class="mb-4 w-full">
+                <div class="flex space-x-4">
+                    <input type="text" placeholder="First Name" class="w-1/2 bg-input-bg rounded-lg py-2 px-4 mb-2">
+                    <input type="text" placeholder="Last Name" class="w-1/2 bg-input-bg rounded-lg py-2 px-4">
+                </div>
+            </div>
+            <div class="mb-4">
+                <input type="email" placeholder="Email" class="w-full bg-input-bg rounded-lg py-2 px-4">
+            </div>
+            <div class="mb-4">
+                <input type="password" placeholder="Password" class="w-full bg-input-bg rounded-lg py-2 px-4 mb-4">
+                <input type="password" placeholder="Confirm Password" class="w-full bg-input-bg rounded-lg py-2 px-4 mb-1">
+            </div>
+            <div class="mb-4 flex items-center">
+                <input type="checkbox" id="showPassword" class="mr-2">
+                <label for="showPassword" class="text-sm">Show Password</label>
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; height: 5vh;"> 
+                <button class="w-full bg-primary text-black rounded-lg py-1 px-1 font-bold" style="width: 50%;">SIGN UP</button>
+            </div>
+            
+
+        </div>
+        </div>
+</body>
+</html>
