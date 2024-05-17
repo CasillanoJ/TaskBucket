@@ -8,6 +8,8 @@ const RenderDashboard = ()=>{
 
 
 
+
 document.addEventListener("DOMContentLoaded", async function() {
+  await RenderSideBar()
   RenderDashboard()
 }); 

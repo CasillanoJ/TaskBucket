@@ -1,4 +1,6 @@
-const toggleButton = document.getElementById('toggle-sidebar');
+
+const SideBarController = ()=>{
+  const toggleButton = document.getElementById('toggle-sidebar');
       const sidebar = document.getElementById('default-sidebar');
       const svgContainer= document.getElementById('sidebar-toggle-icon');
       const mainContainer = document.getElementById('main-container');
@@ -36,3 +38,5 @@ const toggleButton = document.getElementById('toggle-sidebar');
                 mainContainer.classList.add('lg:ml-64');
           }
       });
+
+}

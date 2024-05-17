@@ -29,10 +29,10 @@ const  FetchTaskList = async(skip,limit,status) =>{
           request = "Completed";
           break;
       case 'todo':
-          request = "To-do";
+          request = "To do";
           break;
       case 'inprogress':
-          request = "In Progress";
+          request = "In progress";
           break;
       case 'unassigned':
           request = "Unassigned";

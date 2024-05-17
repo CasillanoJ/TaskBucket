@@ -23,5 +23,5 @@ const Login = async(email, password)=>{
  
     
 
-  return { "message":data.message ,"successful": data.successful, "status": data.status, "accessToken": data["Access Token"], "refreshToken": data["Refresh Token"]}
+  return { "message":data.message ,"successful": data.successful, "status": data.status, "accessToken": data["Access Token"], "refreshToken": data["Refresh Token"], "user": data.user}
 }

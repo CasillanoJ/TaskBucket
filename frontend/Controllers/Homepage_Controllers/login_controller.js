@@ -29,15 +29,24 @@ const LoginUser =async()=>{
   
 
       if (data.successful ){
-        console.log(data.accessToken)
+        
+
+        if(!data.user.isVerified){
+         
+          Unverified.showModal()
+        }else{
         localStorage.setItem('accessToken', data.accessToken);
         localStorage.setItem('refreshToken', data.refreshToken);
-        email = ''
-        password = ''
+     
         messageContainer.innerHTML =""; 
 
         // window.location.href = '/frontend/views/dashboard.html'
 
+        }
+        
+       
+        email = ''
+        password=''
         
 
       }
