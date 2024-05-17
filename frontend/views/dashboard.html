@@ -17,6 +17,7 @@
 
 
 <body class="bg-light-bg dark:bg-main-body font-rubik h-screen">
+
   <div class="antialiased bg-light-bg dark:bg-main-body">
     <nav
       class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-nav dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
@@ -387,25 +388,23 @@
       
   </aside>
 
+    <div class=" indactor-color-urgent  bg-urgent"> asd</div>
+    <div class=" indactor-color-high  bg-high"> asd</div>
+    <div class=" indactor-color-neutral  bg-neutral"></div>
 
     <main class="p-4  md:ml-24 lg:ml-64 sm:ml-10 bg-light-bg h-full pt-20 dark:bg-main-body transition-all duration-100  " id="main-container">
+
 
       <div>
 
       
       <div class="flex justify-between">
-        <button type="button"
-          class="bg-light-primary text-white dark:bg-primary-100 font-bold  dark:text-black  rounded-full  dark:rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center  me-2 mb-4"
-          >
-          <svg class="w-6 h-6 text-white dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-            width="24" height="24" fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M5 12h14m-7 7V5" />
-          </svg>
-
-          ADD TASK
-        </button>
-        <button id="sortDropdownButton" data-dropdown-toggle="sortDropdown"
+        <div class="">
+          
+        </div>
+        
+        <div class=" left-20">
+          <button id="sortDropdownButton" data-dropdown-toggle="sortDropdown"
           class=" text-light-primary dark:text-primary-100 mr-10 h-10 text-center inline-flex items-center border border-light-primary dark:border-primary-100 px-4  py-3 font-bold dark:focus:bg-nav focus:bg-light-active rounded-lg"
           type="button">
           <svg class="w-5 h-5 mr-2 fill-light-primary dark:fill-primary-100" viewBox="0 0 28 23"  xmlns="http://www.w3.org/2000/svg">
@@ -418,6 +417,9 @@
 
 
         </button>
+
+        </div>
+        
 
 
         <div id="sortDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-nav">
@@ -464,7 +466,9 @@
 
           <div class="max-w-sm p-3 mt-5 bg-white border-none rounded-lg shadow-xl dark:bg-task-bg "
             id="unassigned-task-content">
+            
 
+              
             
           
             <!--  -->
@@ -487,7 +491,7 @@
             <div class="flex justify-around">
 
               <div class="">
-                <h1 class="text-blue-500 font-semibold text-lg"> To Do</h1>
+                <h1 class="text-to-do font-semibold text-lg"> To Do</h1>
               </div>
               <div class="mt-auto">
 
@@ -503,7 +507,7 @@
           <div class="max-w-sm p-3 mt-5 bg-white border-none rounded-lg shadow-xl dark:bg-task-bg"
             id="todo-task-content">
 
-
+          
             
 
 
@@ -521,7 +525,7 @@
             <div class="flex justify-around">
 
               <div class="">
-                <h1 class="text-pink-500 font-semibold text-lg"> In Progress</h1>
+                <h1 class="text-in-progress font-semibold text-lg"> In Progress</h1>
               </div>
               <div class="mt-auto">
 
@@ -546,7 +550,7 @@
           <div class="max-w-sm p-3  bg-white border-none rounded-lg shadow-xl dark:bg-task-bg ">
             <div class="flex justify-around">
               <div class="">
-                <h1 class="text-green-400 font-semibold text-lg"> Completed</h1>
+                <h1 class="text-completed font-semibold text-lg"> Completed</h1>
               </div>
               <div class="mt-auto">
                 <span class="bg-white border-2 dark:border-none text-gray-500 rounded-xl  text-base px-3  " id="completed-task-count">0</span>

@@ -2,6 +2,9 @@
 
 
 const getTaskList = async(skip,limit,status)=>{
+    const AccessToken = localStorage.getItem('accessToken');
+    const RefreshToken = localStorage.getItem('refreshToken');
+
 
     let options = ()=> {
         return{
@@ -11,13 +14,14 @@ const getTaskList = async(skip,limit,status)=>{
             }),
             headers :{
                 "Content-Type" : 'application/json',
-                "Authorization" :'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY0NDg4MjJjM2IzMzI1NWUzZWFmODciLCJlbWFpbCI6ImFkbWluMUBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSm9iZXJ0IiwibGFzdF9uYW1lIjoiSm9obiIsImlzQWRtaW4iOnRydWUsImlzVmVyaWZpZWQiOnRydWUsImlhdCI6MTcxNTU5MjE5NSwiZXhwIjoxNzE1NTk1Nzk1fQ.8wGwIJF9xfHK1ExkHUwJNnvA4EzwtmboYGBjZEg78f4'
+                "Authorization" :`${AccessToken}`,
+                "refreshToken" : `${RefreshToken}`,
             }
         }
     }
 
     let data = await api_client(`${getEnv("dev")}${getEndpoint("user")}/getTaskList/${skip}?limit=${limit}`, options())
 
-
-    return { "data":data.data , "status": data.status , "message" : data.message , "count" : data.count ,"total" : data.totalTask}
+    console.log(data.user);   
+ return { "data":data.data , "status": data.status , "message" : data.message , "count" : data.count ,"total" : data.totalTask}
 }
