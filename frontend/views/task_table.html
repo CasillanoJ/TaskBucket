@@ -19,9 +19,14 @@
   <body
     class="font-rubik overflow-y-auto overflow-x-hidden dark:bg-main-body h-screen w-screen"
   >
-    <div class="antialiased dark:bg-main-body">
+    <main class="p-4 h-full pt-20 bg-light-bg transition-all duration-100">
+      <div class="antialiased dark:bg-main-body mr-64" id="main-container">
+        <div
+          id="features"
+          class="flex flex-col lg:flex-row lg:justify-between mb-10"
+        ></div>
         <div>
-            <button
+          <button
             id="theme-toggle"
             type="button"
             class="text-white border border-primary dark:text-yellow-400 dark:hover:text-yellow-400 hover:bg-gray-100 dark:hover:bg-primary focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 tooltip tooltip-top"
@@ -52,46 +57,69 @@
             </svg>
           </button>
         </div>
-      <!-- Table -->
-      <div
-        class="relative overflow-x-auto hidden lg:block shadow-md sm:rounded-lg dark:bg-secondary p-8"
-      >
-        <table
-          class="w-full text-md rtl:text-right text-gray-500 dark:text-gray-400 text-center"
+
+        <!-- Selected filters -->
+        <div class="flex justify-start space-x-4">
+          <div>
+            <ul id="selectedFilters" class="flex m-0 mb-3 flex-wrap gap-2">
+              <!-- "Clear All" button will be appended here -->
+            </ul>
+          </div>
+        </div>
+
+        <!-- Filter sidebar -->
+        <aside
+          class="fixed top-0 mt-14 right-0 z-40 w-56 h-screen block"
+          id="filter-sidebar"
+        ></aside>
+
+        <!-- Table -->
+        <div
+          class="relative overflow-x-auto shadow-md sm:rounded-lg dark:bg-secondary p-8"
         >
-          <thead
-            class="text-lg text-gray-700 bg-gray-50 border-b-2 border-gray-500 dark:bg-secondary dark:text-txt-100"
+          <table
+            class="w-full text-md rtl:text-right text-gray-500 dark:text-gray-400 text-center"
           >
-            <tr>
-              <th scope="col" class="px-6 py-3">Title</th>
-              <th scope="col" class="px-6 py-3">Due Date</th>
-              <th scope="col" class="px-6 py-3">Status</th>
-              <th scope="col" class="px-6 py-3">Priority Level</th>
-              <th scope="col" class="px-6 py-3">Owner</th>
+            <thead
+              class="text-lg text-gray-700 bg-gray-50 border-b-2 border-gray-500 dark:bg-secondary dark:text-txt-100"
+            >
+              <tr>
+                <th scope="col" class="px-6 py-3">Title</th>
+                <th scope="col" class="px-6 py-3">Due Date</th>
+                <th scope="col" class="px-6 py-3">Status</th>
+                <th scope="col" class="px-6 py-3">Priority Level</th>
+                <th scope="col" class="px-6 py-3">Owner</th>
 
-              <th scope="col" class="px-6 py-3"></th>
-            </tr>
-          </thead>
-          <tbody>
-            <div class="" id="unassigned-task-content"></div>
-            <div class="" id="to-do-task-content"></div>
-            <div class="" id="in-progress-task-content"></div>
-            <div cl id="completed-task-content"></div>
-          </tbody>
-        </table>
+                <th scope="col" class="px-6 py-3"></th>
+              </tr>
+            </thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </main>
 
-  <script src="../API/api_client.js"></script>
-  <script src="../API/Get_taskList.js"></script>
-  <script src="../API/routes.js"></script>
-  
-  <script src="../components/TaskList/task_table.js"></script>
+    <script src="../API/api_client.js"></script>
+    <script src="../API/Get_taskList.js" type="module"></script>
+    <script src="../API/routes.js"></script>
+    <!-- <script src="../API/filter_task.js" type="module"></script> -->
 
+    <script src="../components/TaskList/task_table.js" type="module"></script>
+    <script
+      src="../components/TaskList/task_features.js"
+      type="module"
+    ></script>
+    <script
+      src="../components/TaskList/filter_sidebar.js"
+      type="module"
+    ></script>
 
-  <script src="../controllers/render_task_table.js"></script>
-  <script src="../controllers/fetch_task_list.js"></script>
-  <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
+    <script src="../controllers/fetch_task_list.js" type="module"></script>
+    <script src="../controllers/render_task_table.js" type="module"></script>
+    <!-- <script src="../controllers/search_handler.js" type="module"></script> -->
+    <script src="../controllers/main.js" type="module"></script>
+
+    <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
     <script src="../node_modules/flowbite/dist/datepicker.js"></script>
     <script src="../controllers/darkmode.js"></script>
   </body>

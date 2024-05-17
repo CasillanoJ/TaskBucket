@@ -1,7 +1,7 @@
-const CreateTable = (task) => {
+ export const CreateTable = (task) => {
   const dateTimeString = task.dueDate;
   let datePart = "";
-  if (!dateTimeString) {
+  if (!dateTimeString || dateTimeString === null) {
     datePart = "None";
   } else {
     datePart = dateTimeString.split("T")[0];
@@ -20,10 +20,10 @@ const CreateTable = (task) => {
     case "Unassigned":
       color = "unassigned";
       break;
-    case "To do":
+    case "To do": 
       color = "to-do";
       break;
-    case "In progress":
+    case "In progress": 
       color = "in-progress";
       break;
     case "Completed":
@@ -38,9 +38,9 @@ const CreateTable = (task) => {
                   >
                     ${task.title}
                   </th>
-                  <td class="px-6 py-3">${task.dueDate}</td>
+                  <td class="px-6 py-3">${datePart}</td>
                   <td class="px-6 py-4">
-                    <div class="unassigned status">${task.status}</div>
+                    <div class="${color} status">${task.status}</div>
                   </td>
                   <td class="px-6 py-4 priority">${task.priorityLevel}</td>
                   <td class="px-6 py-4">${owner}</td>

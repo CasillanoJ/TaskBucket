@@ -1,28 +1,25 @@
-const getTaskList = async (skip, limit, status) => {
+export const getTaskList = async () => {
   let options = () => {
     return {
       method: "POST",
-      body: JSON.stringify({
-        status: status,
-      }),
+      body: JSON.stringify({}),
       headers: {
         "Content-Type": "application/json",
         Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY0NDg4MjJjM2IzMzI1NWUzZWFmODciLCJlbWFpbCI6ImFkbWluMUBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSm9iZXJ0IiwibGFzdF9uYW1lIjoiSm9obiIsImlzQWRtaW4iOnRydWUsImlzVmVyaWZpZWQiOnRydWUsImlhdCI6MTcxNTU5MjE5NSwiZXhwIjoxNzE1NTk1Nzk1fQ.8wGwIJF9xfHK1ExkHUwJNnvA4EzwtmboYGBjZEg78f4",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY0NDg4MjJjM2IzMzI1NWUzZWFmODciLCJlbWFpbCI6ImFkbWluMUBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSm9iZXJ0IiwibGFzdF9uYW1lIjoiSm9obiIsImlzQWRtaW4iOnRydWUsImlzVmVyaWZpZWQiOnRydWUsImlhdCI6MTcxNTk1Njc2NywiZXhwIjoxNzE1OTYwMzY3fQ.YODzm8_Ugex4f-WVUB2zC8-HoNfKeQQ-p-EvlDV1K4o",
       },
     };
   };
 
   let data = await api_client(
-    `${getEnv("dev")}${getEndpoint("task")}/data`,
+    `${getEnv("dev")}${getEndpoint("task")}/`,
     options()
   );
-
+  
   return {
-    data: data.data,
+    data: data.tasks,
     status: data.status,
     message: data.message,
-    count: data.count,
-    total: data.totalTask,
+    total: data.lenght,
   };
 };

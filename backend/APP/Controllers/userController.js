@@ -1,14 +1,14 @@
-const User = require("../Models/user_model");
-const bcrypt = require("bcrypt");
+const User = require('../Models/user_model');
+const bcrypt = require('bcrypt');
 
-const jwt = require("jsonwebtoken");
-const { GenerateTokens } = require("./Authentication_Controller");
+const jwt = require('jsonwebtoken')
+const {GenerateTokens} = require('./Authentication_Controller')
 
 const addUser = async (req, res, next) => {
   const saltRound = 10;
 
   try {
-    let { first_name, last_name, email, password } = req.body;
+    let { first_name, last_name, email, password,  } = req.body;
 
     const checkUser = await User.findOne({ email: email });
 
@@ -53,20 +53,21 @@ const addUser = async (req, res, next) => {
   }
 };
 
-const getAllUsers = async (req, res, next) => {
-  try {
-    const users = await User.find({ isVerified: true }).select("-password");
-    if (users.length != 0) {
+const getAllUsers = async (req, res, next)=>{
+
+  try{
+      const users = await User.find({isVerified:true}).select('-password')
+      if(users.length != 0){
+          res.status(200).json({
+              successful: true,
+              message: "Succesfully retrieved User details.",
+              count: users.length,
+               data: users
+      })
+    }else{
       res.status(200).json({
         successful: true,
-        message: "Succesfully retrieved User details.",
-        count: users.length,
-        data: users,
-      });
-    } else {
-      res.status(200).json({
-        successful: true,
-        message: "No User data yet",
+        message: 'No User data yet',
         count: users.length,
       });
     }
@@ -82,13 +83,14 @@ const changePassword = async (req, res, next) => {
   const saltRound = 10;
 
   try {
-    const { oldPassword, newPassword, confirmPassword } = req.body;
-    const userId = req.user.userId;
+    const {  oldPassword, newPassword, confirmPassword } = req.body;
+    const userId = req.user.userId
+
 
     if (newPassword !== confirmPassword) {
       return res.status(400).json({
         successful: false,
-        message: "New password and confirm password do not match",
+        message: 'New password and confirm password do not match',
       });
     }
 
@@ -97,7 +99,7 @@ const changePassword = async (req, res, next) => {
     if (!user) {
       return res.status(404).json({
         successful: false,
-        message: "User not found",
+        message: 'User not found',
       });
     }
 
@@ -106,7 +108,7 @@ const changePassword = async (req, res, next) => {
     if (!isPasswordValid) {
       return res.status(400).json({
         successful: false,
-        message: "Invalid old password",
+        message: 'Invalid old password',
       });
     }
 
@@ -117,7 +119,7 @@ const changePassword = async (req, res, next) => {
 
     return res.status(200).json({
       successful: true,
-      message: "Password changed successfully",
+      message: 'Password changed successfully',
     });
   } catch (error) {
     return res.status(500).json({
@@ -126,113 +128,124 @@ const changePassword = async (req, res, next) => {
     });
   }
 };
-const LoginUser = async (req, res, next) => {
+const LoginUser = async (req, res, next)=>{
+
   try {
     const { email, password } = req.body;
+    
 
     const user = await User.findOne({ email: email });
     if (!user) {
-      return res.status(400).send({
-        successful: false,
-        message: "Invalid Email Or Password",
+        return res.status(400).send({
+          successful: false,
+          message: "Invalid Email Or Password"
       });
     }
     const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
-      return res.status(400).send({
-        successful: false,
-        message: "Invalid Email Or Password",
+          return res.status(400).send({
+          successful: false,
+          message: "Invalid Email Or Password"
       });
+
     }
 
-    if (!user.isVerified) {
+    if(!user.isVerified){
       res.status(400).json({
-        successful: false,
+        successful : false,
         message: "User is not verified",
-      });
-    } else {
-      const { accessToken, refreshToken } = GenerateTokens(user);
+      })
+    }else{
 
-      res.cookie("accessToken", accessToken, {
-        httpOnly: true,
-        maxAge: 3600000,
-      }); // Max age in milliseconds (1 hour)
-      res.cookie("refreshToken", refreshToken, {
-        httpOnly: true,
-        maxAge: 604800000,
-      }); // Max age in milliseconds (7 days)
+      const {accessToken, refreshToken} = GenerateTokens(user)
+    
+      res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 3600000 }); // Max age in milliseconds (1 hour)
+      res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 604800000 }); // Max age in milliseconds (7 days)
+
 
       res.status(200).json({
-        successful: true,
+        successful : true,
         message: "Succesfully Logged In",
-        "Acess Token": accessToken,
-        "Refresh Token": refreshToken,
-      });
+        "Access Token" :accessToken,
+         "Refresh Token" : refreshToken
+        });
     }
-  } catch (error) {
-    res.status(500).send({
-      successful: false,
-      message: error.message,
-    });
-  }
-};
+  
 
-const VerifyUser = async (req, res, next) => {
+
+} catch (error) {
+  res.status(500).send({
+    successful: false,
+    message: error.message
+})
+}
+}
+
+
+const VerifyUser = async(req,res,next) =>{
   try {
-    const isAdmin = req.user.isAdmin;
-    const user = req.body.userID;
+    const isAdmin = req.user.isAdmin
+    const user = req.body.userID
 
-    if (isAdmin) {
-      const user = await User.findOne(user);
+    if(isAdmin){
+      const user = await User.findOne(user)
 
-      if (!user) {
+      if(!user){
         res.status(404).json({
           successful: false,
           message: `Cannot Find the user`,
-        });
-      } else {
-        user.isVerified = true;
-        await user.save();
+        })
 
+      }else{
+        user.isVerified = true;
+        await user.save()
+  
         res.status(200).json({
-          successful: true,
+          successful : true,
           message: "Succesfully Verified the User",
-          user: user.id,
-        });
+          user: user.id
+          });
+
       }
-    } else {
+
+     
+    }else{
       res.status(401).json({
         successful: false,
         message: `Unauthorized access`,
-      });
+      })
     }
+
+    
+
   } catch (error) {
     res.status(500).send({
       successful: false,
-      message: error.message,
-    });
+      message: error.message
+  })
+    
   }
-};
+}
 
-const LogoutUser = async (req, res, next) => {
-  res.clearCookie("accessToken", { httpOnly: true });
+const LogoutUser = async(req,res,next) =>{
 
-  res.clearCookie("refreshToken", { httpOnly: true });
+  res.clearCookie('accessToken', {httpOnly: true});
+
+  res.clearCookie('refreshToken', {httpOnly: true});
+
 
   if (req.session) {
     req.session.destroy((err) => {
       if (err) {
-        return res
-          .status(500)
-          .json({ successful: false, message: "Failed to logout" });
+        return res.status(500).json({ successful: false, message: 'Failed to logout' });
       }
     });
   }
 
-  return res
-    .status(200)
-    .json({ successful: true, message: "Logout successful" });
-};
+  return res.status(200).json({ successful: true, message: 'Logout successful' });
+
+}
+
 
 module.exports = {
   addUser,
@@ -240,5 +253,5 @@ module.exports = {
   LoginUser,
   changePassword,
   VerifyUser,
-  LogoutUser,
+  LogoutUser
 };

@@ -1,12 +1,102 @@
-// const mongoose = require("mongoose");
-const { ObjectId } = require("mongodb");
 const Task = require("../Models/task_model");
+const { SendEmail } = require("./nodeEmailerController");
+const { CreateNotification } = require("./notificationController");
 
-const getTasks = async (req, res) => {
+// Multer configuration for file uploads
+const multer = require("multer");
+const storage = multer.memoryStorage();
+const upload = multer({ storage }).single("file"); // Specify the field name for the file
+
+const createTask = async (req, res) => {
   try {
-    const tasks = await Task.find();
+    // Use multer to handle file upload
+    upload(req, res, async function (err) {
+      if (err instanceof multer.MulterError) {
+        // A Multer error occurred when uploading
+        return res
+          .status(400)
+          .json({ successful: false, message: err.message });
+      } else if (err) {
+        // An unknown error occurred when uploading
+        return res
+          .status(500)
+          .json({ successful: false, message: err.message });
+      }
 
-    res.status(200).json({ tasks });
+      const { title, description, priorityLevel, assignee, dueDate, status } =
+        req.body;
+      const attachedFiles = req.file ? [req.file.originalname] : []; // Get the filename if file is uploaded, otherwise set to empty array
+
+      try {
+        const isAdmin = req.user.isAdmin;
+
+        if (isAdmin) {
+          const newTask = new Task({
+            title,
+            description,
+            priorityLevel,
+            assignee,
+            dueDate,
+            status,
+            attachedFiles: attachedFiles || [], // Set attached_files to empty array if not provided
+          });
+
+          if (assignee == null) {
+            newTask.status = "Unassigned";
+          } else {
+            newTask.status = "To do";
+          }
+
+          const savedTask = await newTask.save(); // Make sure to await the save operation
+          console.log("Saved task:", savedTask);
+          // const populatedTask = await savedTask
+          //   .populate("assignee", "email")
+          //   .execPopulate();
+
+          let NotificationMessage;
+          if (savedTask.assignee != null) {
+            NotificationMessage = await CreateNotification(
+              "Create Task",
+              savedTask.assignee,
+              savedTask.title
+            );
+            // SendEmail(
+            //   NotificationMessage,
+            //   "Created Task",
+            //   populatedTask.assignee.email
+            // );
+          } else {
+            NotificationMessage = await CreateNotification(
+              "Unassigned Task",
+              savedTask.assignee,
+              savedTask.title
+            );
+          }
+
+          return res.status(201).send({
+            successful: true,
+            message: `Successfully added Task: ${savedTask.title}`,
+            task: savedTask._id,
+          });
+        } else {
+          return res.status(401).json({
+            successful: false,
+            message: `Unauthorized access`,
+          });
+        }
+      } catch (error) {
+        if (error.message.includes("assignee")) {
+          return res.status(404).send({
+            successful: false,
+            message: "Assignee not found",
+          });
+        }
+        return res.status(500).send({
+          successful: false,
+          message: error.message,
+        });
+      }
+    });
   } catch (error) {
     res.status(500).send({
       successful: false,
@@ -15,41 +105,15 @@ const getTasks = async (req, res) => {
   }
 };
 
-const createTask = async (req, res) => {
-  const { title, description, priorityLevel, assignee, dueDate, status } =
-    req.body;
-
+const getTasks = async (req, res) => {
   try {
-    
-    const task = new Task({
-      title,
-      description,
-      priorityLevel,
-      assignee,
-      dueDate,
-      status,
-    });
+    const tasks = await Task.find().populate(
+      "assignee",
+      "first_name last_name"
+    );
 
-    if (assignee == null) {
-      task.status = "Unassigned";
-    } else {
-      task.status = "To-do";
-    }
-
-    const savedTask = await task.save();
-
-    res.status(201).send({
-      successful: true,
-      message: `Successfully added Task: ${savedTask.title}`,
-      task: savedTask._id,
-    });
+    res.status(200).json({ tasks });
   } catch (error) {
-    if (error.message.includes("assignee")) {
-      return res.status(404).send({
-        successful: false,
-        message: "Assignee not found",
-      });
-    }
     res.status(500).send({
       successful: false,
       message: error.message,
@@ -74,6 +138,21 @@ const updateTask = async (req, res) => {
     task.dueDate = dueDate;
 
     const taskUpdate = await task.save();
+    await taskUpdate.populate("assignee", "email").execPopulate();
+
+    const NotificationMessage = await CreateNotification(
+      "Update Task",
+      taskUpdate.assignee,
+      taskUpdate.title
+    );
+
+    if (taskUpdate.assignee != null || taskUpdate.assignee != "") {
+      SendEmail(
+        NotificationMessage,
+        "Updated Status",
+        taskUpdate.assignee.email
+      );
+    }
 
     handleTaskMethod(res, taskUpdate, "updated");
   } catch (error) {
@@ -96,6 +175,20 @@ const updateStatus = async (req, res) => {
 
     updatedStats.status = req.body.status;
     updatedStats = await updatedStats.save();
+    await updatedStats.populate("assignee", "email").execPopulate();
+
+    const NotificationMessage = await CreateNotification(
+      "Update Status",
+      updatedStats.assignee,
+      updatedStats.title
+    );
+    if (updatedStats.assignee != null || updatedStats.assignee != "") {
+      SendEmail(
+        NotificationMessage,
+        "Updated Status",
+        updatedStats.assignee.email
+      );
+    }
 
     handleTaskMethod(res, updatedStats, "Updated status of");
   } catch (err) {
@@ -148,11 +241,17 @@ const filterTasks = async (req, res) => {
     let filter = {};
 
     if (req.body.priorityLevel) {
-      filter.priorityLevel = req.body.priorityLevel;
+      const priorityLevels = Array.isArray(req.body.priorityLevel)
+        ? req.body.priorityLevel
+        : [req.body.priorityLevel];
+      filter.priorityLevel = { $in: priorityLevels };
     }
 
     if (req.body.status) {
-      filter.status = req.body.status;
+      const statuses = Array.isArray(req.body.status)
+        ? req.body.status
+        : [req.body.status];
+      filter.status = { $in: statuses };
     }
 
     const filteredTasks = await Task.find(filter);
@@ -168,7 +267,7 @@ const filterTasks = async (req, res) => {
 
 const sortBy = async (req, res) => {
   try {
-    let category = parseInt(req.query.category);
+    let category = parseInt(req.search.category);
     let sortCat = "";
     let sortValue = 0;
 
@@ -233,6 +332,7 @@ async function handleTaskMethod(res, action, str) {
     });
   } else {
     res.status(200).send({
+      data: action,
       successful: true,
       message: `Successfully ${str} Task.`,
       id: action._id,
@@ -241,7 +341,7 @@ async function handleTaskMethod(res, action, str) {
 }
 
 const getTotalcompletedofuser = async (req, res) => {
-  const { userId, startDate, endDate } = req.query;
+  const { userId, startDate, endDate } = req.search;
 
   try {
     const user = await User.findById(userId);
@@ -273,7 +373,7 @@ const getTotalcompletedofuser = async (req, res) => {
 };
 
 const getHistoryLogs = async (req, res) => {
-  const { startDate, endDate } = req.query;
+  const { startDate, endDate } = req.search;
 
   try {
     const tasks = await Task.find({
@@ -289,6 +389,40 @@ const getHistoryLogs = async (req, res) => {
   }
 };
 
+const searchTasks = async (req, res) => {
+  try {
+    const { query } = req.query;
+    if (!query || query.trim().length === 0) {
+      return res
+        .status(400)
+        .send("Query parameter is required and cannot be empty.");
+    }
+
+    const tasks = await Task.find(
+      { $text: { $search: query } },
+      { score: { $meta: "textScore" } }
+    ) // Sorting by textScore to show best matches first
+      .sort({ score: { $meta: "textScore" } })
+      .limit(10);
+
+    if (tasks.length === 0) {
+      const partialTasks = await Task.find({
+        $or: [
+          { title: { $regex: query, $options: "i" } }, // Partial search on title
+          { description: { $regex: query, $options: "i" } }, // Partial search on description
+        ],
+      }).limit(10);
+
+      res.json({ count: partialTasks.length, data: partialTasks });
+    } else {
+      res.json({ count: tasks.length, data: tasks });
+    }
+  } catch (error) {
+    console.error("Search Task Error:", error);
+    res.status(500).send("An error occurred while searching for tasks.");
+  }
+};
+
 module.exports = {
   getTasks,
   createTask,
@@ -300,4 +434,5 @@ module.exports = {
   filterTasks,
   getTotalcompletedofuser,
   getHistoryLogs,
+  searchTasks,
 };

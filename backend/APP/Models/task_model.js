@@ -51,13 +51,13 @@ const taskSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ["Unassigned", "To-do", "In progress", "Completed"],
+      enum: ["Unassigned", "To do", "In progress", "Completed"],
       required: [true, "Status is required"],
     },
     isClaimed: {
       type: Boolean,
       default: false,
-      required: [true, "Must be either claim or not, wont accept null"]
+      required: [true, "Must be either claim or not, wont accept null"],
     },
   },
   {

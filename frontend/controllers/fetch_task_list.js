@@ -1,41 +1,47 @@
-const FetchTaskList = async (status) => {
-  const taskContainer = document.getElementById(`${status}-task-content`);
+import { toggleFilter, filterTasks } from "./filter_task.js";
+import { CreateTable } from "../components/TaskList/task_table.js";
+import { CreateFeatures } from "../components/TaskList/task_features.js";
+import { CreateFilterSidebar } from "../components/TaskList/filter_sidebar.js";
+import { getTaskList } from "../API/Get_taskList.js";
+import { searchTask } from "../API/search_task.js";
 
-  let request = "";
-  
+const FetchTaskList = async (searchQuery = "") => {
+  const taskContainer = document.getElementById("rows");
+  const filterSidebar = document.getElementById("filter-sidebar");
+  const taskFeatures = document.getElementById("features");
+
   taskContainer.innerHTML = "";
 
-  switch (status) {
-    case "completed":
-      request = "Completed";
-      break;
-    case "to-do":
-      request = "To-do";
-      break;
-    case "in-progress":
-      request = "In Progress";
-      break;
-    case "unassigned":
-      request = "Unassigned";
-      break;
-    default:
-      break;
+  try {
+    let data;
+    if (searchQuery) {
+      data = await searchTask(searchQuery);
+    } else {
+      data = await getTaskList();
+    }
+
+    if (data.status == 401) {
+      return;
+    }
+
+    let tableHtml = ``;
+
+    if (data.data) {
+      data.data.forEach((task) => {
+        tableHtml += CreateTable(task);
+      });
+    }
+
+    taskContainer.innerHTML += tableHtml;
+    taskFeatures.innerHTML = CreateFeatures();
+
+    filterSidebar.innerHTML = CreateFilterSidebar();
+
+    filterTasks();
+    toggleFilter();
+  } catch (error) {
+    console.error("Error fetching task list:", error);
   }
-
-  let data = await getTaskList(request);
-
-  if (data.status == 401) {
-    return;
-  }
-
-  let tableHtml = ``;
-
-  if (data.dat) {
-    data.data.forEach((task) => {
-      tableHtml += CreateTable(task);
-    });
-  }
- 
-
-  taskContainer.innerHTML += tableHtml;
 };
+
+export { FetchTaskList };
