@@ -61,3 +61,15 @@ html {
 .priority-lvl-item{
   @apply block px-4 py-2 hover:bg-light-active text-light-primary dark:text-primary-100  dark:hover:bg-task dark:hover:text-black;
 }
+
+.indactor-color-urgent{
+ @apply bg-urgent;
+}
+
+.indactor-color-high{
+  @apply bg-high;
+ }
+
+ .indactor-color-neutral{
+  @apply bg-neutral;
+ }

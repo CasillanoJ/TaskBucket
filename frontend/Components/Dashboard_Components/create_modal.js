@@ -71,7 +71,7 @@ const CreateModal = (task) => {
           
         </div>
         <div class="ml-20 mt-2 mb-5 me-8"> 
-          <textarea class="text-white text-md bg-task-content rounded-md border-none w-full h-36 resize-none overflow-hidden overflow-y-hidden" readonly>${task.description}</textarea>
+          <textarea class="text-white text-md dark:bg-task-content rounded-md border-none w-full h-36 resize-none overflow-hidden overflow-y-hidden" readonly>${task.description}</textarea>
         </div>
   
   

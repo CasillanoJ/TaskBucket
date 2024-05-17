@@ -29,11 +29,12 @@ function GenerateTokens(user) {
 
 function VerifyToken(req, res, next) {
     // FOR TESTING PURPOSE
-//   const token = req.headers['authorization'];
+  const token = req.headers['authorization'];
+  const refreshToken = req.headers['refreshToken'];
 
     // FOR COOKIES
-    const token = req.cookies.accessToken;
-     const refreshToken = req.cookies.refreshToken;
+    // const token = req.cookies.accessToken;
+    //  const refreshToken = req.cookies.refreshToken;
 
   if (!token) {
       return res.status(401).json({

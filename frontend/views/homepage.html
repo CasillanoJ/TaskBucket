@@ -112,8 +112,11 @@
                 </span>
               </div>
             </div>
-
+            
             <form class="max-w-base mx-auto text-center" id="login-form">
+              <div class="flex justify-start mb-3" id="message-container">
+            
+              </div>
               <div class="mb-5">
                 <input
                   type="email"
@@ -124,6 +127,7 @@
                 />
               </div>
               <div class="mb-5">
+                
                 <input
                   type="password"
                   id="password"
@@ -132,6 +136,7 @@
                   required
                 />
               </div>
+              
               <div class="flex items-start mb-5">
                 <div class="flex items-center h-5">
                   <input
@@ -148,21 +153,54 @@
                   >Remember me</label
                 >
               </div>
+              
               <button
                 type="submit" 
                 class="text-main-body bg-primary-100 hover:bg-primary-200 focus:ring-4 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl text-lg w-full base:w-auto md:px-10 py-2.5 text-center dark:bg-primary-100 dark:hover:bg-primary-200 dark:focus:ring-primary-100 mb-6"
               >
                 LOG IN
               </button>
+              
 
               <a href="#" class="border-b-2 border-primary-100">
                 Forgot password
               </a>
+              
             </form>
           </div>
         </div>
       </div>
     </main>
+   
+   
+    <div>
+      <dialog id="Unverified" class="modal">
+        <div class="modal-box rounded-lg bg-secondary w-[1440px] h-[400px] max-w-5xl flex flex-col justify-center items-center">
+            <form method="dialog">
+                <button class="btn btn-sm btn-circle btn-ghost text-light-primary dark:text-primary-100 text-2xl absolute right-2 top-2">✕</button>
+            </form>
+            <div class="text-center" id="main-container">
+                <div class="mb-5">
+                    <h1 class="text-txt-100 text-2xl">Your account has not yet been verified</h1>
+                </div>
+                <div class="mb-5">
+                    <p class="text-txt-100 text-wrap">Waiting for admin to verify your account.</p>
+                </div>
+                <div class="flex justify-center">
+                  <form method="dialog">
+                    <button class="flex justify-center bg-primary-100 text-black p-3 rounded-xl">
+                        <svg class="w-[20px] h-[20px] text-black mt-0.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                        </svg>
+                        Homepage
+                    </button>
+                  </form>
+                </div>
+            </div>
+        </div>
+    </dialog>
+
+    </div>
 
     <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
     <script src="../Controllers/Homepage_Controllers/login_controller.js"></script>

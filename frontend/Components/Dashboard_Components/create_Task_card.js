@@ -19,20 +19,20 @@ const CreateCard = (task)=> {
   
     switch (task.priorityLevel) {
       case "Urgent":
-        color = "bg-red-500";
+        color = "indactor-color-urgent";
         break;
       case "High":
-        color = "bg-yellow-400";
+        color = "indactor-color-high";
         break;
       case "Neutral":
-        color = "bg-gray-400";
+        color = "indactor-color-neutral";
         break;
     }
     return `
 
-    <div class="w-100 p-4 group h-[400px]" id="${task._id}" data-id="${task._id}" onclick="Task_modal_${task._id}.showModal()" >
+    <div class="w-100 p-4 group h-auto" id="${task._id}" data-id="${task._id}" onclick="Task_modal_${task._id}.showModal()" >
           <div
-                class="flex  bg-light-overiew-bg dark:bg-task-content rounded-xl shadow-lg h-40  hover:border-light-primary hover:border-2 dark:hover:border-primary">
+                class="flex  bg-light-overiew-bg dark:bg-task-content rounded-xl shadow-lg h-40  hover:border-light-primary hover:border-2 dark:hover:border-primary-100">
                 <div class="tooltip tooltip-right text-2xl " data-tip="${task.priorityLevel}">
                   <div class="w-6 h-40 max-h-64 overflow-y-auto ${color} rounded-l-lg">
                     <!-- COLOR INDICATOR -->

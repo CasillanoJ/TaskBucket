@@ -2,13 +2,16 @@ const User = require('../Models/user_model');
 const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken')
-const {GenerateTokens} = require('./Authentication_Controller')
+const {GenerateTokens, VerifyToken} = require('./Authentication_Controller')
+
+const {SendEmail} = require('../Controllers/nodeEmailerController')
 
 const addUser = async (req, res, next) => {
   const saltRound = 10;
 
   try {
     let { first_name, last_name, email, password,  } = req.body;
+   
 
     const checkUser = await User.findOne({ email: email });
 
@@ -151,9 +154,12 @@ const LoginUser = async (req, res, next)=>{
     }
 
     if(!user.isVerified){
-      res.status(400).json({
-        successful : false,
+      res.status(200).json({
+        successful : true,
         message: "User is not verified",
+        user:{
+          "isVerified" : user.isVerified
+        }
       })
     }else{
 
@@ -162,13 +168,17 @@ const LoginUser = async (req, res, next)=>{
       res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 3600000 }); // Max age in milliseconds (1 hour)
       res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 604800000 }); // Max age in milliseconds (7 days)
 
-
+      
       res.status(200).json({
         successful : true,
         message: "Succesfully Logged In",
         "Access Token" :accessToken,
-         "Refresh Token" : refreshToken
-        });
+         "Refresh Token" : refreshToken,
+         user: {
+          isAdmin: user.isAdmin,
+          isVerified: user.isVerified, 
+        }
+      });
     }
   
 
@@ -246,6 +256,103 @@ const LogoutUser = async(req,res,next) =>{
 
 }
 
+const GetChangePasswordCode = async(req,res,next) =>{
+    try {
+      const email = req.body.email
+
+      if(email == null || email ==""){
+        return res.status(404).json({
+          successful: false,
+          message: `Invalid Email`,
+        })
+      }
+
+      const user = await User.findOne({email: email})
+      if (!user) {
+        return res.status(404).json({
+          successful: false,
+          message: `Cannot Find the user`,
+        })
+      }
+
+      function generateRandomString(length) {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let result = '';
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          result += characters.charAt(randomIndex);
+        }
+        return result;
+      }
+
+      const VerificationCode = generateRandomString(8)
+
+      user.forgot_password_code = VerificationCode
+      user.forgot_password_code_created_at = Date.now()
+
+      await user.save()
+      SendEmail(VerificationCode,"Verification Code", user.email)
+       return res.status(200).send({
+          successful: true,
+          message: 'Succesfully Sent A Verification Code to your Email',
+        });
+      
+
+
+    } catch (error) {
+      res.status(500).send({
+        successful: false,
+        message: error.message
+    })
+    }
+}
+
+const VerifiyCode = async(req,res,next) =>{
+  try {
+    const code = req.body.code
+    const email = req.body.email
+
+   const user =  await User.findOne({email:email})
+
+   if(!user){
+    return res.status(404).json({
+      successful: false,
+      message: `Cannot Find the user`,
+    })
+   }
+
+   if(user.forgot_password_code !=  code ){
+    return res.status(400).json({
+      successful: false,
+      message: "Invalid Verification Code",
+    })
+   }
+  
+   const expirationTime = new Date(user.forgot_password_code_created_at.getTime() + 10 * 60 * 1000);
+
+ 
+   if (expirationTime > new Date()) {
+     return res.status(200).json({
+       successful: true,
+       message: "Successfully Validated Code",
+     });
+   } else {
+     return res.status(400).json({
+       successful: false,
+       message: "Verification Code is already Expired",
+     });
+   }
+
+
+    
+  } catch (error) {
+    res.status(500).send({
+      successful: false,
+      message: error.message
+  })
+  }
+}
+
 
 module.exports = {
   addUser,
@@ -253,5 +360,7 @@ module.exports = {
   LoginUser,
   changePassword,
   VerifyUser,
-  LogoutUser
+  LogoutUser,
+  GetChangePasswordCode,
+  VerifiyCode,
 };

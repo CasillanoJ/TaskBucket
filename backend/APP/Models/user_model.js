@@ -30,6 +30,14 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         required: true,
         default: false
+    },
+    forgot_password_code: {
+        type: String,
+        required: false,
+    },
+    forgot_password_code_created_at: {
+     type: Date,
+     required: false,
     }
    
 

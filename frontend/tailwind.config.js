@@ -48,7 +48,10 @@ module.exports = {
       "task-bg": "#2D2A44",
       "task-content" :"#3B3854",
       "second-text-color": "#AEA9D6",
-      "progress-count": "#09DDC9"
+      "progress-count": "#09DDC9",
+      urgent: "#FF433E",
+      high : "#FDB014",
+      neutral:"#71898E",
       },
       fontFamily: {
         rubik: ["Rubik", "sans-serif"],

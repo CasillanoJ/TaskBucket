@@ -29,10 +29,10 @@ const  FetchTaskList = async(skip,limit,status) =>{
           request = "Completed";
           break;
       case 'todo':
-          request = "To-do";
+          request = "To do";
           break;
       case 'inprogress':
-          request = "In Progress";
+          request = "In progress";
           break;
       case 'unassigned':
           request = "Unassigned";
@@ -45,15 +45,16 @@ const  FetchTaskList = async(skip,limit,status) =>{
 
   
      let data = await getTaskList(skip,limit,request)
-    
+
+
 
     if (data.status == 401 ){
-      
+      // window.location.href = '/frontend/views/homepage.html'
       return
     }
 
     if(data.message == "No Task Completed Yet"){
-      taskContainer.innerHTML = `<h1 class='flex justify-center text-light-primary dark:text-primary'> ${data.message} </h1>`
+      taskContainer.innerHTML = `<h1 class='flex justify-center text-light-primary dark:text-primary-100'> ${data.message} </h1>`
       
     }
 
