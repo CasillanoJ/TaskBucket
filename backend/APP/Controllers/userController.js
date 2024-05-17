@@ -2,16 +2,23 @@ const User = require('../Models/user_model');
 const bcrypt = require('bcrypt');
 
 const jwt = require('jsonwebtoken')
+<<<<<<< HEAD
 const {GenerateTokens, VerifyToken} = require('./Authentication_Controller')
 
 const {SendEmail} = require('../Controllers/nodeEmailerController')
+=======
+const {GenerateTokens} = require('./Authentication_Controller')
+>>>>>>> origin/backend/frontend/merge
 
 const addUser = async (req, res, next) => {
   const saltRound = 10;
 
   try {
     let { first_name, last_name, email, password,  } = req.body;
+<<<<<<< HEAD
    
+=======
+>>>>>>> origin/backend/frontend/merge
 
     const checkUser = await User.findOne({ email: email });
 
@@ -154,12 +161,18 @@ const LoginUser = async (req, res, next)=>{
     }
 
     if(!user.isVerified){
+<<<<<<< HEAD
       res.status(200).json({
         successful : true,
         message: "User is not verified",
         user:{
           "isVerified" : user.isVerified
         }
+=======
+      res.status(400).json({
+        successful : false,
+        message: "User is not verified",
+>>>>>>> origin/backend/frontend/merge
       })
     }else{
 
@@ -168,17 +181,26 @@ const LoginUser = async (req, res, next)=>{
       res.cookie('accessToken', accessToken, { httpOnly: true, maxAge: 3600000 }); // Max age in milliseconds (1 hour)
       res.cookie('refreshToken', refreshToken, { httpOnly: true, maxAge: 604800000 }); // Max age in milliseconds (7 days)
 
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> origin/backend/frontend/merge
       res.status(200).json({
         successful : true,
         message: "Succesfully Logged In",
         "Access Token" :accessToken,
+<<<<<<< HEAD
          "Refresh Token" : refreshToken,
          user: {
           isAdmin: user.isAdmin,
           isVerified: user.isVerified, 
         }
       });
+=======
+         "Refresh Token" : refreshToken
+        });
+>>>>>>> origin/backend/frontend/merge
     }
   
 
@@ -255,6 +277,7 @@ const LogoutUser = async(req,res,next) =>{
   return res.status(200).json({ successful: true, message: 'Logout successful' });
 
 }
+<<<<<<< HEAD
 
 const GetChangePasswordCode = async(req,res,next) =>{
     try {
@@ -352,6 +375,8 @@ const VerifiyCode = async(req,res,next) =>{
   })
   }
 }
+=======
+>>>>>>> origin/backend/frontend/merge
 
 
 module.exports = {
@@ -360,7 +385,11 @@ module.exports = {
   LoginUser,
   changePassword,
   VerifyUser,
+<<<<<<< HEAD
   LogoutUser,
   GetChangePasswordCode,
   VerifiyCode,
+=======
+  LogoutUser
+>>>>>>> origin/backend/frontend/merge
 };

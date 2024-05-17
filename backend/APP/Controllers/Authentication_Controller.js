@@ -30,11 +30,18 @@ function GenerateTokens(user) {
 function VerifyToken(req, res, next) {
     // FOR TESTING PURPOSE
   const token = req.headers['authorization'];
+<<<<<<< HEAD
   const refreshToken = req.headers['refreshToken'];
 
     // FOR COOKIES
     // const token = req.cookies.accessToken;
     //  const refreshToken = req.cookies.refreshToken;
+=======
+
+    // FOR COOKIES
+    // const token = req.cookies.accessToken;
+     const refreshToken = req.cookies.refreshToken;
+>>>>>>> origin/backend/frontend/merge
 
   if (!token) {
       return res.status(401).json({
