@@ -4,18 +4,13 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> origin/backend/frontend/merge
 .btn {
   @apply rounded-xl py-1 px-2 md:py-2 md:px-3 text-xs md:text-lg font-bold cursor-pointer tracking-wider;
 }
 
-<<<<<<< HEAD
 
-=======
 .clear-btn {
   @apply btn rounded-xl py-1 px-2 md:py-2 md:px-3 text-sm md:text-base font-semibold cursor-pointer tracking-wider;
 }
@@ -49,7 +44,6 @@
   background-image: url("../assets/images/wavybg.png");
   background-blend-mode: overlay;
 }
->>>>>>> origin/backend/frontend/merge
 
 .trow {
   @apply p-3 text-lg text-txt-200;
@@ -75,7 +69,6 @@
   font-size: 48px;
 }
 
-<<<<<<< HEAD
 .side-nav-item {
   @apply flex items-center p-2 text-base font-medium text-gray-900  dark:text-white hover:bg-light-active hover:text-light-primary dark:hover:bg-task dark:hover:text-black hover:rounded-full rounded-full;
 }
@@ -117,7 +110,6 @@ html {
  .indactor-color-neutral{
   @apply bg-neutral;
  }
-=======
 .category-label {
   @apply font-normal mr-1 text-xs md:text-sm text-black dark:text-txt-100;
 }
@@ -134,4 +126,3 @@ html {
 .completed {
   @apply p-1.5 tracking-wider text-completed bg-completed rounded-lg bg-opacity-10
 }
->>>>>>> origin/backend/frontend/merge

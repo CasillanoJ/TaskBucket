@@ -51,3 +51,7 @@ themeToggleBtn.addEventListener("click", function () {
     }
   }
 });
+
+const darkMode = ()=>{
+  
+}

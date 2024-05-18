@@ -1,7 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
 const dontenv = require("dotenv").config();
-<<<<<<< HEAD
 const cookieParser = require('cookie-parser');
 
 
@@ -17,30 +16,11 @@ const userRouter = require('./APP/Routers/user_routes')
 const taskRouter = require('./APP/Routers/task_routes');
 const notificationRouter = require('./APP/Routers/notification_routes')
 
-=======
-const cookieParser = require("cookie-parser");
-
-//IMPORT DB
-const app = express();
-app.use(cookieParser());
-
-// ROUTERS
-const loginRoutes = require("./APP/Routers/login_routes");
-const userRouter = require("./APP/Routers/user_routes");
-const taskRouter = require("./APP/Routers/task_routes");
-const notificationRouter = require("./APP/Routers/notification_routes");
->>>>>>> origin/backend/frontend/merge
 
 app.use(morgan("dev"));
 
-<<<<<<< HEAD
-
-app.use(morgan('dev'));
 
 const db = require('./APP/Models/con_db')
-=======
-const db = require("./APP/Models/con_db");
->>>>>>> origin/backend/frontend/merge
 
 db.connectDB();
 
@@ -63,17 +43,10 @@ app.use((req, res, next) => {
 });
 
 //MIDDLEWARE
-<<<<<<< HEAD
-app.use(loginRoutes)
-app.use('/users', userRouter);
-app.use('/task', taskRouter)
-app.use("/notification",notificationRouter)
-=======
 app.use(loginRoutes);
 app.use("/users", userRouter);
 app.use("/task", taskRouter);
 app.use("/notification", notificationRouter);
->>>>>>> origin/backend/frontend/merge
 
 app.use((req, res, next) => {
   const error = new Error("Not Found");

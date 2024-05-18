@@ -1,10 +1,5 @@
-<<<<<<< HEAD
  /* Classes to define expanded and collapsed state */
  .sidebar-expanded {
-=======
-/* Classes to define expanded and collapsed state */
-.sidebar-expanded {
->>>>>>> origin/backend/frontend/merge
   width: 16rem; /* 64 in tailwind units */
 }
 
