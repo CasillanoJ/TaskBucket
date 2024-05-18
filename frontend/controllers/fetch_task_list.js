@@ -2,7 +2,7 @@ import { toggleFilter, filterTasks } from "./filter_task.js";
 import { CreateTable } from "../components/TaskList/task_table.js";
 import { CreateFeatures } from "../components/TaskList/task_features.js";
 import { CreateFilterSidebar } from "../components/TaskList/filter_sidebar.js";
-import { getTaskList } from "../API/Get_taskList.js";
+import { getTaskList } from "../API/task_list.js";
 import { searchTask } from "../API/search_task.js";
 
 const FetchTaskList = async (searchQuery = "") => {

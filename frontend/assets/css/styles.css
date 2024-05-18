@@ -3590,10 +3590,6 @@ details.collapse summary::-webkit-details-marker {
   position: relative;
 }
 
-.sticky {
-  position: sticky;
-}
-
 .inset-0 {
   inset: 0px;
 }
@@ -3653,10 +3649,6 @@ details.collapse summary::-webkit-details-marker {
 
 .top-8 {
   top: 2rem;
-}
-
-.top-4 {
-  top: 1rem;
 }
 
 .z-10 {
@@ -3795,6 +3787,10 @@ details.collapse summary::-webkit-details-marker {
   margin-right: 1rem;
 }
 
+.mr-64 {
+  margin-right: 16rem;
+}
+
 .ms-2 {
   margin-inline-start: 0.5rem;
 }
@@ -3821,22 +3817,6 @@ details.collapse summary::-webkit-details-marker {
 
 .mt-7 {
   margin-top: 1.75rem;
-}
-
-.mr-0 {
-  margin-right: 0px;
-}
-
-.mr-64 {
-  margin-right: 16rem;
-}
-
-.mr-10 {
-  margin-right: 2.5rem;
-}
-
-.mr-20 {
-  margin-right: 5rem;
 }
 
 .block {

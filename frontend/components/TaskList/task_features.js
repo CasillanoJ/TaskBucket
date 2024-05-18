@@ -138,6 +138,6 @@ export const CreateFeatures = () => {
                 </svg>
               </button>
             </div>
-
+          
           `;
 };

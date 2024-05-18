@@ -6,16 +6,16 @@ export const getTaskList = async () => {
       headers: {
         "Content-Type": "application/json",
         Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY0NDg4MjJjM2IzMzI1NWUzZWFmODciLCJlbWFpbCI6ImFkbWluMUBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSm9iZXJ0IiwibGFzdF9uYW1lIjoiSm9obiIsImlzQWRtaW4iOnRydWUsImlzVmVyaWZpZWQiOnRydWUsImlhdCI6MTcxNTk1Njc2NywiZXhwIjoxNzE1OTYwMzY3fQ.YODzm8_Ugex4f-WVUB2zC8-HoNfKeQQ-p-EvlDV1K4o",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY0NDg4MjJjM2IzMzI1NWUzZWFmODciLCJlbWFpbCI6ImFkbWluMUBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSm9iZXJ0IiwibGFzdF9uYW1lIjoiSm9obiIsImlzQWRtaW4iOnRydWUsImlzVmVyaWZpZWQiOnRydWUsImlhdCI6MTcxNjAwMTkxOSwiZXhwIjoxNzE2MDA1NTE5fQ.8FGBjlV-afm-4377K7n9u8H7NbtMXX9_wYVXjepECRI",
       },
     };
   };
 
   let data = await api_client(
     `${getEnv("dev")}${getEndpoint("task")}/`,
-    options()
+    options()   
   );
-  
+  console.log(data);
   return {
     data: data.tasks,
     status: data.status,
