@@ -7,10 +7,16 @@ const RenderDashboard = ()=>{
 }
 
 
+const DashboardAdmin = ()=>{
+  const value = GetCookie("isAdmin")
 
+  if(value == true || value =="true"){
+    const container = document.getElementById('addTaskbtn-container')
+    container.innerHTML = AddTaskButton()
+  }
+}
 
 document.addEventListener("DOMContentLoaded", async function() {
-  // await RenderSideBar()
-  
+  DashboardAdmin()
   RenderDashboard()
 }); 

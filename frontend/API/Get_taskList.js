@@ -2,8 +2,8 @@
 
 
 const getTaskList = async(skip,limit,status)=>{
-    const AccessToken = localStorage.getItem('accessToken');
-    const RefreshToken = localStorage.getItem('refreshToken');
+    const AccessToken = GetCookie("accessToken")
+    const RefreshToken = GetCookie("refreshToken");
 
 
     let options = ()=> {

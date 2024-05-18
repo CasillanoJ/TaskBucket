@@ -23,7 +23,7 @@ const LoginUser =async()=>{
       if(data.status == 400){
         email = ''
         password = ''
-        messageContainer.innerHTML = `<h1 class="text-urgent"> *Incorrect password or Email</h1>`
+        messageContainer.innerHTML = `<h1 class=" text-xl text-urgent "> *Incorrect password or Email</h1>`
         return
       }
   
@@ -43,22 +43,6 @@ const LoginUser =async()=>{
 
 
         messageContainer.innerHTML =""; 
-
-        let key = "accessToken"
-        let x = document.cookie.split(";");
-        let value = ""
-        for (let index = 0; index < x.length; index++) {
-          const name = x[index].split("=")[0]
-          // console.log(name);
-          // console.log(x[index].split("=")[1]);
-          if (name.trim() === key){
-            value = x[index].split("=")[1]
-            break;
-          }
-          
-        }
-
-        console.log(value);
         // window.location.href = '/frontend/views/dashboard.html'
 
         }
