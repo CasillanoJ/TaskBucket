@@ -64,9 +64,21 @@ const  FetchTaskList = async(skip,limit,status) =>{
 
       if(!data.total ){
         data.total = 0
+        
       }
-    
+        
+
+
      if(data.data && data.total){
+      
+      function isObjectEmpty(data){
+      return Object.keys(data).length == 0
+    }
+
+    if(isObjectEmpty(data.data) || data.data == null){
+      return
+    }
+
       data.data.forEach(task =>{
         cardHtml += CreateCard(task);
         modalHtml += CreateModal(task)

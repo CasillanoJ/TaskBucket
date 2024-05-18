@@ -35,11 +35,30 @@ const LoginUser =async()=>{
          
           Unverified.showModal()
         }else{
-        localStorage.setItem('accessToken', data.accessToken);
-        localStorage.setItem('refreshToken', data.refreshToken);
-     
+       
+
+        document.cookie = `accessToken=${data.accessToken}`;
+        document.cookie = `refreshToken=${data.refreshToken}`;
+        document.cookie = `isAdmin=${data.user.isAdmin}`;
+
+
         messageContainer.innerHTML =""; 
 
+        let key = "accessToken"
+        let x = document.cookie.split(";");
+        let value = ""
+        for (let index = 0; index < x.length; index++) {
+          const name = x[index].split("=")[0]
+          // console.log(name);
+          // console.log(x[index].split("=")[1]);
+          if (name.trim() === key){
+            value = x[index].split("=")[1]
+            break;
+          }
+          
+        }
+
+        console.log(value);
         // window.location.href = '/frontend/views/dashboard.html'
 
         }

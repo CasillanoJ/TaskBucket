@@ -33,7 +33,7 @@ const getTaskList = async (req, res , next) =>{
 
      let message = "No task created yet"
 
-     if(status !== "Completed" && status !== "Unassigned" && status !== "To-do" && status !== "In Progress" && status !== "View Task List") {
+     if(status !== "Completed" && status !== "Unassigned" && status !== "To do" && status !== "In progress" && status !== "View Task List") {
       return res.status(404).json({
           successful: false,
           message: "Invalid Task Status"
