@@ -21,8 +21,8 @@ const LoginUser =async()=>{
       const data = await Login(email,password)
 
       if(data.status == 400){
-        email = ''
-        password = ''
+        document.getElementById('email').value = ''
+        document.getElementById('password').value = ''
         messageContainer.innerHTML = `<h1 class=" text-xl text-urgent "> *Incorrect password or Email</h1>`
         return
       }
@@ -32,7 +32,9 @@ const LoginUser =async()=>{
         
 
         if(!data.user.isVerified){
-         
+          messageContainer.innerHTML = ''
+          document.getElementById('email').value = ''
+        document.getElementById('password').value = ''
           Unverified.showModal()
         }else{
        
@@ -43,7 +45,10 @@ const LoginUser =async()=>{
 
 
         messageContainer.innerHTML =""; 
-        // window.location.href = '/frontend/views/dashboard.html'
+        document.getElementById('email').value = ''
+        document.getElementById('password').value = ''
+        window.location.href = '/frontend/views/dashboard.html'
+        
 
         }
         
@@ -64,5 +69,7 @@ const LoginUser =async()=>{
 }
 
 document.addEventListener("DOMContentLoaded", async function() {
+  document.getElementById('email').value = ''
+  document.getElementById('password').value = ''
   LoginUser()
 }); 
