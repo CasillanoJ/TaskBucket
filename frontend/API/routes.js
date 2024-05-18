@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const getEndpoint = (data)=>{
     let endpoint = ""
     switch (data) {
@@ -31,34 +30,3 @@ const getEnv = (data) =>{
 
     return env
 }
-=======
-const getEndpoint = (data) => {
-  let endpoint = "";
-  switch (data) {
-    case "user":
-      endpoint = "/users";
-      break;
-    case "task":
-      endpoint = "/task";
-      break;
-    default:
-      endpoint = "";
-      break;
-  }
-  return endpoint;
-};
-
-const getEnv = (data) => {
-  let env = "";
-  switch (data) {
-    case "dev":
-      env = "http://localhost:8000";
-      break;
-    default:
-      env = "";
-      break;
-  }
-
-  return env;
-};
->>>>>>> origin/backend/frontend/merge

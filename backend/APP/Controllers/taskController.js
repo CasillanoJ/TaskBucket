@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 
 const Task = require("../Models/task_model");
 const User = require("../Models/user_model");
@@ -6,11 +5,6 @@ const {SendEmail} = require('./nodeEmailerController')
 
 const {CreateNotification} = require('./notificationController')
 
-=======
-const Task = require("../Models/task_model");
-const { SendEmail } = require("./nodeEmailerController");
-const { CreateNotification } = require("./notificationController");
->>>>>>> origin/backend/frontend/merge
 
 // Multer configuration for file uploads
 const multer = require("multer");
@@ -19,12 +13,6 @@ const upload = multer({ storage }).single("file"); // Specify the field name for
 
 const createTask = async (req, res) => {
   try {
-<<<<<<< HEAD
-    const tasks = await User.find();
-
-    res.status(200).json({ tasks });
-    console.log(tasks)
-=======
     // Use multer to handle file upload
     upload(req, res, async function (err) {
       if (err instanceof multer.MulterError) {
@@ -69,24 +57,21 @@ const createTask = async (req, res) => {
           //   .populate("assignee", "email")
           //   .execPopulate();
 
-          let NotificationMessage;
+          let NotificationMessage
           if (savedTask.assignee != null) {
-            NotificationMessage = await CreateNotification(
-              "Create Task",
-              savedTask.assignee,
-              savedTask.title
-            );
-            // SendEmail(
-            //   NotificationMessage,
-            //   "Created Task",
-            //   populatedTask.assignee.email
-            // );
-          } else {
-            NotificationMessage = await CreateNotification(
-              "Unassigned Task",
-              savedTask.assignee,
-              savedTask.title
-            );
+            NotificationMessage = await CreateNotification("Create Task", savedTask.assignee, savedTask.title)
+            const { email } = await User.findById(savedTask.assignee);
+            const admin = await emailForAdmin()
+            SendEmail(NotificationMessage, "Created Task", admin);
+            SendEmail(NotificationMessage, "Created Task", email);
+          } else if (assignee == null) {
+            NotificationMessage = await CreateNotification("Unassigned Task", savedTask.assignee, savedTask.title)
+            const user = await User.find();
+            user.forEach(element => {
+              savedTask.assignee = element
+            });
+            const { email } = await User.findById(savedTask.assignee);
+            SendEmail(NotificationMessage, "Created Task", email);
           }
 
           return res.status(201).send({
@@ -113,7 +98,6 @@ const createTask = async (req, res) => {
         });
       }
     });
->>>>>>> origin/backend/frontend/merge
   } catch (error) {
     res.status(500).send({
       successful: false,
@@ -122,82 +106,6 @@ const createTask = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
-const createTask = async (req, res) => {
-  const { title, description, priorityLevel, assignee, dueDate, status } =
-    req.body;
-
-
-  try {
-    
-    const isAdmin = req.user.isAdmin
-
-    if(isAdmin){
-      
-    const task = new Task({
-      title,
-      description,
-      priorityLevel,
-      assignee,
-      dueDate,
-      status,
-    });
-
-    if (assignee == null) {
-      task.status = "Unassigned";
-    } else {
-      task.status = "To-do";
-
-    }
-
-    const savedTask = await task.save();
-    const email  = await User.find();
-    console.log(email)
-    
-    let NotificationMessage 
-    if(savedTask.assignee != null){
-      NotificationMessage =  await CreateNotification("Create Task", savedTask.assignee, savedTask.title)
-      const { email } = await User.findById(savedTask.assignee);
-      SendEmail(NotificationMessage, "Created Task", email);
-    }else if (assignee == null){
-      NotificationMessage = await CreateNotification("Unassigned Task", savedTask.assignee, savedTask.title)
-      const  user = await User.find();
-      user.forEach(element => {
-        savedTask.assignee = element
-      });
-      const { email } = await User.findById(savedTask.assignee);
-      SendEmail(NotificationMessage, "Created Task", email);
-    }
-
-    
-
-    res.status(201).send({
-      successful: true,
-      message: `Successfully added Task: ${savedTask.title}`,
-      task: savedTask._id,
-    });
-  }else{
-    res.status(401).json({
-      successful: false,
-      message: `Unauthorized access`,
-    })
-
-  }
-
-  } catch (error) {
-    if (error.message.includes("assignee")) {
-      return res.status(404).send({
-        successful: false,
-        message: "Assignee not found",
-      });
-    }
-    if (error.message.includes("assignee")) {
-      return res.status(404).send({
-        successful: false,
-        message: "Assignee not found",
-      });
-    }
-=======
 const getTasks = async (req, res) => {
   try {
     const tasks = await Task.find().populate(
@@ -207,7 +115,6 @@ const getTasks = async (req, res) => {
 
     res.status(200).json({ tasks });
   } catch (error) {
->>>>>>> origin/backend/frontend/merge
     res.status(500).send({
       successful: false,
       message: error.message,
@@ -233,16 +140,6 @@ const updateTask = async (req, res) => {
     task.dueDate = dueDate;
 
     const taskUpdate = await task.save();
-<<<<<<< HEAD
-  
-
-   const NotificationMessage = await CreateNotification("Update Task", taskUpdate.assignee, taskUpdate.title)
-
-   if(taskUpdate.assignee != null || taskUpdate.assignee != "" ){
-    const { email } = await User.findById(taskUpdate.assignee);
-    SendEmail(NotificationMessage, "Updated Task", email)
-   }
-=======
     await taskUpdate.populate("assignee", "email").execPopulate();
 
     const NotificationMessage = await CreateNotification(
@@ -258,7 +155,6 @@ const updateTask = async (req, res) => {
         taskUpdate.assignee.email
       );
     }
->>>>>>> origin/backend/frontend/merge
 
     handleTaskMethod(res, taskUpdate, "updated");
   } catch (error) {
@@ -281,18 +177,6 @@ const updateStatus = async (req, res) => {
 
     updatedStats.status = req.body.status;
     updatedStats = await updatedStats.save();
-<<<<<<< HEAD
-  
-
-   const NotificationMessage =  await CreateNotification("Update Status", updatedStats.assignee, updatedStats.title)
-   if(updatedStats.assignee != null || updatedStats.assignee != "" ){
-
-    const { email } = await User.findById(updatedStats.assignee);
-    SendEmail(NotificationMessage, "Updated Status", email)
-    
-   
-   }
-=======
     await updatedStats.populate("assignee", "email").execPopulate();
 
     const NotificationMessage = await CreateNotification(
@@ -307,7 +191,6 @@ const updateStatus = async (req, res) => {
         updatedStats.assignee.email
       );
     }
->>>>>>> origin/backend/frontend/merge
 
     handleTaskMethod(res, updatedStats, "Updated status of");
   } catch (err) {
