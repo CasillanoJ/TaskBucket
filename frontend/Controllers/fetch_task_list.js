@@ -3,6 +3,7 @@ import { CreateTable } from "../components/TaskList/task_table.js";
 import { CreateFeatures } from "../components/TaskList/task_features.js";
 import { CreateFilterSidebar } from "../components/TaskList/filter_sidebar.js";
 import { getTaskList } from "../API/Get_taskList.js";
+import { getTask } from "../API/task_table.js";
 import { searchTask } from "../API/search_task.js";
 
 const FetchTaskList = async (searchQuery = "") => {
@@ -17,7 +18,8 @@ const FetchTaskList = async (searchQuery = "") => {
     if (searchQuery) {
       data = await searchTask(searchQuery);
     } else {
-      data = await getTaskList();
+      // data = await getTaskList();
+      data = await getTask();
     }
 
     if (data.status == 401) {
