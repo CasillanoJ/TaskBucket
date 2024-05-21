@@ -91,7 +91,7 @@ const getTaskList = async (req, res , next) =>{
 
     }
 
-    if(status == "To-do" || status == "In Progress" ){
+    if(status == "To do" || status == "In progress" ){
       let findQuery = statusQuery(userId, status, isAdmin)
       taskCount = await Task.find(findQuery).countDocuments();
       getTask = await Task.find(findQuery).populate('assignee', 'first_name last_name').limit(limit).skip(count);

@@ -1,8 +1,13 @@
 
-const  FetchTaskList = async(skip,limit,status) =>{
+const  FetchTaskList = async(skip,limit,status,isAdmin) =>{
     const taskContainer = document.getElementById(`${status}-task-content`);
     const modalContainer = document.getElementById(`${status}-modal-container`);
     const taskCountContainer = document.getElementById(`${status}-task-count`)
+
+    
+
+   
+
 
     let request = '';
 
@@ -13,8 +18,8 @@ const  FetchTaskList = async(skip,limit,status) =>{
 
 
 
-  const spinner = document.getElementById(`${status}-spinner`)
-  spinner.classList.add('animate-spin');
+    const spinner = document.getElementById(`${status}-spinner`)
+    spinner.classList.add('animate-spin');
     await new Promise(resolve => setTimeout(resolve, 500)); 
     spinner.classList.remove('animate-spin');
 
@@ -61,6 +66,7 @@ const  FetchTaskList = async(skip,limit,status) =>{
 
      let cardHtml = ``
      let modalHtml = ``
+     let editModalHTML = ``
 
       if(!data.total ){
         data.total = 0
@@ -80,8 +86,10 @@ const  FetchTaskList = async(skip,limit,status) =>{
     }
 
       data.data.forEach(task =>{
-        cardHtml += CreateCard(task);
-        modalHtml += CreateModal(task)
+        cardHtml += CreateCard(task,isAdmin);
+        editModalHTML += CreateEditModal(task)
+        modalHtml += CreateModal(task,isAdmin)
+
      })
      if(data.total > limit){
       cardHtml += DashboardPagination(limit,data.total,skip,status)
@@ -90,11 +98,17 @@ const  FetchTaskList = async(skip,limit,status) =>{
     
      }
     
-   
+    
+
+    if(request != "Completed"){
      
+      document.getElementById(`${status}-edit-modal-container`).innerHTML = editModalHTML;
+     
+    }
     taskCountContainer.innerHTML = data.total 
 
     taskContainer.innerHTML += cardHtml
+ 
     modalContainer.innerHTML += modalHtml
      
   }
