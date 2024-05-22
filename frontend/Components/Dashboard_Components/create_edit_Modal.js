@@ -21,8 +21,8 @@ const CreateEditModal = (task) => {
     }
   
     return`
-    <dialog id="edit_task_modal_${task._id}" class="modal"> 
-    <div class="relative bg-white dark:bg-task-bg rounded-lg shadow dark:bg-dashboardBG modal-box  overflow-hidden w-11/12 max-w-2xl ">
+    <dialog id="edit_task_modal_${task._id}" class="modal" data-id="${task._id}"> 
+    <div class="relative bg-white dark:bg-task-bg rounded-lg shadow  modal-box  overflow-hidden w-11/12 max-w-2xl ">
           <!-- Modal header -->
         
           <div class="flex items-center justify-between p-4 md:p-5 border-none rounded-t dark:border-gray-600">
@@ -35,7 +35,7 @@ const CreateEditModal = (task) => {
      
           <!-- Modal body -->
           
-          <div class="p-4 md:p-5 mt-5 ms-8 ">
+          <div class="p-4 md:p-5 -mt-5 ms-8 ">
             
             <div class="flex items-center p-0 font-medium text-black  text-xl dark:text-white   ">
               <svg width="27" class="h-6 w-6 mt-0 fill-black dark:fill-primary-100" viewBox="0 0 27 24"  xmlns="http://www.w3.org/2000/svg">
@@ -48,9 +48,9 @@ const CreateEditModal = (task) => {
             
               
             </div>
-              <div class="ml-20 mt-0 mb-0"> <p class="text-black dark:text-white"> Status: ${task.status} </p></div>
+              <div class="ml-8 mt-0 mb-0"> <p class="text-black dark:text-white"> Status: ${task.status} </p></div>
   
-        <div class=" text-white ml-20 mt-0">
+        <div class=" text-white  mt-10">
             <div class="inline-block p-3">
               <h1 class="text-xl text-black dark:text-white">Assignee</h1>
               <h2 class="boder text-md text-black border dark:border-0 border-black dark:text-white bg-light-overiew-bg dark:bg-task-content text-center rounded-lg mt-0 px-5 py-1"> ${assignee}</h2>
@@ -74,7 +74,7 @@ const CreateEditModal = (task) => {
           <span class="ml-2">Description</span>
           
         </div>
-        <div class="ml-20 mt-2 mb-5 me-8 border dark:border-0 border-black"> 
+        <div class=" mt-2 mb-5 me-8 border dark:border-0 border-black"> 
           <textarea class="text-black border-2 border-black dark:border-0 dark:text-white text-md bg-light-overiew-bg dark:bg-task-content rounded-md border-none w-full h-36 resize-none overflow-hidden overflow-y-hidden" readonly>${task.description}</textarea>
         </div>
   

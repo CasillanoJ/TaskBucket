@@ -3,7 +3,7 @@ const CreateModal = (task,isAdmin) => {
 
   const EditButton = (id)=>{
     return`
-    <button type="button" id="edit-modal-${id}" onclick="edit_task_modal_${id}.showModal()"  class=" text-white dark:text-black border-0 inline-flex items-center bg-primary-700 hover:bg-primary-800  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xl px-5 py-2 text-center dark:bg-primary-600 hover:bg-light-active  hover:text-black dark:hover:bg-primary-200 bg-light-primary  dark:bg-primary-100 dark:hover:text-black dark:focus:ring-primary-800 group">
+    <button type="button" id="edit-modal-${id}" onclick="OpenEditModal(this)" data-id="${id}"  class=" text-white dark:text-black border-0 inline-flex items-center bg-primary-700 hover:bg-primary-800  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xl px-5 py-2 text-center dark:bg-primary-600 hover:bg-light-active  hover:text-black dark:hover:bg-primary-200 bg-light-primary  dark:bg-primary-100 dark:hover:text-black dark:focus:ring-primary-800 group">
     <svg class="w-6 h-6 text-white dark:text-black group-hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
 </svg>
@@ -87,7 +87,7 @@ const CreateModal = (task,isAdmin) => {
   
     return`
     <dialog id="Task_modal_${task._id}" class="modal"> 
-    <div class="relative bg-white dark:bg-task-bg rounded-lg shadow dark:bg-dashboardBG modal-box  overflow-hidden w-11/12 max-w-2xl border border-black">
+    <div class="relative bg-white dark:bg-task-bg rounded-lg shadow  modal-box  overflow-hidden w-11/12 max-w-2xl border border-black">
           <!-- Modal header -->
         
           <div class="flex items-center justify-between p-4 md:p-5 border-none rounded-t dark:border-gray-600">

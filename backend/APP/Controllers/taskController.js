@@ -133,27 +133,47 @@ const updateTask = async (req, res) => {
       return handleTaskMethod(res, task, "");
     }
 
+    // Ensure assignee is set to null if it's empty or not provided
+    if (!assignee || assignee.trim() === "") {
+      task.assignee = null;
+    } else {
+      task.assignee = assignee;
+    }
+
     task.title = title;
     task.description = description;
     task.priorityLevel = priorityLevel;
-    task.assignee = assignee;
     task.dueDate = dueDate;
 
     const taskUpdate = await task.save();
-    await taskUpdate.populate("assignee", "email").execPopulate();
 
-    const NotificationMessage = await CreateNotification(
+    await taskUpdate.populate("assignee", "email");
+
+    const notificationMessage = await CreateNotification(
       "Update Task",
       taskUpdate.assignee,
       taskUpdate.title
     );
 
-    if (taskUpdate.assignee != null || taskUpdate.assignee != "") {
+
+    if (taskUpdate.assignee && taskUpdate.assignee.email) {
       SendEmail(
-        NotificationMessage,
+        notificationMessage,
         "Updated Status",
         taskUpdate.assignee.email
       );
+    } else {
+      const users = await User.find();
+      const emailPromises = users.map(async (user) => {
+        if (user.email) {
+          await SendEmail(
+            notificationMessage,
+            "Updated Task",
+            user.email
+          );
+        }
+      });
+      await Promise.all(emailPromises);
     }
 
     handleTaskMethod(res, taskUpdate, "updated");
@@ -171,13 +191,14 @@ const updateTask = async (req, res) => {
   }
 };
 
+
 const updateStatus = async (req, res) => {
   try {
     let updatedStats = await Task.findById(req.params.id);
 
     updatedStats.status = req.body.status;
     updatedStats = await updatedStats.save();
-    await updatedStats.populate("assignee", "email").execPopulate();
+    await updatedStats.populate("assignee", "email");
 
     const NotificationMessage = await CreateNotification(
       "Update Status",

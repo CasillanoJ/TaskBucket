@@ -20,7 +20,7 @@ router.post("/", getTasks);
 router.get("/sortBy/", sortBy);
 router.post("/filter/", filterTasks);
 router.get("/search/", searchTasks);
-router.put("/:id", updateTask);
+router.post("/:id", updateTask);
 router.put("/stats/:id", updateStatus);
 router.put("/claim/:id", isClaimed);
 
