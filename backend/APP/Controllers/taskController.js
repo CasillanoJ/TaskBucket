@@ -125,7 +125,6 @@ const getTasks = async (req, res) => {
 
 const updateTask = async (req, res) => {
   const { title, description, priorityLevel, assignee, dueDate } = req.body;
-
   try {
     let task = await Task.findById(req.params.id);
 
@@ -133,11 +132,13 @@ const updateTask = async (req, res) => {
       return handleTaskMethod(res, task, "");
     }
 
-    // Ensure assignee is set to null if it's empty or not provided
-    if (!assignee || assignee.trim() === "") {
+    
+    if (!assignee || assignee.trim() === "" || assignee == "None") {
       task.assignee = null;
+      task.status = "Unassigned"
     } else {
       task.assignee = assignee;
+      task.status = "To do"
     }
 
     task.title = title;

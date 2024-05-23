@@ -21,7 +21,19 @@ const DashboardAdmin = ()=>{
   }
 }
 
+const RenderEditModal =async()=>{
+  const value = GetCookie("isAdmin")
+
+  if(value == "true" || value == true){
+    document.getElementById('edit-modal').innerHTML = await CreateEditModal();
+  }
+
+
+}
+
 document.addEventListener("DOMContentLoaded", async function() {
   DashboardAdmin()
+  RenderEditModal()
   RenderDashboard()
+  
 }); 

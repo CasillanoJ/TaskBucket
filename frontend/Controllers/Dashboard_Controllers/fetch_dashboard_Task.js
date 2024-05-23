@@ -87,7 +87,6 @@ const  FetchTaskList = async(skip,limit,status,isAdmin) =>{
 
       data.data.forEach(task =>{
         cardHtml += CreateCard(task,isAdmin);
-        editModalHTML += CreateEditModal(task)
         modalHtml += CreateModal(task,isAdmin)
 
      })
@@ -98,13 +97,9 @@ const  FetchTaskList = async(skip,limit,status,isAdmin) =>{
     
      }
     
+  
+   
     
-
-    if(request != "Completed"){
-     
-      document.getElementById(`${status}-edit-modal-container`).innerHTML = editModalHTML;
-     
-    }
     taskCountContainer.innerHTML = data.total 
 
     taskContainer.innerHTML += cardHtml
