@@ -1,61 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-    <link
-      rel="stylesheet"
-      href="../node_modules/flowbite/dist/flowbite.min.css"
-    />
-    <link rel="stylesheet" href="../assets/css/styles.css" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../assets/css/Sidebar.css" />
-  </head>
 
-  <body class="bg-light-bg dark:bg-main-body font-rubik h-screen">
-    <div class="antialiased bg-light-bg dark:bg-main-body">
-      <nav
-        class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-nav dark:border-gray-700 fixed left-0 right-0 top-0 z-50"
-      >
-        <div class="flex flex-wrap justify-between items-center">
-          <div class="flex justify-start items-center">
-            <button
-              data-drawer-target="default-sidebar"
-              data-drawer-toggle="default-sidebar"
-              aria-controls="default-sidebar"
-              type="button"
-              class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-            >
-              <span class="sr-only">Open sidebar</span>
-              <svg
-                class="w-6 h-6"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="../node_modules/flowbite/dist/flowbite.min.css">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <link
+  href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+  rel="stylesheet"
+/>
+  <link rel="stylesheet" href="../assets/css/Sidebar.css">
+
+</head>
+
+
+<body class="bg-light-bg dark:bg-main-body font-rubik h-screen">
+  
+
+
+  <div class="antialiased bg-light-bg dark:bg-main-body">
+    
+    <nav
+    
+      class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-nav dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
+      
+      <div class="flex flex-wrap justify-between items-center">
+        
+        <div class="flex justify-start items-center">
+          <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar"
+            aria-controls="default-sidebar" type="button"
+            class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+            <span class="sr-only">Open sidebar</span>
+            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path clip-rule="evenodd" fill-rule="evenodd"
+                d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
+              </path>
+            </svg>
+
+          </button>
+          <a href="#" class="flex items-center justify-between mr-4">
+            <svg class="fill-light-primary dark:fill-primary-100" width="36" height="36" viewBox="0 0 36 36"  xmlns="http://www.w3.org/2000/svg">
+              <g clip-path="url(#clip0_172_1568)">
                 <path
-                  clip-rule="evenodd"
-                  fill-rule="evenodd"
-                  d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-                ></path>
-              </svg>
-            </button>
-            <a href="#" class="flex items-center justify-between mr-4">
-              <svg
-                class="fill-light-primary dark:fill-primary-100"
-                width="36"
-                height="36"
-                viewBox="0 0 36 36"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g clip-path="url(#clip0_172_1568)">
-                  <path
-                    d="M31.6796 21.1351C32.0696 20.2051 31.8596 19.1251 31.1396 18.4201L19.0646 6.3451L17.2646 4.5451C15.6296 2.9101 12.9746 2.9101 11.3396 4.5451C9.70465 6.1651 9.70465 8.8351 11.3396 10.4551L12.0746 11.1901L3.95965 19.3201C3.07465 20.1901 2.63965 21.3451 2.63965 22.5001C2.63965 23.6551 3.07465 24.8101 3.95965 25.6801L10.3196 32.0401C11.1896 32.9251 12.3446 33.3601 13.4996 33.3601C14.6546 33.3601 15.8096 32.9251 16.6796 32.0401L25.1696 23.5651L25.6046 23.1151C25.8896 22.8301 26.2646 22.6801 26.6696 22.6801H29.3696C30.3896 22.6801 31.2896 22.0801 31.6796 21.1351ZM13.4546 6.6601C13.9196 6.1951 14.6846 6.1951 15.1496 6.6601L15.8846 7.3951L14.1896 9.0751L13.4546 8.3401C13.0046 7.8751 13.0046 7.1251 13.4546 6.6601ZM14.5646 29.9251C13.9796 30.5101 13.0196 30.5101 12.4346 29.9251L6.50965 24.0001H20.4896L14.5646 29.9251ZM32.9996 30.0001C32.9996 31.6501 31.6496 33.0001 29.9996 33.0001C28.3496 33.0001 26.9996 31.6501 26.9996 30.0001C26.9996 28.9351 27.9596 27.3151 28.7696 26.1451C29.3396 25.3351 30.6746 25.3351 31.2446 26.1451C32.0546 27.3151 33.0146 28.9201 33.0146 30.0001H32.9996Z"
+                  d="M31.6796 21.1351C32.0696 20.2051 31.8596 19.1251 31.1396 18.4201L19.0646 6.3451L17.2646 4.5451C15.6296 2.9101 12.9746 2.9101 11.3396 4.5451C9.70465 6.1651 9.70465 8.8351 11.3396 10.4551L12.0746 11.1901L3.95965 19.3201C3.07465 20.1901 2.63965 21.3451 2.63965 22.5001C2.63965 23.6551 3.07465 24.8101 3.95965 25.6801L10.3196 32.0401C11.1896 32.9251 12.3446 33.3601 13.4996 33.3601C14.6546 33.3601 15.8096 32.9251 16.6796 32.0401L25.1696 23.5651L25.6046 23.1151C25.8896 22.8301 26.2646 22.6801 26.6696 22.6801H29.3696C30.3896 22.6801 31.2896 22.0801 31.6796 21.1351ZM13.4546 6.6601C13.9196 6.1951 14.6846 6.1951 15.1496 6.6601L15.8846 7.3951L14.1896 9.0751L13.4546 8.3401C13.0046 7.8751 13.0046 7.1251 13.4546 6.6601ZM14.5646 29.9251C13.9796 30.5101 13.0196 30.5101 12.4346 29.9251L6.50965 24.0001H20.4896L14.5646 29.9251ZM32.9996 30.0001C32.9996 31.6501 31.6496 33.0001 29.9996 33.0001C28.3496 33.0001 26.9996 31.6501 26.9996 30.0001C26.9996 28.9351 27.9596 27.3151 28.7696 26.1451C29.3396 25.3351 30.6746 25.3351 31.2446 26.1451C32.0546 27.3151 33.0146 28.9201 33.0146 30.0001H32.9996Z"
                   />
                   <path
                     d="M31.6796 21.1351C32.0696 20.2051 31.8596 19.1251 31.1396 18.4201L19.0646 6.3451L17.2646 4.5451C15.6296 2.9101 12.9746 2.9101 11.3396 4.5451C9.70465 6.1651 9.70465 8.8351 11.3396 10.4551L12.0746 11.1901L3.95965 19.3201C3.07465 20.1901 2.63965 21.3451 2.63965 22.5001C2.63965 23.6551 3.07465 24.8101 3.95965 25.6801L10.3196 32.0401C11.1896 32.9251 12.3446 33.3601 13.4996 33.3601C14.6546 33.3601 15.8096 32.9251 16.6796 32.0401L25.1696 23.5651L25.6046 23.1151C25.8896 22.8301 26.2646 22.6801 26.6696 22.6801H29.3696C30.3896 22.6801 31.2896 22.0801 31.6796 21.1351ZM13.4546 6.6601C13.9196 6.1951 14.6846 6.1951 15.1496 6.6601L15.8846 7.3951L14.1896 9.0751L13.4546 8.3401C13.0046 7.8751 13.0046 7.1251 13.4546 6.6601ZM14.5646 29.9251C13.9796 30.5101 13.0196 30.5101 12.4346 29.9251L6.50965 24.0001H20.4896L14.5646 29.9251ZM32.9996 30.0001C32.9996 31.6501 31.6496 33.0001 29.9996 33.0001C28.3496 33.0001 26.9996 31.6501 26.9996 30.0001C26.9996 28.9351 27.9596 27.3151 28.7696 26.1451C29.3396 25.3351 30.6746 25.3351 31.2446 26.1451C32.0546 27.3151 33.0146 28.9201 33.0146 30.0001H32.9996Z"
@@ -82,67 +72,37 @@
                 </defs>
               </svg>
 
-              <span
-                class="self-center ml-2 text-2xl font-semibold whitespace-nowrap text-light-primary dark:text-task"
-                >Bucket</span
-              >
-            </a>
-          </div>
-          <div class="flex items-center lg:order-2">
-            <button
-              type="button"
-              id="toggleSearchBar"
-              class="p-2 mr-1 text-gray-500 rounded-lg md:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
-            >
-              <svg
-                class="w-6 h-6 text-gray-800 dark:text-white"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-width="2"
-                  d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z"
-                />
-              </svg>
-            </button>
-            <form
-              action="#"
-              method="GET"
-              class="hidden md:block md:pl-2 me-5"
-              id="searchBar"
-            >
-              <label for="topbar-search" class="sr-only">Search</label>
-              <div class="relative md:w-96">
-                <div
-                  class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none"
-                >
-                  <svg
-                    class="w-5 h-5 text-gray-500 dark:text-gray-400"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                    ></path>
-                  </svg>
-                </div>
-                <input
-                  type="text"
-                  id="topbar-search"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                  placeholder="Search"
-                />
+            <span class="self-center ml-2 text-2xl font-semibold whitespace-nowrap text-light-primary dark:text-task">Bucket</span>
+          </a>
+
+        </div>
+        
+        <div class="flex items-center lg:order-2">
+          <button type="button" id="toggleSearchBar"
+            class="p-2 mr-1 text-gray-500 rounded-lg md:hidden hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600">
+            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              width="24" height="24" fill="none" viewBox="0 0 24 24">
+              <path stroke="currentColor" stroke-linecap="round" stroke-width="2"
+                d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
+            </svg>
+
+          </button>
+          <form action="#" method="GET" class="hidden md:block md:pl-2 me-5" id="searchBar">
+            <label for="topbar-search" class="sr-only">Search</label>
+            <div class="relative  md:w-96">
+              <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z">
+                  </path>
+                </svg>
               </div>
-            </form>
+              <input type="text" id="topbar-search"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                placeholder="Search" />
+            </div>
+          </form>
 
             <!-- Notifications -->
             <div class="indicator">
@@ -671,30 +631,28 @@
       <div class="indactor-color-high bg-high">asd</div>
       <div class="indactor-color-neutral bg-neutral"></div>
 
-      <main
-        class="p-4 md:ml-24 lg:ml-64 sm:ml-10 bg-light-bg h-full pt-20 dark:bg-main-body transition-all duration-100"
-        id="main-container"
-      >
-        <div>
-          <div class="flex justify-between">
-            <div class="" id="addTask-container"></div>
+    <main class="p-4  md:ml-24 lg:ml-64 sm:ml-10 bg-light-bg h-full pt-20 dark:bg-main-body transition-all duration-100  " id="main-container">
 
-            <div class="left-20">
-              <button
-                id="sortDropdownButton"
-                data-dropdown-toggle="sortDropdown"
-                class="text-light-primary dark:text-primary-100 mr-10 h-10 text-center inline-flex items-center border border-light-primary dark:border-primary-100 px-4 py-3 font-bold dark:focus:bg-nav focus:bg-light-active rounded-lg"
-                type="button"
-              >
-                <svg
-                  class="w-5 h-5 mr-2 fill-light-primary dark:fill-primary-100"
-                  viewBox="0 0 28 23"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M14 13.3333C14.482 13.3333 14.9172 13.627 15.1051 14.0792C15.2929 14.5313 15.1971 15.0539 14.8614 15.4064L8.46148 22.1286C8.23549 22.366 7.92467 22.5 7.60001 22.5C7.27536 22.5 6.96454 22.366 6.73853 22.1286L0.338542 15.4064C0.00300643 15.0539 -0.0929295 14.5313 0.0949422 14.0792C0.282814 13.627 0.718029 13.3333 1.20003 13.3333H6.40002V1.72222C6.40002 1.04721 6.93726 0.5 7.60001 0.5C8.26275 0.5 8.80001 1.04721 8.80001 1.72222V13.3333H14ZM26.7999 9.66667C27.282 9.66667 27.7172 9.37301 27.9051 8.92079C28.0929 8.46873 27.9971 7.94604 27.6614 7.5936L21.2614 0.871376C21.0355 0.633988 20.7246 0.5 20.4 0.5C20.0753 0.5 19.7646 0.633988 19.5385 0.871376L13.1385 7.5936C12.803 7.94604 12.707 8.46873 12.8949 8.92079C13.0829 9.37301 13.5181 9.66667 14 9.66667H19.2V21.2778C19.2 21.9528 19.7372 22.5 20.4 22.5C21.0627 22.5 21.6 21.9528 21.6 21.2778V9.66667H26.7999Z"
-                  />
-                </svg>
+      
+    
+      
+      
+
+      
+      <div class="flex justify-between">
+        <div class="" id="addTaskbtn-container">
+          
+        </div>
+        
+        <div class=" left-20">
+          <button id="sortDropdownButton" data-dropdown-toggle="sortDropdown"
+          class=" text-light-primary dark:text-primary-100 mr-10 h-10 text-center inline-flex items-center border border-light-primary dark:border-primary-100 px-4  py-3 font-bold dark:focus:bg-nav focus:bg-light-active rounded-lg"
+          type="button">
+          <svg class="w-5 h-5 mr-2 fill-light-primary dark:fill-primary-100" viewBox="0 0 28 23"  xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M14 13.3333C14.482 13.3333 14.9172 13.627 15.1051 14.0792C15.2929 14.5313 15.1971 15.0539 14.8614 15.4064L8.46148 22.1286C8.23549 22.366 7.92467 22.5 7.60001 22.5C7.27536 22.5 6.96454 22.366 6.73853 22.1286L0.338542 15.4064C0.00300643 15.0539 -0.0929295 14.5313 0.0949422 14.0792C0.282814 13.627 0.718029 13.3333 1.20003 13.3333H6.40002V1.72222C6.40002 1.04721 6.93726 0.5 7.60001 0.5C8.26275 0.5 8.80001 1.04721 8.80001 1.72222V13.3333H14ZM26.7999 9.66667C27.282 9.66667 27.7172 9.37301 27.9051 8.92079C28.0929 8.46873 27.9971 7.94604 27.6614 7.5936L21.2614 0.871376C21.0355 0.633988 20.7246 0.5 20.4 0.5C20.0753 0.5 19.7646 0.633988 19.5385 0.871376L13.1385 7.5936C12.803 7.94604 12.707 8.46873 12.8949 8.92079C13.0829 9.37301 13.5181 9.66667 14 9.66667H19.2V21.2778C19.2 21.9528 19.7372 22.5 20.4 22.5C21.0627 22.5 21.6 21.9528 21.6 21.2778V9.66667H26.7999Z"
+               />
+          </svg>
 
                 Priority Level
               </button>
@@ -730,52 +688,40 @@
             <div>
               <!-- CARDS -->
 
-              <div
-                class="max-w-sm p-3 bg-white border-none shadow-xl rounded-lg dark:bg-task-bg"
-              >
-                <div class="flex justify-around">
-                  <div class="">
-                    <h1
-                      class="text-black dark:text-white font-semibold text-lg"
-                    >
-                      Unassigned
-                    </h1>
-                  </div>
-                  <div class="mt-auto">
-                    <span
-                      class="bg-white border-2 dark:border-none text-gray-500 rounded-xl text-base px-3"
-                      id="unassigned-task-count"
-                      >0</span
-                    >
-                  </div>
-                </div>
+          <div class="max-w-sm p-3  bg-white border-none  shadow-xl rounded-lg  dark:bg-task-bg ">
+            <div class="flex justify-around">
+
+              <div class="">
+                <h1 class="text-black dark:text-white font-semibold text-lg"> Unassigned</h1>
+                
               </div>
+              <div class="mt-auto">
+
+                <span class="bg-white border-2 dark:border-none text-gray-500 rounded-xl  text-base px-3  " id="unassigned-task-count">0</span>
+              </div>
+            </div>
+          </div>
 
               <!-- Content -->
 
-              <div
-                class="max-w-sm p-3 mt-5 bg-white border-none rounded-lg shadow-xl dark:bg-task-bg"
-                id="unassigned-task-content"
-              >
-                <!--  -->
+          <div class="max-w-sm p-3 mt-5 bg-white border-none rounded-lg shadow-xl dark:bg-task-bg "
+            id="unassigned-task-content">
+              
+            
+            <!--  -->  
+            
+          </div>
+        </div>
+        <div>
+          <div class="max-w-sm p-3  bg-white border-none rounded-lg shadow-xl dark:bg-task-bg ">
+            <div class="flex justify-around">
+
+              <div class="">
+                <h1 class="text-to-do font-semibold text-lg"> To Do</h1>
               </div>
-            </div>
-            <div>
-              <div
-                class="max-w-sm p-3 bg-white border-none rounded-lg shadow-xl dark:bg-task-bg"
-              >
-                <div class="flex justify-around">
-                  <div class="">
-                    <h1 class="text-to-do font-semibold text-lg">To Do</h1>
-                  </div>
-                  <div class="mt-auto">
-                    <span
-                      class="bg-white border-2 dark:border-none text-gray-500 rounded-xl text-base px-3"
-                      id="todo-task-count"
-                      >0</span
-                    >
-                  </div>
-                </div>
+              <div class="mt-auto">
+
+                <span class="bg-white border-2 dark:border-none text-gray-500 rounded-xl  text-base px-3  " id="todo-task-count">0</span>
               </div>
 
               <!-- To Do Content -->
@@ -836,35 +782,113 @@
             </div>
           </div>
         </div>
-      </main>
+      </div>
     </div>
+    </main>
+  </div>
 
-    <div id="add-task-modal-container"></div>
+  <div id="add-task-modal-container">
+   
 
-    <div id="unassigned-modal-container"></div>
-    <div id="todo-modal-container"></div>
-    <div id="inprogress-modal-container"></div>
-    <div id="completed-modal-container"></div>
+  </div>
 
-    <script src="../API/api_client.js"></script>
-    <script src="../API/Get_taskList.js"></script>
-    <script src="../API/routes.js"></script>
 
-    <script src="../Components/Sidebar.js"></script>
-    <script src="../Components/Dashboard_Components/create_Task_card.js"></script>
-    <script src="../Components/Dashboard_Components/create_modal.js"></script>
-    <script src="../Components/Dashboard_Components/dashboard_pagination.js"></script>
-    <script src="../Components/spinner.js"></script>
+  <div id='unassigned-modal-container'>
+    
 
-    <script src="../Controllers/Dashboard_Controllers/render_dashboard.js"></script>
-    <script src="../Controllers/Dashboard_Controllers/fetch_dashboard_Task.js"></script>
-    <script src="../Controllers/Search_bar.js"></script>
-    <script src="../Controllers/darkmode.js"></script>
-    <script src="../Controllers/sidebar_controller.js"></script>
-    <script src="../Controllers/Dashboard_Controllers/dashboard_pagination_controller.js"></script>
-    <script src="../Controllers/RenderSideBar.js"></script>
+  </div>
+  <div id='todo-modal-container'>
 
-    <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
-    <script src="../node_modules/flowbite/dist/datepicker.js"></script>
-  </body>
+
+  </div>
+  <div id='inprogress-modal-container'>
+
+
+  </div>
+  <div id='completed-modal-container'>
+
+
+  </div>
+  <div id="unassigned-edit-modal-container">
+
+  </div>
+  <div id="todo-edit-modal-container">
+
+  </div>
+  <div id="inprogress-edit-modal-container">
+    
+  </div>
+
+  <div id="edit-modal">
+    
+  </div>
+
+  <div id="confirm-save-modal">
+    
+   
+  </div>
+  <div id="confirm-delete-container">
+
+  </div>
+
+ <div id="confirm-modal-container">
+
+ </div>
+
+
+  
+
+  
+  
+  
+
+  
+
+
+  <script src="../API/api_client.js"></script>
+  <script src="../API/Get_taskList.js"></script>
+  <script src="../API/routes.js"></script>
+  <script src="../API/get_specific_task.js"></script>
+  <script src="../API/get_users.js"></script>
+  <script src="../API/update_task.js"></script>
+  <script src="../API/delete_task.js"></script>
+  <script src="../API/add_task.js"></script>
+  <script src="../API/updatate_status.js"></script>
+  <script src="../Components/Sidebar.js"></script>
+
+  <script src="../Components/Dashboard_Components/create_Task_card.js"></script>
+  <script src="../Components/Dashboard_Components/create_View_modal.js"></script>
+  <script src="../Components/Dashboard_Components/create_edit_Modal.js"></script>
+  <script src="../Components/Dashboard_Components/dashboard_pagination.js"></script>
+  <script src="../Components/spinner.js"></script>
+  <script src="../Components/Dashboard_Components/Addtask_Btn.js"></script>
+  <script src="../Components/Dashboard_Components/delete_modal.js"></script>
+  <script src="../Components/Dashboard_Components/claim_task_modal.js"></script>
+
+
+  <script src="../Controllers/Dashboard_Controllers/render_dashboard.js"></script>
+  <script src="../Controllers/Dashboard_Controllers/fetch_dashboard_Task.js"></script>
+
+  <script src="../Controllers/Search_bar.js"></script>
+  <script src="../Controllers/darkmode.js"></script>
+  <script src="../Controllers/sidebar_controller.js"></script>
+  <script src="../Controllers/Dashboard_Controllers/dashboard_pagination_controller.js"></script>
+  <script src="../Controllers/GetCookie.js"></script>
+  <script  src="../Controllers/RenderSideBar.js" ></script>
+  <script src="../Controllers/Dashboard_Controllers/edit_modal_controller.js"></script>
+  <script src="../Controllers/Dashboard_Controllers/delete_modal_controller.js"></script>
+  <script src="../Controllers/Dashboard_Controllers/add_task_modal_controller.js"></script>
+  <script src="../Controllers/Dashboard_Controllers/startTask_controller.js"></script>
+
+
+
+
+
+  <script type="module" src=""></script>
+ <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
+ <script src="../node_modules/flowbite/dist/datepicker.js"></script>
+ 
+
+</body>
+
 </html>

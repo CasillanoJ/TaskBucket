@@ -1,6 +1,8 @@
 
-const PaginationController = (skip,limit,status)=>{
+const PaginationController = (skip,limit,status,currentItem)=>{
+  const value = GetCookie("isAdmin")
+
   
-  FetchTaskList(skip,limit,status)
+  FetchTaskList(skip,limit,status,value)
 
 }

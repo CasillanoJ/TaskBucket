@@ -1,8 +1,13 @@
 
-const  FetchTaskList = async(skip,limit,status) =>{
+const  FetchTaskList = async(skip,limit,status,isAdmin) =>{
     const taskContainer = document.getElementById(`${status}-task-content`);
     const modalContainer = document.getElementById(`${status}-modal-container`);
     const taskCountContainer = document.getElementById(`${status}-task-count`)
+
+    
+
+   
+
 
     let request = '';
 
@@ -13,8 +18,8 @@ const  FetchTaskList = async(skip,limit,status) =>{
 
 
 
-  const spinner = document.getElementById(`${status}-spinner`)
-  spinner.classList.add('animate-spin');
+    const spinner = document.getElementById(`${status}-spinner`)
+    spinner.classList.add('animate-spin');
     await new Promise(resolve => setTimeout(resolve, 500)); 
     spinner.classList.remove('animate-spin');
 
@@ -45,11 +50,12 @@ const  FetchTaskList = async(skip,limit,status) =>{
 
   
      let data = await getTaskList(skip,limit,request)
+     
 
 
 
     if (data.status == 401 ){
-      // window.location.href = '/frontend/views/homepage.html'
+      window.location.href = '/frontend/views/homepage.html'
       return
     }
 
@@ -61,15 +67,29 @@ const  FetchTaskList = async(skip,limit,status) =>{
 
      let cardHtml = ``
      let modalHtml = ``
+    
 
       if(!data.total ){
         data.total = 0
+        
       }
-    
+        
+
+
      if(data.data && data.total){
+      
+      function isObjectEmpty(data){
+      return Object.keys(data).length == 0
+    }
+
+    if(isObjectEmpty(data.data) || data.data == null){
+      return
+    }
+
       data.data.forEach(task =>{
-        cardHtml += CreateCard(task);
-        modalHtml += CreateModal(task)
+        cardHtml += CreateCard(task,isAdmin);
+        modalHtml += CreateModal(task,isAdmin)
+
      })
      if(data.total > limit){
       cardHtml += DashboardPagination(limit,data.total,skip,status)
@@ -78,11 +98,13 @@ const  FetchTaskList = async(skip,limit,status) =>{
     
      }
     
+  
    
-     
+    
     taskCountContainer.innerHTML = data.total 
 
     taskContainer.innerHTML += cardHtml
+ 
     modalContainer.innerHTML += modalHtml
      
   }

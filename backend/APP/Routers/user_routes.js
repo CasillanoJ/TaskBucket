@@ -7,12 +7,14 @@ const router = express.Router();
 const { getTaskList,  exportDataAsExcel} = require('../Controllers/userTaskController')
 const {VerifyUser} = require('../Controllers/userController')
 const {VerifyToken} = require('../Controllers/Authentication_Controller')
+const { getTask} = require('../Controllers/userTaskController')
+
 
 
 
 router.use(VerifyToken)
 
-router.get('/', getAllUsers)
+router.post('/', getAllUsers)
 
 // For testing Only need to fix
 router.post('/getTaskList/:count', getTaskList)
@@ -27,5 +29,7 @@ router.post('/changePassword' ,changePassword)
 router.post('/verfiyUser', VerifyUser)
 
 router.post('/logout',LogoutUser)
+
+router.post('/getTask',getTask)
 
 module.exports = router;

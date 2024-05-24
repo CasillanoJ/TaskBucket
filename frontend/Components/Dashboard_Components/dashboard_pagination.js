@@ -1,4 +1,4 @@
-const DashboardPagination = ( limit,total, skip, status) =>{
+const DashboardPagination = ( limit,total, skip, status,currentItem) =>{
   let leftButton = ``
   let  rightButton = `
   <button class ='px-2' onclick="PaginationController(${skip + limit}, ${limit},'${status}')"> <svg class="w-6 h-6 text-black  dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -18,11 +18,13 @@ const DashboardPagination = ( limit,total, skip, status) =>{
       rightButton = ``
     }
 
-    let count = skip + limit;
+   
+  const totalPage = Math.ceil(total / limit);
 
-    if(count > total){
-      count = total
-    }
+  const currentPage = Math.ceil((skip + 1) / limit);
+
+
+
 
   return `
   <div>
@@ -31,7 +33,7 @@ const DashboardPagination = ( limit,total, skip, status) =>{
                   ${leftButton}
                 </li>
                 <li>
-                  <span class="text-black dark:text-white">${count}/${total}</span>
+                  <span class="text-black dark:text-white">${currentPage}/${totalPage}</span>
                 </li>
                 <li>
                   ${rightButton}

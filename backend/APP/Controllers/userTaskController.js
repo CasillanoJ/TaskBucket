@@ -18,13 +18,15 @@ const getTaskList = async (req, res , next) =>{
   console.log(status)
 
 
-  const dateToday = new Date()
-  dateToday.setHours(0, 0, 0, 0);
+  let dateToday = new Date();
+  dateToday.setHours(0, 0, 0, 0); 
+  let dateTodayISO = dateToday.toISOString().split('T')[0];
   
+  let currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0); 
+  currentDate.setDate(currentDate.getDate() + 11);
+  let currentDateISO = currentDate.toISOString().split('T')[0];
 
-  const currentDate = new Date(); 
-  currentDate.setHours(0, 0, 0, 0)
-  currentDate.setDate(currentDate.getDate() + 11); 
 
 
     let getTask ={}
@@ -33,7 +35,7 @@ const getTaskList = async (req, res , next) =>{
 
      let message = "No task created yet"
 
-     if(status !== "Completed" && status !== "Unassigned" && status !== "To-do" && status !== "In Progress" && status !== "View Task List") {
+     if(status !== "Completed" && status !== "Unassigned" && status !== "To do" && status !== "In progress" && status !== "View Task List") {
       return res.status(404).json({
           successful: false,
           message: "Invalid Task Status"
@@ -45,16 +47,16 @@ const getTaskList = async (req, res , next) =>{
       if(isAdmin){
         getTask = await Task.find({
           completedAt: {
-            $lte: currentDate,
-            $gte: dateToday
+            $lte: dateTodayISO,
+            $gte: currentDateISO
           },
           status: "Completed"
         }).populate('assignee', 'first_name last_name').limit(limit).skip(count);
 
         taskCount = await Task.find({
           completedAt: {
-            $lte: currentDate,
-            $gte: dateToday
+            $lte: dateTodayISO,
+            $gte: currentDateISO
           },
           status: "Completed"
         }).countDocuments()
@@ -62,8 +64,8 @@ const getTaskList = async (req, res , next) =>{
       }else{
         getTask = await Task.find({
           completedAt: {
-            $lte: currentDate,
-            $gte: dateToday
+            $lte: dateTodayISO,
+            $gte: currentDateISO
           },
           status: "Completed",
           assignee: userId
@@ -72,8 +74,8 @@ const getTaskList = async (req, res , next) =>{
         
         taskCount = await Task.find({
           completedAt: {
-            $lte: currentDate,
-            $gte: dateToday
+            $lte: dateTodayISO,
+            $gte: currentDateISO
           },
           status: "Completed",
           assignee: userId
@@ -91,7 +93,7 @@ const getTaskList = async (req, res , next) =>{
 
     }
 
-    if(status == "To-do" || status == "In Progress" ){
+    if(status == "To do" || status == "In progress" ){
       let findQuery = statusQuery(userId, status, isAdmin)
       taskCount = await Task.find(findQuery).countDocuments();
       getTask = await Task.find(findQuery).populate('assignee', 'first_name last_name').limit(limit).skip(count);
@@ -263,7 +265,7 @@ const exportDataAsExcel = async (req, res, next)=>{
     const fileStream = fs.createReadStream(filePath);
     fileStream.pipe(res);
 
-    res.status(500).send({
+    res.status(200).send({
       successful: true,
       message: "Sucesfully exported Tasks" 
     });
@@ -292,9 +294,47 @@ const exportDataAsExcel = async (req, res, next)=>{
 
  }
 
+
+ const getTask = async (req, res, next) =>{
+  try {
+    const taskId = req.body.id;
+
+    if(!taskId){
+      return res.status(400).send({
+        successful : false,
+        message: "Task id is required"
+      })
+    }
+    
+    const task = await Task.find({_id: taskId}).populate('assignee','first_name last_name email')
+
+    if(!task){
+      return res.status(404).send({
+        successful : false,
+        message: "Task Not Found"
+      })
+    }
+
+    return res.status(200).send({
+      successful: true,
+      data: task
+    })
+
+
+    
+  } catch (error) {
+    res.status(500).send({
+      successful: false,
+      message: error.message
+    });
+  }
+
+ }
+
 module.exports ={
    getTaskList,
   getEachUserProgression,
-  exportDataAsExcel
+  exportDataAsExcel,
+  getTask
 
 }

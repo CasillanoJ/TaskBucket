@@ -25,12 +25,20 @@ const createTask = async (req, res) => {
           .json({ successful: false, message: err.message });
       }
 
-      const { title, description, priorityLevel, assignee, dueDate, status } =
+      let { title, description, priorityLevel, assignee, dueDate } =
         req.body;
       const attachedFiles = req.file ? [req.file.originalname] : []; // Get the filename if file is uploaded, otherwise set to empty array
 
       try {
+        let status = ''
         const isAdmin = req.user.isAdmin;
+
+        if (assignee == null || assignee.trim() === "" || assignee == "None" || !assignee) {
+          status = "Unassigned";
+          assignee = null
+        } else {
+          status = "To do";
+        }
 
         if (isAdmin) {
           const newTask = new Task({
@@ -43,14 +51,11 @@ const createTask = async (req, res) => {
             attachedFiles: attachedFiles || [], // Set attached_files to empty array if not provided
           });
 
-          if (assignee == null) {
-            newTask.status = "Unassigned";
-          } else {
-            newTask.status = "To do";
-          }
+       
 
           const savedTask = await newTask.save(); // Make sure to await the save operation
           console.log("Saved task:", savedTask);
+          
           // const populatedTask = await savedTask
           //   .populate("assignee", "email")
           //   .execPopulate();
@@ -83,7 +88,10 @@ const createTask = async (req, res) => {
           return res.status(201).send({
             successful: true,
             message: `Successfully added Task: ${savedTask.title}`,
-            task: savedTask._id,
+            task:{
+              id: savedTask._id,
+              status: savedTask.status
+            } ,
           });
         } else {
           return res.status(401).json({
@@ -127,7 +135,6 @@ const getTasks = async (req, res) => {
 
 const updateTask = async (req, res) => {
   const { title, description, priorityLevel, assignee, dueDate } = req.body;
-
   try {
     let task = await Task.findById(req.params.id);
 
@@ -135,27 +142,49 @@ const updateTask = async (req, res) => {
       return handleTaskMethod(res, task, "");
     }
 
+    
+    if (!assignee || assignee.trim() === "" || assignee == "None") {
+      task.assignee = null;
+      task.status = "Unassigned"
+    } else {
+      task.assignee = assignee;
+      task.status = "To do"
+    }
+
     task.title = title;
     task.description = description;
     task.priorityLevel = priorityLevel;
-    task.assignee = assignee;
     task.dueDate = dueDate;
 
     const taskUpdate = await task.save();
-    await taskUpdate.populate("assignee", "email").execPopulate();
 
-    const NotificationMessage = await CreateNotification(
+    await taskUpdate.populate("assignee", "email");
+
+    const notificationMessage = await CreateNotification(
       "Update Task",
       taskUpdate.assignee,
       taskUpdate.title
     );
 
-    if (taskUpdate.assignee != null || taskUpdate.assignee != "") {
+
+    if (taskUpdate.assignee && taskUpdate.assignee.email) {
       SendEmail(
-        NotificationMessage,
+        notificationMessage,
         "Updated Status",
         taskUpdate.assignee.email
       );
+    } else {
+      const users = await User.find();
+      const emailPromises = users.map(async (user) => {
+        if (user.email) {
+          await SendEmail(
+            notificationMessage,
+            "Updated Task",
+            user.email
+          );
+        }
+      });
+      await Promise.all(emailPromises);
     }
 
     handleTaskMethod(res, taskUpdate, "updated");
@@ -173,13 +202,38 @@ const updateTask = async (req, res) => {
   }
 };
 
+
 const updateStatus = async (req, res) => {
   try {
     let updatedStats = await Task.findById(req.params.id);
+    const status = req.body.status;
+    const user = req.user.userId
+    const dateToday = new Date().toISOString().split('T')[0]
 
-    updatedStats.status = req.body.status;
+    if(!status){
+      return res.status(404).send({
+        successful: false,
+        message: "Status is required",
+      });
+    }
+
+    if(status == "Unassigned"){
+      updatedStats.status = "To do"
+      updatedStats.isClaimed = true
+      updatedStats.assignee = user
+    }
+    if(status == "To do"){
+      updatedStats.status = "In progress"
+      updatedStats.startedAt = dateToday
+    }
+    if(status == "In progress"){
+      updatedStats.status = "Completed"
+      updatedStats.completedAt = dateToday
+    }
+
     updatedStats = await updatedStats.save();
-    await updatedStats.populate("assignee", "email").execPopulate();
+
+    await updatedStats.populate("assignee", "email");
 
     const NotificationMessage = await CreateNotification(
       "Update Status",
@@ -203,29 +257,7 @@ const updateStatus = async (req, res) => {
   }
 };
 
-const isClaimed = async (req, res) => {
-  try {
-    let claimedTask = await Task.findById(req.params.id);
 
-    if (!claimedTask) {
-      return handleTaskMethod(res, claimedTask, "");
-    }
-
-    if (claimedTask.status != "Unassigned") {
-      claimedTask.isClaimed = true;
-    } else {
-      claimedTask.isClaimed = false;
-    }
-    claimedTask = await claimedTask.save();
-
-    handleTaskMethod(res, claimedTask, "claimed");
-  } catch (err) {
-    res.status(500).send({
-      successful: false,
-      message: err.message,
-    });
-  }
-};
 
 const deleteTask = async (req, res) => {
   try {
@@ -442,12 +474,30 @@ const searchTasks = async (req, res) => {
   }
 };
 
+async function emailForAdmin() {
+
+  try {
+    const admin = await User.find()
+    let id;
+
+    admin.forEach(element => {
+      if (element.isAdmin == true) {
+        id = element.email
+      }
+    });
+
+    return id;
+
+  } catch (error) {
+    throw new Error(error)
+  }
+}
+
 module.exports = {
   getTasks,
   createTask,
   updateTask,
   updateStatus,
-  isClaimed,
   deleteTask,
   sortBy,
   filterTasks,
