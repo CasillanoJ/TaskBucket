@@ -1,10 +1,8 @@
-
 const Task = require("../Models/task_model");
 const User = require("../Models/user_model");
-const {SendEmail} = require('./nodeEmailerController')
+const { SendEmail } = require("./nodeEmailerController");
 
-const {CreateNotification} = require('./notificationController')
-
+const { CreateNotification } = require("./notificationController");
 
 // Multer configuration for file uploads
 const multer = require("multer");
@@ -57,18 +55,26 @@ const createTask = async (req, res) => {
           //   .populate("assignee", "email")
           //   .execPopulate();
 
-          let NotificationMessage
+          let NotificationMessage;
           if (savedTask.assignee != null) {
-            NotificationMessage = await CreateNotification("Create Task", savedTask.assignee, savedTask.title)
+            NotificationMessage = await CreateNotification(
+              "Create Task",
+              savedTask.assignee,
+              savedTask.title
+            );
             const { email } = await User.findById(savedTask.assignee);
-            const admin = await emailForAdmin()
+            const admin = await emailForAdmin();
             SendEmail(NotificationMessage, "Created Task", admin);
             SendEmail(NotificationMessage, "Created Task", email);
           } else if (assignee == null) {
-            NotificationMessage = await CreateNotification("Unassigned Task", savedTask.assignee, savedTask.title)
+            NotificationMessage = await CreateNotification(
+              "Unassigned Task",
+              savedTask.assignee,
+              savedTask.title
+            );
             const user = await User.find();
-            user.forEach(element => {
-              savedTask.assignee = element
+            user.forEach((element) => {
+              savedTask.assignee = element;
             });
             const { email } = await User.findById(savedTask.assignee);
             SendEmail(NotificationMessage, "Created Task", email);
@@ -108,10 +114,7 @@ const createTask = async (req, res) => {
 
 const getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find().populate(
-      "assignee",
-      "first_name last_name"
-    );
+    let tasks = await Task.find().populate("assignee", "first_name last_name");
 
     res.status(200).json({ tasks });
   } catch (error) {
@@ -121,7 +124,6 @@ const getTasks = async (req, res) => {
     });
   }
 };
-
 
 const updateTask = async (req, res) => {
   const { title, description, priorityLevel, assignee, dueDate } = req.body;
@@ -269,16 +271,16 @@ const filterTasks = async (req, res) => {
 
 const sortBy = async (req, res) => {
   try {
-    let category = parseInt(req.search.category);
+    const category = parseInt(req.query.category, 10);
     let sortCat = "";
     let sortValue = 0;
 
-    //CATEGORY:
-    //1 - latest task - descending
-    //2 - oldest task - ascending
-    //3 - high priority - descending
-    //4 - low priority - ascending
-    //5 - due date - descending
+    // CATEGORY:
+    // 1 - latest task - descending
+    // 2 - oldest task - ascending
+    // 3 - high priority - descending
+    // 4 - low priority - ascending
+    // 5 - due date - descending
 
     switch (category) {
       case 1:
@@ -312,12 +314,25 @@ const sortBy = async (req, res) => {
         break;
     }
 
-    let sort = {};
-    sort[sortCat] = sortValue;
+    let tasks = await Task.find();
 
-    const sortedTask = await Task.find().sort(sort);
+    if (sortCat === "priorityLevel") {
+      const priorityOrder = {
+        Neutral: 1,
+        High: 2,
+        Urgent: 3,
+      };
 
-    handleTaskMethod(res, sortedTask, "sorted");
+      tasks.sort((a, b) => {
+        const aPriority = priorityOrder[a.priorityLevel];
+        const bPriority = priorityOrder[b.priorityLevel];
+        return (aPriority - bPriority) * sortValue;
+      });
+    } else {
+      tasks = await Task.find().sort({ [sortCat]: sortValue });
+    }
+
+    handleTaskMethod(res, tasks, "sorted");
   } catch (err) {
     res.status(500).send({
       successful: false,
@@ -415,9 +430,11 @@ const searchTasks = async (req, res) => {
         ],
       }).limit(10);
 
-      res.json({ count: partialTasks.length, data: partialTasks });
+      return res
+        .status(200)
+        .json({ count: partialTasks.length, data: partialTasks });
     } else {
-      res.json({ count: tasks.length, data: tasks });
+      return res.status(200).json({ count: tasks.length, data: tasks });
     }
   } catch (error) {
     console.error("Search Task Error:", error);

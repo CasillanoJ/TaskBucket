@@ -1,8 +1,7 @@
-export const getTask = async () => {
+export const sortTask = async (category) => {
   let options = () => {
     return {
       method: "POST",
-      body: JSON.stringify({}),
       headers: {
         "Content-Type": "application/json",
         Authorization:
@@ -12,14 +11,14 @@ export const getTask = async () => {
   };
 
   let data = await api_client(
-    `${getEnv("dev")}${getEndpoint("task")}/`,
+    `${getEnv("dev")}${getEndpoint("task")}/sortBy?category=${category}`,
     options()
   );
-  
+
   console.log(data);
 
   return {
-    data: data.tasks,
+    data: data.data,
     status: data.status,
     message: data.message,
     total: data.lenght,

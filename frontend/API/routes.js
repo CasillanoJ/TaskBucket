@@ -5,7 +5,7 @@ const getEndpoint = (data)=>{
             endpoint = "/users"
             break;
        case "task":
-           endpoint = "/tasks"
+           endpoint = "/task"
           break;
         case "login":
            endpoint = "/login"

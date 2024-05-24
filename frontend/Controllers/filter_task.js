@@ -1,33 +1,47 @@
 export const toggleFilter = () => {
   try {
-    document.addEventListener("click", function () {
-      const toggleFilterButton = document.getElementById("toggleFilter");
-      const toggleFilterIcon = document.getElementById("toggleFilterIcon");
-      const filterSidebar = document.getElementById("filter-sidebar");
-      const mainContainer = document.getElementById("main-container");
+    const toggleFilterButton = document.getElementById("toggleFilter");
+    const toggleFilterIcon = document.getElementById("toggleFilterIcon");
+    const filterSidebar = document.getElementById("filter-sidebar");
+    const mainContainer = document.getElementById("main-container");
+    const closeFilterSidebar = document.getElementById("closeFilterSidebar");
 
+    if (!toggleFilterButton && !toggleFilterIcon && !closeFilterSidebar) {
+      console.error("Toggle elements not found");
+      return;
+    }
+
+    const toggleFilterSection = (section, container) => {
+      section.classList.toggle("block");
+
+      if (section.classList.contains("block")) {
+        container.classList.add("lg:mr-64");
+        container.classList.remove("lg:mr-10");
+        section.classList.remove("hidden");
+      } else {
+        container.classList.add("lg:mr-10");
+        container.classList.remove("lg:mr-64");
+        section.classList.add("hidden");
+      }
+    };
+
+    if (toggleFilterButton) {
       toggleFilterButton.addEventListener("click", function () {
         toggleFilterSection(filterSidebar, mainContainer);
       });
+    }
 
+    if (toggleFilterIcon) {
       toggleFilterIcon.addEventListener("click", function () {
         toggleFilterSection(filterSidebar, mainContainer);
       });
+    }
 
-      function toggleFilterSection(section, container) {
-        section.classList.toggle("hidden");
-
-        if (section.classList.contains("hidden")) {
-          container.classList.remove("mr-64");
-          container.classList.add("mr-10");
-          section.classList.remove("block");
-        } else {
-          container.classList.remove("mr-10");
-          container.classList.add("mr-64");
-          section.classList.add("block");
-        }
-      }
-    });
+    if (closeFilterSidebar) {
+      closeFilterSidebar.addEventListener("click", function () {
+        toggleFilterSection(filterSidebar, mainContainer);
+      });
+    }
   } catch (error) {
     console.error("An error occurred:", error);
   }
@@ -39,6 +53,7 @@ export const filterTasks = () => {
     const selectedFiltersContainer = document.getElementById("selectedFilters");
     const statusElements = document.querySelectorAll(".status");
     const priorityElements = document.querySelectorAll(".priority");
+    const tbody = document.getElementById("rows");
 
     function resetVisibility() {
       statusElements.forEach(function (statusElement) {
@@ -49,9 +64,15 @@ export const filterTasks = () => {
         const trElement = priorityElement.closest("tr");
         trElement.classList.remove("hidden");
       });
+      const noTasksRow = document.getElementById("noTasksRow");
+      if (noTasksRow) {
+        noTasksRow.remove();
+      }
     }
 
     function updateVisibility(selectedStatusFilters, selectedPriorityFilters) {
+      let anyVisible = false;
+
       statusElements.forEach(function (statusElement) {
         const trElement = statusElement.closest("tr");
         const statusValue = statusElement.textContent.trim();
@@ -73,6 +94,34 @@ export const filterTasks = () => {
           trElement.classList.add("hidden");
         }
       });
+
+      tbody.querySelectorAll("tr").forEach(function (trElement) {
+        if (!trElement.classList.contains("hidden")) {
+          anyVisible = true;
+        }
+      });
+
+      const noTasksRow = document.getElementById("noTasksRow");
+
+      if (!anyVisible) {
+        if (!noTasksRow) {
+          const newNoTasksRow = document.createElement("tr");
+          newNoTasksRow.id = "noTasksRow";
+          const noTasksCell = document.createElement("td");
+          noTasksCell.colSpan = 6;
+          noTasksCell.textContent = "No tasks found";
+          noTasksCell.classList.add(
+            "text-center",
+            "text-gray-500",
+            "dark:text-gray-400",
+            "py-3"
+          );
+          newNoTasksRow.appendChild(noTasksCell);
+          tbody.appendChild(newNoTasksRow);
+        }
+      } else if (noTasksRow) {
+        noTasksRow.remove();
+      }
     }
 
     function filterTask() {
@@ -197,38 +246,3 @@ export const filterTasks = () => {
     updateSelectedFilters();
   });
 };
-
-// import { filterTask } from "../API/get_filter_task.js";
-// import { renderTasks } from "../controllers/render_task_table.js"
-
-// export const filterTasks = () => {
-//   document
-//     .getElementById("filterForm")
-//     .addEventListener("submit", async function (event) {
-//       event.preventDefault();
-
-//       // Gather filter criteria
-//       const priorityLevels = Array.from(
-//         document.querySelectorAll('input[name="priorityLevel"]:checked')
-//       ).map((el) => el.value);
-//       const statuses = Array.from(
-//         document.querySelectorAll('input[name="status"]:checked')
-//       ).map((el) => el.value);
-
-//       // Create filter object
-//       const filter = {};
-//       if (priorityLevels.length > 0) {
-//         filter.priorityLevel = priorityLevels;
-//       }
-//       if (statuses.length > 0) {
-//         filter.status = statuses;
-//       }
-
-//       try {
-//         const tasks = await filterTask(filter);
-//         renderTasks(tasks);
-//       } catch (error) {
-//         console.error("Error fetching filtered tasks:", error);
-//       }
-//     });
-// };

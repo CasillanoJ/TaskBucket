@@ -17,13 +17,13 @@ const { VerifyToken } = require("../Controllers/Authentication_Controller");
 router.use(VerifyToken);
 router.post("/add", createTask);
 router.post("/", getTasks);
-router.get("/sortBy/", sortBy);
+router.post("/sortBy/", sortBy);
 router.post("/filter/", filterTasks);
 router.get("/search/", searchTasks);
 router.put("/:id", updateTask);
 router.put("/stats/:id", updateStatus);
 router.put("/claim/:id", isClaimed);
 
-router.get('/getProgress', getEachUserProgression)
+router.get("/getProgress", getEachUserProgression);
 
 module.exports = router;

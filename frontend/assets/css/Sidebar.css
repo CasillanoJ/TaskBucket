@@ -1,6 +1,6 @@
  /* Classes to define expanded and collapsed state */
  .sidebar-expanded {
-  width: 16rem; /* 64 in tailwind units */
+  width: 15rem; /* 64 in tailwind units */
 }
 
 .sidebar-collapsed {

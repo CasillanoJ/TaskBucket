@@ -2,6 +2,9 @@ export const CreateFilterSidebar = () => {
   return `<div
           class="overflow-y-auto py-5 px-3 h-full bg-white dark:bg-nav dark:border-gray-700 text-lg border-l-2 border-primary-100"
         >
+        <svg id="closeFilterSidebar" class="w-6 h-6 cursor-pointer dark:text-white text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/>
+        </svg>
           <ul class="pt-5 mt-7 space-y-2">
             <div class="space-y-0 ml-5 mb-8">
               <h3 class="text-xl text-black dark:text-txt-100">Status</h3>
