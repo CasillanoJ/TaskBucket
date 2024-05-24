@@ -26,6 +26,9 @@ const RenderEditModal =async()=>{
 
   if(value == "true" || value == true){
     document.getElementById('edit-modal').innerHTML = await CreateEditModal();
+    document.getElementById('confirm-delete-container').innerHTML = await CreateDeleteModal();
+  }else{
+    document.getElementById('confirm-modal-container').innerHTML = await ClaimTaskModal();
   }
 
 

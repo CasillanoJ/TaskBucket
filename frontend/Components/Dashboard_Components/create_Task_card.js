@@ -57,7 +57,7 @@ const CreateCard = (task,isAdmin)=> {
     //   `
     }
 
-    if(isAdmin){
+    if(isAdmin == true || isAdmin == "true"){
       editBttn = EditButton(task._id)
       // deleteBttn = DeleteButton(task._id)
 
@@ -75,8 +75,8 @@ const CreateCard = (task,isAdmin)=> {
           <!-- COLOR INDICATOR -->
         </div>
       </div>
-      <div class="ml-5 mt-3 block text-nowrap">
-        <h1 class="text-black dark:text-white text-xl mt-3 md:text-md lg:text-lg">${task.title}</h1>
+      <div class="ml-5 mt-3 block truncate">
+        <h1 class="text-black dark:text-white text-xl mt-3 md:text-md lg:text-lg break-words ">${task.title}</h1>
         <p class="text-gray-400 dark:text-second-text-color mt-1 md:text-sm">Owner: ${owner}</p>
         <p class="text-gray-400  dark:text-second-text-color mt-1 md:text-sm">Due Date: <span>${datePart}</span></p>
       </div>

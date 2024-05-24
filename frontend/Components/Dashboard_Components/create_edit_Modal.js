@@ -102,9 +102,9 @@ const CreateEditModal = async() => {
          
         
     
-          <div class=" p-5 border-t dark:border-gray-600 mt-16  ">
-                <div class="space-x-2 flex justify-end items-center mt-5">
-                <button type="button" id="edit-modal-save-bttn" onclick="SaveEditModal(this)"   class=" text-white dark:text-black border-0 inline-flex items-center bg-primary-700 hover:bg-primary-800  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xl px-5 py-2 text-center dark:bg-primary-600 dark:hover:bg-primary-200 bg-light-primary  dark:bg-primary-100 dark:hover:text-black dark:focus:ring-primary-800">
+         
+                <div class="space-x-2 flex justify-end items-center mt-10">
+                <button type="button" id="edit-modal-save-bttn" onclick="SaveEditModal(this)"   class=" text-white dark:text-black border-0 inline-flex items-center bg-primary-700 hover:bg-primary-800  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium  text-xl px-5 py-2 text-center dark:bg-primary-600  bg-light-primary  dark:bg-primary-100 dark:hover:text-black dark:focus:ring-primary-800 dark:hover:bg-primary-200 hover:bg-light-primary-active rounded-full">
                 <svg class="w-6 h-6 text-white dark:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
             </svg>
@@ -112,7 +112,7 @@ const CreateEditModal = async() => {
                 Save
             </button>      
             <form method="dialog">
-              <button  id=""   class="border-0 text-black dark:text-white  inline-flex items-center bg-primary-700 hover:bg-primary-800  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xl px-5 py-2 text-center dark:bg-primary-600 dark:hover:bg-primary-100  hover:bg-light-primary  bg-transparent  dark:hover:text-black dark:focus:ring-primary-800">
+              <button  id=""   class="border-2 border-light-primary dark:border-primary-100 rounded-full text-black dark:text-white  inline-flex items-center bg-primary-700 hover:bg-primary-800  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium text-xl px-5 py-2 text-center dark:bg-primary-600 dark:hover:bg-primary-100  hover:bg-light-primary  bg-transparent  hover:text-white dark:hover:text-black dark:focus:ring-primary-800">
               
           
               Cancel
@@ -127,7 +127,7 @@ const CreateEditModal = async() => {
             
           </div>
         
-        </div>
+       
         </div>
                 
             </div>
@@ -143,14 +143,14 @@ const CreateEditModal = async() => {
  
       </div>
       
-        <h3 class="font-bold text-lg text-center">Are you sure?</h3>
+        <h3 class="font-bold text-lg text-center text-black dark:text-txt-100">Are you sure?</h3>
         
-        <p class="py-4 text-center">You're about to SAVE all changes</p>
+        <p class="py-4 text-center text-black dark:text-txt-100">You're about to SAVE all changes</p>
 
         <div class="flex justify-center space-x-12 mt-5">
-          <button class="text-white dark:text-black rounded-full bg-light-primary px-5 py-2 dark:bg-primary-100" id="edit-save-modal-bttn" onclick="ConfirmSaveBtn(this)">Confirm</button>
+          <button class="text-white dark:text-black rounded-full bg-light-primary px-5 py-2 dark:bg-primary-100 dark:hover:bg-primary-200 hover:bg-light-primary-active" id="edit-save-modal-bttn" onclick="ConfirmSaveBtn(this)">Confirm</button>
       
-            <button class="text-light-primary dark:text-primary-100 px-5 py-2 rounded-full bg-transparent border border-light-primary dark:border-primary-100" onclick="CloseConfirmModal()">Cancel</button>
+            <button class="text-light-primary dark:text-primary-100 px-5 py-2 rounded-full bg-transparent border border-light-primary dark:border-primary-100 dark:hover:bg-primary-200 hover:bg-light-primary-active" onclick="CloseConfirmModal()">Cancel</button>
 
           
           

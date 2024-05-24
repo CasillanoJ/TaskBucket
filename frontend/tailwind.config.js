@@ -38,6 +38,7 @@ module.exports = {
         "progress-green":"#6CC000",
        "nav-toggle-btn":"#484B63",
        "light-primary" : "#7232C2",
+       "light-primary-active": "#6314AE",
        "light-row" :'#F8F6FB',
        "light-active" : '#EDE2FA',
        "light-bg" :'#F2EFFB',

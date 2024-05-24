@@ -22,8 +22,7 @@ router.get("/sortBy/", sortBy);
 router.post("/filter/", filterTasks);
 router.get("/search/", searchTasks);
 router.post("/:id", updateTask);
-router.put("/stats/:id", updateStatus);
-router.put("/claim/:id", isClaimed);
+router.post("/stats/:id", updateStatus);
 
 router.get('/getProgress', getEachUserProgression)
 router.post('/deleteTask/:id', deleteTask)

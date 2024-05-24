@@ -2229,14 +2229,6 @@ input.tab:checked + .tab-content,
     var(--togglehandleborder);
 }
 
-.alert-warning {
-  border-color: var(--fallback-wa,oklch(var(--wa)/0.2));
-  --tw-text-opacity: 1;
-  color: var(--fallback-wac,oklch(var(--wac)/var(--tw-text-opacity)));
-  --alert-bg: var(--fallback-wa,oklch(var(--wa)/1));
-  --alert-bg-mix: var(--fallback-b1,oklch(var(--b1)/1));
-}
-
 .alert-error {
   border-color: var(--fallback-er,oklch(var(--er)/0.2));
   --tw-text-opacity: 1;
@@ -4121,6 +4113,26 @@ details.collapse summary::-webkit-details-marker {
   margin-top: auto;
 }
 
+.mb-0 {
+  margin-bottom: 0px;
+}
+
+.me-8 {
+  margin-inline-end: 2rem;
+}
+
+.ms-8 {
+  margin-inline-start: 2rem;
+}
+
+.mt-16 {
+  margin-top: 4rem;
+}
+
+.ml-7 {
+  margin-left: 1.75rem;
+}
+
 .block {
   display: block;
 }
@@ -4226,6 +4238,10 @@ details.collapse summary::-webkit-details-marker {
   height: 8rem;
 }
 
+.h-36 {
+  height: 9rem;
+}
+
 .max-h-full {
   max-height: 100%;
 }
@@ -4327,6 +4343,10 @@ details.collapse summary::-webkit-details-marker {
   width: 100vw;
 }
 
+.w-\[400px\] {
+  width: 400px;
+}
+
 .max-w-2xl {
   max-width: 42rem;
 }
@@ -4416,6 +4436,10 @@ details.collapse summary::-webkit-details-marker {
 
 .cursor-pointer {
   cursor: pointer;
+}
+
+.resize-none {
+  resize: none;
 }
 
 .resize {
@@ -4616,6 +4640,16 @@ details.collapse summary::-webkit-details-marker {
   overflow-x: hidden;
 }
 
+.overflow-y-hidden {
+  overflow-y: hidden;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .whitespace-nowrap {
   white-space: nowrap;
 }
@@ -4624,8 +4658,8 @@ details.collapse summary::-webkit-details-marker {
   text-wrap: wrap;
 }
 
-.text-nowrap {
-  text-wrap: nowrap;
+.break-words {
+  overflow-wrap: break-word;
 }
 
 .rounded {
@@ -4652,6 +4686,10 @@ details.collapse summary::-webkit-details-marker {
   border-radius: 0.75rem;
 }
 
+.rounded-md {
+  border-radius: 0.375rem;
+}
+
 .rounded-e-lg {
   border-start-end-radius: 0.5rem;
   border-end-end-radius: 0.5rem;
@@ -4670,6 +4708,11 @@ details.collapse summary::-webkit-details-marker {
 .rounded-s-lg {
   border-start-start-radius: 0.5rem;
   border-end-start-radius: 0.5rem;
+}
+
+.rounded-t {
+  border-top-left-radius: 0.25rem;
+  border-top-right-radius: 0.25rem;
 }
 
 .border {
@@ -4702,6 +4745,10 @@ details.collapse summary::-webkit-details-marker {
 
 .border-t-2 {
   border-top-width: 2px;
+}
+
+.border-t {
+  border-top-width: 1px;
 }
 
 .border-none {
@@ -4971,6 +5018,10 @@ details.collapse summary::-webkit-details-marker {
   padding: 2rem;
 }
 
+.p-0 {
+  padding: 0px;
+}
+
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
@@ -5166,6 +5217,11 @@ details.collapse summary::-webkit-details-marker {
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
 }
 
 .font-bold {
@@ -6411,6 +6467,16 @@ html {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-light-primary-active:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(99 20 174 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-light-primary:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(114 50 194 / var(--tw-bg-opacity));
+}
+
 .hover\:stroke-primary-200:hover {
   stroke: #D4B0FF;
 }
@@ -6768,6 +6834,11 @@ html {
   border-color: rgb(197 149 255 / var(--tw-border-opacity));
 }
 
+.dark\:hover\:bg-black:hover:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
 .dark\:hover\:bg-blue-700:hover:is(.dark *) {
   --tw-bg-opacity: 1;
   background-color: rgb(26 86 219 / var(--tw-bg-opacity));
@@ -6841,6 +6912,11 @@ html {
 .dark\:hover\:text-yellow-400:hover:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(227 160 8 / var(--tw-text-opacity));
+}
+
+.dark\:hover\:text-black:hover:is(.dark *) {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
 }
 
 .dark\:hover\:underline:hover:is(.dark *) {
@@ -7093,6 +7169,10 @@ html {
 
   .md\:p-16 {
     padding: 4rem;
+  }
+
+  .md\:p-5 {
+    padding: 1.25rem;
   }
 
   .md\:px-10 {

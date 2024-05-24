@@ -1,9 +1,10 @@
 const CreateModal = (task,isAdmin) => {
 
+  
 
   const EditButton = (id)=>{
     return`
-    <button type="button" id="edit-modal-${id}" onclick="OpenEditModal(this)" data-id="${id}"  class=" text-white dark:text-black border-0 inline-flex items-center bg-primary-700 hover:bg-primary-800  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-xl px-5 py-2 text-center dark:bg-primary-600 hover:bg-light-active  hover:text-black dark:hover:bg-primary-200 bg-light-primary  dark:bg-primary-100 dark:hover:text-black dark:focus:ring-primary-800 group">
+    <button type="button" id="edit-modal-${id}" onclick="OpenEditModal(this)" data-id="${id}"  class=" text-white dark:text-black border-0 inline-flex items-center bg-primary-700 hover:bg-primary-800  focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium  text-xl px-5 py-2 text-center dark:bg-primary-600   hover:text-black rounded-full bg-light-primary  dark:bg-primary-100 dark:hover:text-black dark:focus:ring-primary-800 group dark:hover:bg-primary-200 hover:bg-light-primary-active">
     <svg class="w-6 h-6 text-white dark:text-black group-hover:text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
 </svg>
@@ -16,7 +17,7 @@ const CreateModal = (task,isAdmin) => {
 
   const DeleteButton = (id)=>{
     return`
-    <button type="button" data-id="${id}"   class="inline-flex items-center text-white dark:text-black bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xl px-5 py-2 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900 dark:hover:text-black"  onclick="OpenDeleteModal(this)">
+    <button type="button" data-id="${id}"   class="inline-flex items-center text-white dark:text-black bg-red-600 hover:bg-red-800  focus:ring-4 focus:outline-none focus:ring-red-300 font-medium  text-xl px-5 py-2 text-center dark:bg-red-500 dark:hover:bg-red-600 rounded-full dark:focus:ring-red-900 dark:hover:text-black"  onclick="OpenDeleteModal(this)">
               <svg aria-hidden="true" class="w-5 h-5 mr-1.5 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
               Delete
      </button>     
@@ -42,7 +43,7 @@ const CreateModal = (task,isAdmin) => {
     }
 
     return`
-    <button type="button"    class="inline-flex items-center w-full rounded-full  justify-center  text-white dark:text-black  bg-light-primary dark:bg-primary-100 font-sm  text-lg px-5 py-2 text-center"  data-modal-target="Unassigned-Task-1-modal-delete"  data-modal-toggle="Unassigned-Task-1-modal-delete" data-modal-hide="Unassigned-Task-1-modal" >
+    <button type="button" data-id="${id}" data-status="${status}"  class="inline-flex items-center w-full rounded-full  justify-center  text-white dark:text-black  bg-light-primary dark:bg-primary-100 font-sm  dark:hover:bg-primary-200 hover:bg-light-primary-active text-lg px-5 py-2 text-center"  data-modal-target="Unassigned-Task-1-modal-delete"  data-modal-toggle="Unassigned-Task-1-modal-delete" data-modal-hide="Unassigned-Task-1-modal" onclick="StartTask(this)" >
         
         ${textContent}
     </button>     
@@ -84,12 +85,19 @@ const CreateModal = (task,isAdmin) => {
     }else{
       assignee = "None"
     }
+    let modalHeader = ''
+    if(task.status == "Completed"){
+      modalHeader = `<h1 class="text-xl text-black dark:text-txt-100">Certificate of Completion <h1/>`
+       editBttn = ''
+       deleteBttn = ''
+       actionBttn = ''
+    }
   
     return`
     <dialog id="Task_modal_${task._id}" class="modal"> 
     <div class="relative bg-white dark:bg-task-bg rounded-lg shadow  modal-box  overflow-hidden w-11/12 max-w-2xl border border-black">
           <!-- Modal header -->
-        
+          ${modalHeader}
           <div class="flex items-center justify-between p-4 md:p-5 border-none rounded-t dark:border-gray-600">
               <form method="dialog">
                 
@@ -138,8 +146,8 @@ const CreateModal = (task,isAdmin) => {
           <span class="ml-2 text-black dark:text-white">Description</span>
           
         </div>
-        <div class=" mt-2 mb-5 me-8 border dark:border-0 border-black"> 
-          <textarea class="text-black border-2 border-black dark:border-0 dark:text-white text-md bg-light-overiew-bg dark:bg-task-content rounded-md border-none w-full h-36 resize-none overflow-hidden overflow-y-hidden" readonly>${task.description}</textarea>
+        <div class=" mt-2 mb-5 me-8 "> 
+          <textarea class="text-black border-2 border-black dark:border-0 dark:text-white text-md  bg-light-overiew-bg dark:bg-task-content rounded-md border-none w-full h-36 resize-none overflow-hidden overflow-y-hidden" readonly>${task.description}</textarea>
         </div>
   
   
@@ -161,26 +169,37 @@ const CreateModal = (task,isAdmin) => {
           </div>
           <!-- Modal footer -->
           
-          
-          <div class=" p-5 border-t dark:border-gray-600 mt-16  ">
+          <div class="border-0 mb-8">
+          </div>
+         
             <div class ="">
                 ${actionBttn}
             <div/>
 
             
                 
-            <div class="space-x-2 flex justify-end items-center mt-5">
-            ${editBttn}      
-            ${deleteBttn}  
-            <div/>
+            <div class="flex justify-between ">
+            <div class="justify-start">
+             
+
+            </div>
+            <div class=" justify-end">
+            
+            
+            </div>
+
+       
                       
             
         </div>
       
       </div>
+      <div class="flex justify-end space-x-5 mb-8 ">
+      ${editBttn} 
+      ${deleteBttn}  
+
+        </div>
   </dialog>
     `
   }
-  
-  
   
