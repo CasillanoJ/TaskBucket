@@ -1,26 +1,32 @@
-// export const filterTask = async (filter) => {
-//   let options = () => {
-//     return {
-//       method: "POST",
-//       body: JSON.stringify(filter),
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization:
-//           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY0NDg4MjJjM2IzMzI1NWUzZWFmODciLCJlbWFpbCI6ImFkbWluMUBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSm9iZXJ0IiwibGFzdF9uYW1lIjoiSm9obiIsImlzQWRtaW4iOnRydWUsImlzVmVyaWZpZWQiOnRydWUsImlhdCI6MTcxNTkzODQ3MSwiZXhwIjoxNzE1OTQyMDcxfQ.z5-7YxZBjD9fK4Yic96d_qah6gWT6x_FCPWsmvRbk9o",
-//       },
-//     };
-//   };
+export const getFilterTasks = async (filter) => {
+  let options = () => {
+    return {
+      method: "POST",
+      body: JSON.stringify({ filter }),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY0NDg4MjJjM2IzMzI1NWUzZWFmODciLCJlbWFpbCI6ImFkbWluMUBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSm9iZXJ0IiwibGFzdF9uYW1lIjoiSm9obiIsImlzQWRtaW4iOnRydWUsImlzVmVyaWZpZWQiOnRydWUsImlhdCI6MTcxNjUwODAyNiwiZXhwIjoxNzE2NTExNjI2fQ.IbN0Q7TPwni59DiVrqNRq4lKygwJEd4qN_c1FQ_ybBI",
+      },
+    };
+  };
 
-//   let data = await api_client(
-//     `${getEnv("dev")}${getEndpoint("task")}/filter`,
-//     options()
-//   );
+  try {
+    let data = await api_client(
+      `${getEnv("dev")}${getEndpoint("task")}/filter`,
+      options()
+    );
 
-//   console.log(data);
-//   return {
-//     data: data.tasks,
-//     status: data.status,
-//     message: data.message,
-//     total: data.lenght,
-//   };
-// };
+    console.log(data);
+
+    return {
+      data: data.data,
+      status: data.status,
+      message: data.message,
+      total: data.length,
+    };
+  } catch (error) {
+    console.error("Error filtering tasks:", error);
+    return { data: [], status: 500, message: error.message };
+  }
+};

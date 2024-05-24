@@ -1,7 +1,8 @@
-export const searchTask = async (value) => {
+export const getTask = async () => {
   let options = () => {
     return {
-      method: "GET",
+      method: "POST",
+      body: JSON.stringify({}),
       headers: {
         "Content-Type": "application/json",
         Authorization:
@@ -10,19 +11,14 @@ export const searchTask = async (value) => {
     };
   };
 
-  try {
-     let data = await api_client(
-       `${getEnv("dev")}${getEndpoint("task")}/search?query=${value}`,
-       options()
-     );
-    return {
-      data: data.data,
-      status: data.status,
-      message: data.message,
-      total: data.length,
-    };
-  } catch (error) {
-    console.error("Error filtering tasks:", error);
-    return { data: [], status: 500, message: error.message };
-  }
+  let data = await api_client(
+    `${getEnv("dev")}${getEndpoint("task")}/`,
+    options()
+  );
+  return {
+    data: data.tasks,
+    status: data.status,
+    message: data.message,
+    total: data.lenght,
+  };
 };

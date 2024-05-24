@@ -17,92 +17,667 @@
   </head>
 
   <body
-    class="font-rubik overflow-y-auto overflow-x-hidden dark:bg-main-body h-screen w-screen"
+    class="font-rubik overflow-y-auto overflow-x-hidden bg-light-bg dark:bg-main-body h-screen w-screen"
   >
-    <main class="p-4 h-full pt-20 bg-light-bg transition-all duration-100">
-      <div class="antialiased dark:bg-main-body mr-64" id="main-container">
-        <div
-          id="features"
-          class="flex flex-col lg:flex-row lg:justify-between mb-10"
-        ></div>
-        <div>
-          <button
-            id="theme-toggle"
-            type="button"
-            class="text-white border border-primary dark:text-yellow-400 dark:hover:text-yellow-400 hover:bg-gray-100 dark:hover:bg-primary focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 tooltip tooltip-top"
-          >
-            <svg
-              id="theme-toggle-dark-icon"
-              class="hidden w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
+    <div class="antialiased bg-light-bg dark:bg-main-body">
+      <!-- Header -->
+      <nav
+        class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-nav dark:border-gray-700 fixed left-0 right-0 top-0 z-50"
+      >
+        <div class="flex flex-wrap justify-between items-center">
+          <div class="flex justify-start items-center">
+            <button
+              data-drawer-target="default-sidebar"
+              data-drawer-toggle="default-sidebar"
+              aria-controls="default-sidebar"
+              type="button"
+              class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             >
-              <path
-                d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
-              ></path>
-            </svg>
-            <svg
-              id="theme-toggle-light-icon"
-              class="hidden w-5 h-5"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              ></path>
-            </svg>
-          </button>
-        </div>
+              <span class="sr-only">Open sidebar</span>
+              <svg
+                class="w-6 h-6"
+                aria-hidden="true"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  fill-rule="evenodd"
+                  d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+                ></path>
+              </svg>
+            </button>
+            <a href="#" class="flex items-center justify-between mr-4">
+              <svg
+                class="fill-light-primary dark:fill-primary-100"
+                width="36"
+                height="36"
+                viewBox="0 0 36 36"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g clip-path="url(#clip0_172_1568)">
+                  <path
+                    d="M31.6796 21.1351C32.0696 20.2051 31.8596 19.1251 31.1396 18.4201L19.0646 6.3451L17.2646 4.5451C15.6296 2.9101 12.9746 2.9101 11.3396 4.5451C9.70465 6.1651 9.70465 8.8351 11.3396 10.4551L12.0746 11.1901L3.95965 19.3201C3.07465 20.1901 2.63965 21.3451 2.63965 22.5001C2.63965 23.6551 3.07465 24.8101 3.95965 25.6801L10.3196 32.0401C11.1896 32.9251 12.3446 33.3601 13.4996 33.3601C14.6546 33.3601 15.8096 32.9251 16.6796 32.0401L25.1696 23.5651L25.6046 23.1151C25.8896 22.8301 26.2646 22.6801 26.6696 22.6801H29.3696C30.3896 22.6801 31.2896 22.0801 31.6796 21.1351ZM13.4546 6.6601C13.9196 6.1951 14.6846 6.1951 15.1496 6.6601L15.8846 7.3951L14.1896 9.0751L13.4546 8.3401C13.0046 7.8751 13.0046 7.1251 13.4546 6.6601ZM14.5646 29.9251C13.9796 30.5101 13.0196 30.5101 12.4346 29.9251L6.50965 24.0001H20.4896L14.5646 29.9251ZM32.9996 30.0001C32.9996 31.6501 31.6496 33.0001 29.9996 33.0001C28.3496 33.0001 26.9996 31.6501 26.9996 30.0001C26.9996 28.9351 27.9596 27.3151 28.7696 26.1451C29.3396 25.3351 30.6746 25.3351 31.2446 26.1451C32.0546 27.3151 33.0146 28.9201 33.0146 30.0001H32.9996Z"
+                  />
+                  <path
+                    d="M31.6796 21.1351C32.0696 20.2051 31.8596 19.1251 31.1396 18.4201L19.0646 6.3451L17.2646 4.5451C15.6296 2.9101 12.9746 2.9101 11.3396 4.5451C9.70465 6.1651 9.70465 8.8351 11.3396 10.4551L12.0746 11.1901L3.95965 19.3201C3.07465 20.1901 2.63965 21.3451 2.63965 22.5001C2.63965 23.6551 3.07465 24.8101 3.95965 25.6801L10.3196 32.0401C11.1896 32.9251 12.3446 33.3601 13.4996 33.3601C14.6546 33.3601 15.8096 32.9251 16.6796 32.0401L25.1696 23.5651L25.6046 23.1151C25.8896 22.8301 26.2646 22.6801 26.6696 22.6801H29.3696C30.3896 22.6801 31.2896 22.0801 31.6796 21.1351ZM13.4546 6.6601C13.9196 6.1951 14.6846 6.1951 15.1496 6.6601L15.8846 7.3951L14.1896 9.0751L13.4546 8.3401C13.0046 7.8751 13.0046 7.1251 13.4546 6.6601ZM14.5646 29.9251C13.9796 30.5101 13.0196 30.5101 12.4346 29.9251L6.50965 24.0001H20.4896L14.5646 29.9251ZM32.9996 30.0001C32.9996 31.6501 31.6496 33.0001 29.9996 33.0001C28.3496 33.0001 26.9996 31.6501 26.9996 30.0001C26.9996 28.9351 27.9596 27.3151 28.7696 26.1451C29.3396 25.3351 30.6746 25.3351 31.2446 26.1451C32.0546 27.3151 33.0146 28.9201 33.0146 30.0001H32.9996Z"
+                  />
+                  <g clip-path="url(#clip1_172_1568)">
+                    <path
+                      d="M24.9307 21.0975C24.7565 21.2717 24.5474 21.3588 24.3034 21.3588L14.8416 21.3588L13.0642 21.3588C12.8203 21.3588 12.6112 21.2717 12.4369 21.0975C12.2627 20.9232 12.1755 20.7141 12.1755 20.4702L12.1755 18.6928L12.1755 13.9619C12.1755 13.7179 12.2627 13.5088 12.4369 13.3346C12.6112 13.1603 12.8203 13.0732 13.0642 13.0732L14.8416 13.0732C15.0855 13.0732 15.2946 13.1603 15.4689 13.3346C15.6431 13.5088 15.7303 13.7179 15.7303 13.9619L15.7237 17.8107L24.3034 17.8041C24.5474 17.8041 24.7565 17.8912 24.9307 18.0655C25.105 18.2397 25.1921 18.4489 25.1921 18.6928L25.1921 20.4702C25.1921 20.7141 25.105 20.9232 24.9307 21.0975Z"
+                      fill="#EB6F3A"
+                    />
+                  </g>
+                </g>
+                <defs>
+                  <clipPath id="clip0_172_1568">
+                    <rect width="36" height="36" fill="white" />
+                  </clipPath>
+                  <clipPath id="clip1_172_1568">
+                    <rect
+                      width="16.56"
+                      height="16.56"
+                      fill="white"
+                      transform="translate(17.71 6.47998) rotate(45)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
 
-        <!-- Selected filters -->
-        <div class="flex justify-start space-x-4">
-          <div>
-            <ul id="selectedFilters" class="flex m-0 mb-3 flex-wrap gap-2">
-              <!-- "Clear All" button will be appended here -->
-            </ul>
+              <span
+                class="self-center ml-2 text-2xl font-semibold whitespace-nowrap text-light-primary dark:text-task"
+                >Bucket</span
+              >
+            </a>
+          </div>
+          <div class="flex items-center lg:order-2">
+            <!-- Notifications -->
+            <div class="indicator">
+              <span class="indicator-item badge bg-red-500 mt-1 mr-3 text-black"
+                >20</span
+              >
+              <button
+                type="button"
+                data-dropdown-toggle="notification-dropdown"
+                class="p-2 mr-1 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-700 ml-2 group"
+              >
+                <span class="sr-only">View notifications</span>
+
+                <!-- Bell icon -->
+                <svg
+                  class="w-8 h-8 fill-light-primary dark:fill-primary-100 dark:group-focus:-fill-primary-100"
+                  viewBox="0 0 31 41"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.5219 40.0168C16.7649 40.0195 17.9781 39.6361 18.9938 38.9196C20.0095 38.2031 20.7776 37.1887 21.1919 36.0168H9.85194C10.2663 37.1887 11.0344 38.2031 12.0501 38.9196C13.0658 39.6361 14.2789 40.0195 15.5219 40.0168ZM30.9019 31.2768L29.5219 27.8268V18.0168C29.5207 14.775 28.3945 11.6341 26.3356 9.13013C24.2766 6.62616 21.4124 4.91434 18.2319 4.28682C18.4491 3.82955 18.547 3.32477 18.5165 2.81948C18.486 2.31419 18.3282 1.82483 18.0577 1.39695C17.7872 0.969072 17.4129 0.616598 16.9695 0.372344C16.5261 0.12809 16.0281 0 15.5219 0C15.0157 0 14.5178 0.12809 14.0744 0.372344C13.631 0.616598 13.2566 0.969072 12.9861 1.39695C12.7157 1.82483 12.5578 2.31419 12.5274 2.81948C12.4969 3.32477 12.5948 3.82955 12.8119 4.28682C9.63145 4.91434 6.76731 6.62616 4.70832 9.13013C2.64934 11.6341 1.52314 14.775 1.52194 18.0168V27.8268L0.141938 31.2768C0.02104 31.5804 -0.0236416 31.9089 0.0118011 32.2338C0.0472437 32.5586 0.161731 32.8698 0.345249 33.1401C0.528768 33.4105 0.775729 33.6317 1.06453 33.7846C1.35334 33.9374 1.67519 34.0171 2.00194 34.0168H29.0019C29.3287 34.0171 29.6505 33.9374 29.9393 33.7846C30.2281 33.6317 30.4751 33.4105 30.6586 33.1401C30.8421 32.8698 30.9566 32.5586 30.9921 32.2338C31.0275 31.9089 30.9828 31.5804 30.8619 31.2768H30.9019Z"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <!-- Dropdown menu -->
+            <div
+              class="hidden overflow-hidden z-50 my-4 max-w-sm text-base list-none bg-white divide-y divide-gray-100 shadow-lg dark:divide-gray-600 dark:bg-gray-700 rounded-xl"
+              id="notification-dropdown"
+            >
+              <div
+                class="block py-2 px-4 text-base font-medium text-center text-gray-700 bg-gray-50 dark:bg-gray-600 dark:text-gray-300"
+              >
+                Notifications
+              </div>
+              <div>
+                <a
+                  href="#"
+                  class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
+                >
+                  <div class="flex-shrink-0">
+                    <img
+                      class="w-11 h-11 rounded-full"
+                      src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png"
+                      alt="Bonnie Green avatar"
+                    />
+                    <div
+                      class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 rounded-full border border-white bg-primary-700 dark:border-gray-700"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="w-3 h-3 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8.707 7.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l2-2a1 1 0 00-1.414-1.414L11 7.586V3a1 1 0 10-2 0v4.586l-.293-.293z"
+                        ></path>
+                        <path
+                          d="M3 5a2 2 0 012-2h1a1 1 0 010 2H5v7h2l1 2h4l1-2h2V5h-1a1 1 0 110-2h1a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="pl-3 w-full">
+                    <div
+                      class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
+                    >
+                      New message from
+                      <span class="font-semibold text-gray-900 dark:text-white"
+                        >Bonnie Green</span
+                      >: "Hey, what's up? All set for the presentation?"
+                    </div>
+                    <div
+                      class="text-xs font-medium text-primary-600 dark:text-primary-500"
+                    >
+                      a few moments ago
+                    </div>
+                  </div>
+                </a>
+                <a
+                  href="#"
+                  class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
+                >
+                  <div class="flex-shrink-0">
+                    <img
+                      class="w-11 h-11 rounded-full"
+                      src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png"
+                      alt="Jese Leos avatar"
+                    />
+                    <div
+                      class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-gray-900 rounded-full border border-white dark:border-gray-700"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="w-3 h-3 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="pl-3 w-full">
+                    <div
+                      class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
+                    >
+                      <span class="font-semibold text-gray-900 dark:text-white"
+                        >Jese leos</span
+                      >
+                      and
+                      <span class="font-medium text-gray-900 dark:text-white"
+                        >5 others</span
+                      >
+                      started following you.
+                    </div>
+                    <div
+                      class="text-xs font-medium text-primary-600 dark:text-primary-500"
+                    >
+                      10 minutes ago
+                    </div>
+                  </div>
+                </a>
+                <a
+                  href="#"
+                  class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
+                >
+                  <div class="flex-shrink-0">
+                    <img
+                      class="w-11 h-11 rounded-full"
+                      src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/joseph-mcfall.png"
+                      alt="Joseph McFall avatar"
+                    />
+                    <div
+                      class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-red-600 rounded-full border border-white dark:border-gray-700"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="w-3 h-3 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="pl-3 w-full">
+                    <div
+                      class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
+                    >
+                      <span class="font-semibold text-gray-900 dark:text-white"
+                        >Joseph Mcfall</span
+                      >
+                      and
+                      <span class="font-medium text-gray-900 dark:text-white"
+                        >141 others</span
+                      >
+                      love your story. See it and view more stories.
+                    </div>
+                    <div
+                      class="text-xs font-medium text-primary-600 dark:text-primary-500"
+                    >
+                      44 minutes ago
+                    </div>
+                  </div>
+                </a>
+                <a
+                  href="#"
+                  class="flex py-3 px-4 border-b hover:bg-gray-100 dark:hover:bg-gray-600 dark:border-gray-600"
+                >
+                  <div class="flex-shrink-0">
+                    <img
+                      class="w-11 h-11 rounded-full"
+                      src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/roberta-casas.png"
+                      alt="Roberta Casas image"
+                    />
+                    <div
+                      class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-green-400 rounded-full border border-white dark:border-gray-700"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="w-3 h-3 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z"
+                          clip-rule="evenodd"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="pl-3 w-full">
+                    <div
+                      class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
+                    >
+                      <span class="font-semibold text-gray-900 dark:text-white"
+                        >Leslie Livingston</span
+                      >
+                      mentioned you in a comment:
+                      <span
+                        class="font-medium text-primary-600 dark:text-primary-500"
+                        >@bonnie.green</span
+                      >
+                      what do you say?
+                    </div>
+                    <div
+                      class="text-xs font-medium text-primary-600 dark:text-primary-500"
+                    >
+                      1 hour ago
+                    </div>
+                  </div>
+                </a>
+                <a
+                  href="#"
+                  class="flex py-3 px-4 hover:bg-gray-100 dark:hover:bg-gray-600"
+                >
+                  <div class="flex-shrink-0">
+                    <img
+                      class="w-11 h-11 rounded-full"
+                      src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/robert-brown.png"
+                      alt="Robert image"
+                    />
+                    <div
+                      class="flex absolute justify-center items-center ml-6 -mt-5 w-5 h-5 bg-purple-500 rounded-full border border-white dark:border-gray-700"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="w-3 h-3 text-white"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"
+                        ></path>
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="pl-3 w-full">
+                    <div
+                      class="text-gray-500 font-normal text-sm mb-1.5 dark:text-gray-400"
+                    >
+                      <span class="font-semibold text-gray-900 dark:text-white"
+                        >Robert Brown</span
+                      >
+                      posted a new video: Glassmorphism - learn how to implement
+                      the new design trend.
+                    </div>
+                    <div
+                      class="text-xs font-medium text-primary-600 dark:text-primary-500"
+                    >
+                      3 hours ago
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <a
+                href="#"
+                class="block py-2 text-md font-medium text-center text-gray-900 bg-gray-50 hover:bg-gray-100 dark:bg-gray-600 dark:text-white dark:hover:underline"
+              >
+                <div class="inline-flex items-center">
+                  <svg
+                    aria-hidden="true"
+                    class="mr-2 w-4 h-4 text-gray-500 dark:text-gray-400"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path>
+                    <path
+                      fill-rule="evenodd"
+                      d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                      clip-rule="evenodd"
+                    ></path>
+                  </svg>
+                  View all
+                </div>
+              </a>
+            </div>
           </div>
         </div>
+      </nav>
 
-        <!-- Filter sidebar -->
+      <!-- Sidebar -->
+      <div class="" id="sidebar-container">
         <aside
-          class="fixed top-0 mt-14 right-0 z-40 w-56 h-screen block"
-          id="filter-sidebar"
-        ></aside>
-
-        <!-- Table -->
-        <div
-          class="relative overflow-x-auto shadow-md sm:rounded-lg dark:bg-secondary p-8"
+          id="default-sidebar"
+          class="fixed mt-14 left-0 z-40 h-screen border-e-2 shadow-md dark:border-gray-700 -translate-x-full sm:translate-x-0 bg-white dark:bg-nav transition-all duration-300 sidebar-expanded"
         >
-          <table
-            class="w-full text-md rtl:text-right text-gray-500 dark:text-gray-400 text-center"
-          >
-            <thead
-              class="text-lg text-gray-700 bg-gray-50 border-b-2 border-gray-500 dark:bg-secondary dark:text-txt-100"
-            >
-              <tr>
-                <th scope="col" class="px-6 py-3">Title</th>
-                <th scope="col" class="px-6 py-3">Due Date</th>
-                <th scope="col" class="px-6 py-3">Status</th>
-                <th scope="col" class="px-6 py-3">Priority Level</th>
-                <th scope="col" class="px-6 py-3">Owner</th>
+          <div class="overflow-y-auto py-5 px-3 h-full">
+            <div class="top-0 right-14">
+              <button
+                id="toggle-sidebar"
+                class="p-1 bg-nav-toggle-btn rounded-full ml-8 transition-transform duration-100 absolute top-8 -translate-y-1/2 -right-3 text-white flex items-center"
+              >
+                <div id="sidebar-toggle-icon">
+                  <svg
+                    class="w-6 h-6 dark:text-black text-white"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M5 12h14M5 12l4-4m-4 4 4 4"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </div>
 
-                <th scope="col" class="px-6 py-3"></th>
-              </tr>
-            </thead>
-            <tbody id="rows"></tbody>
-          </table>
-        </div>
+            <ul class="space-y-2 mt-10">
+              <li>
+                <a
+                  href="#"
+                  class="side-nav-item group dashboard-item rounded-full dark:bg-primary-100 bg-light-active"
+                >
+                  <svg
+                    class="w-6 h-6 text-light-primary dark:text-black dark:group-hover:text-black"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9.143 4H4.857A.857.857 0 0 0 4 4.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 10 9.143V4.857A.857.857 0 0 0 9.143 4Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286A.857.857 0 0 0 20 9.143V4.857A.857.857 0 0 0 19.143 4Zm-10 10H4.857a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286A.857.857 0 0 0 9.143 14Zm10 0h-4.286a.857.857 0 0 0-.857.857v4.286c0 .473.384.857.857.857h4.286a.857.857 0 0 0 .857-.857v-4.286a.857.857 0 0 0-.857-.857Z"
+                    />
+                  </svg>
+
+                  <span
+                    class="ml-3 text-light-primary dark:text-black dashboard-text"
+                    >Dashboard</span
+                  >
+                </a>
+              </li>
+              <li>
+                <a href="#" class="side-nav-item group dashboard-item">
+                  <svg
+                    class="w-6 h-6 dark:text-white dark:group-hover:text-black"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 4h3a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3m0 3h6m-6 7 2 2 4-4m-5-9v4h4V3h-4Z"
+                    />
+                  </svg>
+
+                  <span class="ml-3 dashboard-text">View Task List</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="side-nav-item group dashboard-item rounded-full"
+                >
+                  <svg
+                    class="w-6 h-6 dark:group-hover:text-black"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-width="2"
+                      d="M4.5 17H4a1 1 0 0 1-1-1 3 3 0 0 1 3-3h1m0-3.05A2.5 2.5 0 1 1 9 5.5M19.5 17h.5a1 1 0 0 0 1-1 3 3 0 0 0-3-3h-1m0-3.05a2.5 2.5 0 1 0-2-4.45m.5 13.5h-7a1 1 0 0 1-1-1 3 3 0 0 1 3-3h3a3 3 0 0 1 3 3 1 1 0 0 1-1 1Zm-1-9.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"
+                    />
+                  </svg>
+
+                  <span class="ml-3 dashboard-text">View Team</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="side-nav-item group dashboard-item rounded-full"
+                >
+                  <svg
+                    class="w-6 h-6 dark:group-hover:text-black"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 4.5V19a1 1 0 0 0 1 1h15M7 14l4-4 4 4 5-5m0 0h-3.207M20 9v3.207"
+                    />
+                  </svg>
+
+                  <span class="ml-3 dashboard-text">Performance</span>
+                </a>
+              </li>
+            </ul>
+            <ul
+              class="pt-5 mt-5 space-y-2 border-t-2 border-gray-200 dark:border-gray-700"
+            >
+              <li>
+                <a href="#" class="side-nav-item group dashboard-item">
+                  <svg
+                    class="w-6 h-6 dark:text-white dark:group-hover:text-black"
+                    aria-hidden="true"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 9h3m-3 3h3m-3 3h3m-6 1c-.306-.613-.933-1-1.618-1H7.618c-.685 0-1.312.387-1.618 1M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm7 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"
+                    />
+                  </svg>
+
+                  <span class="ml-3 dashboard-text">User Profile</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg transition duration-75 hover:bg-red-600 dark:hover:bg-red-600 dark:text-white group dark:hover:text-primary-100 dashboard-item group"
+                >
+                  <svg
+                    width="27"
+                    height="27"
+                    viewBox="0 0 27 27"
+                    class="fill-light-primary dark:fill-primary-100 group-hover:fill-black"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M22.4145 13.9241C22.4225 13.9008 22.434 13.8793 22.4417 13.856C22.5197 13.6247 22.5197 13.3754 22.4417 13.1441C22.434 13.1207 22.4224 13.0992 22.4145 13.0761C22.4112 13.068 22.4084 13.0602 22.4049 13.0522C21.5705 10.6488 19.6461 8.73806 17.2309 7.93278C16.6377 7.73445 16.0049 8.05473 15.8083 8.64468C15.6116 9.23407 15.9302 9.87071 16.5191 10.0674C17.7684 10.4835 18.8382 11.3061 19.5703 12.3751H11.25C10.6282 12.3751 10.125 12.8788 10.125 13.5001C10.125 14.1213 10.6282 14.6251 11.25 14.6251H19.5703C18.8381 15.6939 17.7684 16.5165 16.5191 16.9328C15.9302 17.1294 15.6116 17.7661 15.8083 18.3555C15.9653 18.8273 16.4037 19.1256 16.875 19.1256C16.9926 19.1256 17.1123 19.107 17.2309 19.0674C19.6461 18.2621 21.5705 16.3514 22.4049 13.9479C22.4084 13.9399 22.4112 13.9322 22.4145 13.9241Z"
+                    />
+                    <path
+                      d="M5.25935 20.1752C5.76144 22.3461 7.42363 23.9897 9.49239 24.3627L9.86038 24.4292C11.0491 24.644 12.2444 24.7511 13.4408 24.7511C14.6372 24.7511 15.8337 24.644 17.0212 24.4298C18.4945 24.1639 19.7975 23.2394 20.5951 21.8936C20.9116 21.3591 20.7358 20.6691 20.2007 20.3522C19.6657 20.0353 18.9757 20.2127 18.6593 20.7466C18.1946 21.53 17.452 22.0656 16.6214 22.2155C14.512 22.5957 12.3708 22.5957 10.2614 22.2155L9.89345 22.1485C8.70916 21.9353 7.75111 20.9619 7.45231 19.6689C6.51958 15.633 6.51958 11.367 7.45231 7.33122C7.751 6.03804 8.70905 5.06469 9.89446 4.85094L10.2603 4.78445C12.3697 4.40431 14.512 4.40431 16.6214 4.78445C17.3828 4.92237 18.0617 5.37327 18.5319 6.05559C18.8857 6.56645 19.5854 6.69335 20.0974 6.34179C20.6083 5.98854 20.7369 5.28822 20.3842 4.7768C19.5701 3.59847 18.3758 2.81514 17.0212 2.57079C14.646 2.14126 12.2367 2.14228 9.85925 2.57079L9.49352 2.63671C7.42374 3.01021 5.76144 4.65384 5.25935 6.82475C4.25079 11.1917 4.25079 15.8082 5.25935 20.1752Z"
+                    />
+                  </svg>
+
+                  <span
+                    class="ml-3 text-light-primary dark:text-primary-100 font-medium dashboard-text group-hover:text-black"
+                    >Logout</span
+                  >
+                </a>
+              </li>
+              <li></li>
+            </ul>
+            <button
+              id="theme-toggle"
+              type="button"
+              class="text-black border border-primary dark:text-yellow-400 dark:hover:text-yellow-400 hover:bg-gray-100 dark:hover:bg-primary focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 tooltip tooltip-top"
+            >
+              <svg
+                id="theme-toggle-dark-icon"
+                class="hidden w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+                ></path>
+              </svg>
+              <svg
+                id="theme-toggle-light-icon"
+                class="hidden w-5 h-5"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </aside>
       </div>
-    </main>
+      <main
+        class="p-4 h-full pt-20 bg-light-bg dark:bg-main-body transition-all duration-100"
+      >
+        <div
+          class="antialiased dark:bg-main-body md:ml-24 lg:ml-64 sm:ml-10 lg:mr-10"
+          id="main-container"
+        >
+          <div
+            id="features"
+            class="flex flex-row lg:justify-between mb-10"
+          ></div>
+
+          <!-- Selected filters -->
+          <div class="flex justify-start space-x-4">
+            <div>
+              <ul id="selectedFilters" class="flex m-0 mb-3 flex-wrap gap-2">
+                <!-- "Clear All" button will be appended here -->
+              </ul>
+            </div>
+          </div>
+
+          <!-- Filter sidebar -->
+          <aside
+            class="fixed top-0 mt-14 right-0 z-40 w-56 lg:w-full h-screen hidden"
+            id="filter-sidebar"
+          ></aside>
+
+          <!-- Table -->
+          <div
+            class="relative shadow-md sm:rounded-lg bg-white dark:bg-secondary p-8"
+          >
+            <div
+              class="table-container overflow-x-auto overflow-y-auto h-screen-60 lg:h-screen-70"
+            >
+              <table
+                class="w-full text-md rtl:text-right text-gray-500 dark:text-gray-400 text-center"
+              >
+                <thead
+                  class="sticky-header text-lg text-gray-700 bg-white dark:bg-secondary dark:text-txt-100"
+                >
+                  <tr>
+                    <th scope="col" class="px-6 py-3">Title</th>
+                    <th scope="col" class="px-6 py-3">Due Date</th>
+                    <th scope="col" class="px-6 py-3">Status</th>
+                    <th scope="col" class="px-6 py-3">Priority Level</th>
+                    <th scope="col" class="px-6 py-3">Owner</th>
+                    <th scope="col" class="px-6 py-3"></th>
+                  </tr>
+                </thead>
+                <tbody id="rows"></tbody>
+              </table>
+            </div>
+            <div
+              id="noTasksMessage"
+              class="hidden text-center text-gray-500 dark:text-gray-400 mt-4"
+            >
+              No tasks found
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
 
     <script src="../API/api_client.js"></script>
-    <script src="../API/Get_taskList.js" type="module"></script>
     <script src="../API/routes.js"></script>
-    <!-- <script src="../API/filter_task.js" type="module"></script> -->
 
     <script src="../components/TaskList/task_table.js" type="module"></script>
     <script
@@ -114,10 +689,9 @@
       type="module"
     ></script>
 
-    <script src="../controllers/fetch_task_list.js" type="module"></script>
-    <script src="../controllers/render_task_table.js" type="module"></script>
-    <!-- <script src="../controllers/search_handler.js" type="module"></script> -->
-    <script src="../controllers/main.js" type="module"></script>
+    <script src="../controllers/sidebar_controller.js"></script>
+    <script src="../Controllers/fetch_tasks.js" type="module"></script>
+    <script src="../Controllers/render_task_table.js" type="module"></script>
 
     <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
     <script src="../node_modules/flowbite/dist/datepicker.js"></script>

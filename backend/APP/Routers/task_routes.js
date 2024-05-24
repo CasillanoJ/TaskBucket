@@ -18,7 +18,7 @@ const { VerifyToken } = require("../Controllers/Authentication_Controller");
 router.use(VerifyToken);
 router.post("/add", createTask);
 router.post("/", getTasks);
-router.get("/sortBy/", sortBy);
+router.post("/sortBy/", sortBy);
 router.post("/filter/", filterTasks);
 router.get("/search/", searchTasks);
 router.post("/:id", updateTask);
