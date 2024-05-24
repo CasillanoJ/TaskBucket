@@ -7,27 +7,23 @@ export const search = () => {
 
   // Prevent form submission on Enter key press
   searchForm.addEventListener("submit", (event) => {
-    event.preventDefault(); // Prevent the default form submission
+    event.preventDefault(); 
   });
 
   // Listen for keypress event
   searchInput.addEventListener("keypress", async (event) => {
     if (event.key === "Enter" || event.keyCode === 13) {
-      event.preventDefault(); // Prevent the default form submission behavior
+      event.preventDefault();
       const searchValue = searchInput.value;
-      console.log("Search Value Enter:", searchValue);
-      // Call the searchTask function with the search value
       const data = await searchTask(searchValue);
-      await FetchTaskList("searchTask", data); // Ensure the function waits for FetchTaskList to complete
+      await FetchTaskList("searchTask", data); 
     }
   });
 
   // Listen for input event
   // searchInput.addEventListener("input", async () => {
   //   const searchValue = searchInput.value;
-  //   console.log("Search Value Input:", searchValue);
-  //   // Call the searchTask function with the search value
   //   const data = await searchTask(searchValue);
-  //   await FetchTaskList("searchTask", data); // Ensure the function waits for FetchTaskList to complete
+  //   await FetchTaskList("searchTask", data); 
   // });
 };

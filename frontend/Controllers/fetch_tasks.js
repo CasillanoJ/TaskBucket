@@ -13,8 +13,6 @@ const FetchTaskList = async (
   dataParams = null
 ) => {
   const taskContainer = document.getElementById("rows");
-  const filterSidebar = document.getElementById("filter-sidebar");
-  const taskFeatures = document.getElementById("features");
 
   taskContainer.innerHTML = "";
 
@@ -28,7 +26,6 @@ const FetchTaskList = async (
       data = dataParams;
     } else {
       data = await getTask();
-      // data = await sortTask(4);
     }
 
     if (data.status && data.status !== 200) {

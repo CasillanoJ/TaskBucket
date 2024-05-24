@@ -314,7 +314,7 @@ const sortBy = async (req, res) => {
         break;
     }
 
-    let tasks = await Task.find();
+    let tasks = await Task.find().populate("assignee", "first_name last_name");
 
     if (sortCat === "priorityLevel") {
       const priorityOrder = {
@@ -428,7 +428,7 @@ const searchTasks = async (req, res) => {
           { title: { $regex: query, $options: "i" } }, // Partial search on title
           { description: { $regex: query, $options: "i" } }, // Partial search on description
         ],
-      }).limit(10);
+      }).populate("assignee", "first_name last_name");
 
       return res
         .status(200)

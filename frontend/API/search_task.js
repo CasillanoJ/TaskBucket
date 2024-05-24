@@ -5,7 +5,7 @@ export const searchTask = async (value) => {
       headers: {
         "Content-Type": "application/json",
         Authorization:
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY0NDg4MjJjM2IzMzI1NWUzZWFmODciLCJlbWFpbCI6ImFkbWluMUBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSm9iZXJ0IiwibGFzdF9uYW1lIjoiSm9obiIsImlzQWRtaW4iOnRydWUsImlzVmVyaWZpZWQiOnRydWUsImlhdCI6MTcxNjUzMzY0MywiZXhwIjoxNzE2NTM3MjQzfQ.Xyl09xGimrGyO2ar6RXkIeFtdECQ11vnM8zIuHWCfUo",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NWY0NDg4MjJjM2IzMzI1NWUzZWFmODciLCJlbWFpbCI6ImFkbWluMUBnbWFpbC5jb20iLCJmaXJzdF9uYW1lIjoiSm9iZXJ0IiwibGFzdF9uYW1lIjoiSm9obiIsImlzQWRtaW4iOnRydWUsImlzVmVyaWZpZWQiOnRydWUsImlhdCI6MTcxNjU2MjA3MywiZXhwIjoxNzE2NTY1NjczfQ.DgY64OtSgTdk25fDz0a7_0YVi9vU2784cPppjjA-pw0",
       },
     };
   };
@@ -15,9 +15,6 @@ export const searchTask = async (value) => {
        `${getEnv("dev")}${getEndpoint("task")}/search?query=${value}`,
        options()
      );
-
-    console.log(data);
-
     return {
       data: data.data,
       status: data.status,
