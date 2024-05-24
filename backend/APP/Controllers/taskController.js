@@ -222,6 +222,7 @@ const updateStatus = async (req, res) => {
     }
     if(status == "To do"){
       updatedStats.status = "In progress"
+      updatedStats.startedAt = dateToday
     }
     if(status == "In progress"){
       updatedStats.status = "Completed"

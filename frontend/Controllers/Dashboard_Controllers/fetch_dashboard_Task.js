@@ -50,11 +50,12 @@ const  FetchTaskList = async(skip,limit,status,isAdmin) =>{
 
   
      let data = await getTaskList(skip,limit,request)
+     
 
 
 
     if (data.status == 401 ){
-      // window.location.href = '/frontend/views/homepage.html'
+      window.location.href = '/frontend/views/homepage.html'
       return
     }
 
@@ -66,7 +67,7 @@ const  FetchTaskList = async(skip,limit,status,isAdmin) =>{
 
      let cardHtml = ``
      let modalHtml = ``
-     let editModalHTML = ``
+    
 
       if(!data.total ){
         data.total = 0

@@ -18,13 +18,15 @@ const getTaskList = async (req, res , next) =>{
   console.log(status)
 
 
-  const dateToday = new Date()
-  dateToday.setHours(0, 0, 0, 0);
+  let dateToday = new Date();
+  dateToday.setHours(0, 0, 0, 0); 
+  let dateTodayISO = dateToday.toISOString().split('T')[0];
   
+  let currentDate = new Date();
+  currentDate.setHours(0, 0, 0, 0); 
+  currentDate.setDate(currentDate.getDate() + 11);
+  let currentDateISO = currentDate.toISOString().split('T')[0];
 
-  const currentDate = new Date(); 
-  currentDate.setHours(0, 0, 0, 0)
-  currentDate.setDate(currentDate.getDate() + 11); 
 
 
     let getTask ={}
@@ -45,16 +47,16 @@ const getTaskList = async (req, res , next) =>{
       if(isAdmin){
         getTask = await Task.find({
           completedAt: {
-            $lte: currentDate,
-            $gte: dateToday
+            $lte: dateTodayISO,
+            $gte: currentDateISO
           },
           status: "Completed"
         }).populate('assignee', 'first_name last_name').limit(limit).skip(count);
 
         taskCount = await Task.find({
           completedAt: {
-            $lte: currentDate,
-            $gte: dateToday
+            $lte: dateTodayISO,
+            $gte: currentDateISO
           },
           status: "Completed"
         }).countDocuments()
@@ -62,8 +64,8 @@ const getTaskList = async (req, res , next) =>{
       }else{
         getTask = await Task.find({
           completedAt: {
-            $lte: currentDate,
-            $gte: dateToday
+            $lte: dateTodayISO,
+            $gte: currentDateISO
           },
           status: "Completed",
           assignee: userId
@@ -72,8 +74,8 @@ const getTaskList = async (req, res , next) =>{
         
         taskCount = await Task.find({
           completedAt: {
-            $lte: currentDate,
-            $gte: dateToday
+            $lte: dateTodayISO,
+            $gte: currentDateISO
           },
           status: "Completed",
           assignee: userId
