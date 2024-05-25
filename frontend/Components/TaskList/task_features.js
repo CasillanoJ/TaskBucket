@@ -1,4 +1,5 @@
 export const CreateFeatures = () => {
+
   return `
             <button
                class="feature-button btn xl:inline-flex items-center hidden me-3 lg:me-5 mb-2 lg:mb-0 lg:mr-4 lg:order-1  bg-light-primary focus:ring-4 dark:hover:bg-primary-200 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-full lg:w-auto lg:px-10 py-2.5 text-center dark:bg-primary-100  dark:focus:ring-primary-100"
@@ -123,7 +124,7 @@ export const CreateFeatures = () => {
                 />
               </svg>
 
-              <span class="text-light-primary dark:text-primary-100 font-semibold">Priority Level</span>
+              <span class="text-light-primary dark:text-primary-100 font-semibold" id="sortLabel">Oldest Task</span>
             </button>
             
               <button

@@ -193,7 +193,7 @@ export const filterTasks = () => {
 
           filterButton.insertAdjacentHTML("beforeend", closeBtn);
 
-          filterButton.classList.add("secondary-btn");
+          filterButton.classList.add("secondary-btn")
           filterButton.addEventListener("click", function () {
             const selectedStatusFilters = [];
             const selectedPriorityFilters = [];

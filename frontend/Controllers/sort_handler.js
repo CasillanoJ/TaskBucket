@@ -5,7 +5,10 @@ export const sort = () => {
   const sortOptions = document.querySelectorAll(".sort-option");
   sortOptions.forEach(function (selectedSort) {
     selectedSort.addEventListener("click", async () => {
+      const sortTextContent = document.getElementById("sortLabel")
       const sortCat = selectedSort.getAttribute("category");
+      let sortLabel = selectedSort.textContent
+      sortTextContent.innerHTML = sortLabel
       const data = await sortTask(sortCat);
       await FetchTaskList("sortedTask", data);
     });

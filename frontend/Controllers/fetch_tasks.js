@@ -49,8 +49,6 @@ const FetchTaskList = async (
 
     taskContainer.innerHTML += tableHtml;
     
-    toggleFilter();
-    filterTasks();
     search();
     sort();
   } catch (error) {

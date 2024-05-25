@@ -451,8 +451,7 @@ const searchTasks = async (req, res) => {
       { $text: { $search: query } },
       { score: { $meta: "textScore" } }
     ) // Sorting by textScore to show best matches first
-      .sort({ score: { $meta: "textScore" } })
-      .limit(10);
+      .sort({ score: { $meta: "textScore" } }).populate("assignee", "first_name last_name");;
 
     if (tasks.length === 0) {
       const partialTasks = await Task.find({
