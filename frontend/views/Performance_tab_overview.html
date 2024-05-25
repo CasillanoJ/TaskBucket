@@ -462,7 +462,7 @@
           <div class="relative w-1/2 indicator">
             <span class="indicator-item indicator-start bg-light-bg  dark:bg-main-body ml-14 -mt-1   mr-3  text-light-primary dark:text-white px-1">Start
               Date</span>
-            <input name="start" type="text"
+            <input name="start" type="text" id="performance-startDate"
               class="bg-transparent  border  border-light-primary text-light-primary text-sm font-bold rounded-lg focus:ring-light-primary focus:border-light-primary block w-full pr-10 pt-4 pb-2.5 dark:bg-transparent dark:border-white dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-primary dark:focus:border-primary-100" />
             <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none">
               <svg width="24" height="24" viewBox="0 0 24 24" class="fill-light-primary dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg">
@@ -478,7 +478,7 @@
           <span class="mx-2 text-gray-500"></span>
           <div class="relative w-1/2 indicator">
             <span class="indicator-item indicator-start bg-light-bg text-light-primary dark:bg-main-body ml-14 -mt-1 mr-3 dark:text-white px-1">End Date</span>
-            <input name="end" type="text"
+            <input name="end" type="text" id="performance-endDate"
               class="bg-transparent   text-light-primary text-sm rounded-lg font-bold  focus:ring-light-primary focus:border-light-primary block w-full pr-10 pt-4 pb-2.5 dark:bg-transparent dark:border-white border-light-primary dark:placeholder-gray-400 dark:text-gray-400 dark:focus:ring-primary-100 dark:focus:border-primary-100" />
             <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none">
               <svg width="24"  height="24"  viewBox="0 0 24 24" class="fill-light-primary dark:fill-gray-200" xmlns="http://www.w3.org/2000/svg">
@@ -601,6 +601,13 @@
 
 
   <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+  <script src="../API/routes.js"></script>
+  <script src="../API/api_client.js"></script>
+  <script src="../API/get_users.js"></script>
+  <script src="../API/get_userProgression.js"></script>
+
+  <script src="../Components/PerformanceTab_components/userProgression_card.js"></script>
+  <script src="../Components/PerformanceTab_components/userProgression_card_container.js"></script>
   <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
   <script src="../node_modules/flowbite/dist/datepicker.js"></script>
   <script>

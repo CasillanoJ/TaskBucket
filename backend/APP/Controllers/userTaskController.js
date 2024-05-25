@@ -15,7 +15,6 @@ const getTaskList = async (req, res , next) =>{
   const count = req.params.count
   const limit = req.query.limit
 
-  console.log(status)
 
 
   let dateToday = new Date();
@@ -47,16 +46,16 @@ const getTaskList = async (req, res , next) =>{
       if(isAdmin){
         getTask = await Task.find({
           completedAt: {
-            $lte: dateTodayISO,
-            $gte: currentDateISO
+            $lte: currentDateISO ,
+            $gte: dateTodayISO
           },
           status: "Completed"
         }).populate('assignee', 'first_name last_name').limit(limit).skip(count);
 
         taskCount = await Task.find({
           completedAt: {
-            $lte: dateTodayISO,
-            $gte: currentDateISO
+            $lte: currentDateISO,
+            $gte: dateTodayISO
           },
           status: "Completed"
         }).countDocuments()
@@ -64,8 +63,8 @@ const getTaskList = async (req, res , next) =>{
       }else{
         getTask = await Task.find({
           completedAt: {
-            $lte: dateTodayISO,
-            $gte: currentDateISO
+            $lte: currentDateISO,
+            $gte: dateTodayISO
           },
           status: "Completed",
           assignee: userId
@@ -74,10 +73,10 @@ const getTaskList = async (req, res , next) =>{
         
         taskCount = await Task.find({
           completedAt: {
-            $lte: dateTodayISO,
-            $gte: currentDateISO
+            $lte: currentDateISO,
+            $gte: dateTodayISO
           },
-          status: "Completed",
+          status: "Completed",  
           assignee: userId
         }).countDocuments()
 
@@ -141,8 +140,8 @@ const getTaskList = async (req, res , next) =>{
 const getEachUserProgression = async (req, res, next) => {
   try {
 
-
-    const { id: userID, startDate, endDate } = req.body;
+    const userID = req.params.id
+    const { startDate, endDate } = req.body;
     const dateToday = new Date();
 
     
