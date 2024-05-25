@@ -10,6 +10,9 @@ const getEndpoint = (data)=>{
         case "login":
            endpoint = "/login"
           break;
+        case "notification":
+           endpoint = "/notification"
+          break;
         default:
             endpoint =""
             break;

@@ -1,57 +1,60 @@
-<!DOCTYPE html>
-<html lang="en" class="text-gray-900 bg-gray-100 font-serif">
+<!DOCTYPE htmlnpm <html lang="en" class="text-gray-900 bg-gray-100 font-serif">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
 </head>
+
 <body class="flex justify-center items-center h-screen">
-    <div class="absolute top-6 left-12 custom-container bg- w-1/3 p-60 rounded-2xl shadow-lg text-white relative h-96" style="background-color: #2D2A44;">
-        <div class=" absolute top-8 left-12 font-sans text-3xl">
-            Notification
-        </div>
-        <div class=" text-white py-2 px-4 rounded-lg absolute top-20 right-8 font-sans">
-        Mark all as read
-    </div>  
-    <div class="absolute top-32 left-0 w-full h-px bg-gray-600"></div>
-    <div class=" text-white py-2 px-4 rounded-lg absolute top-36 left-24 font-sans">
-        You recieved a new task
-    </div>  
-    <div class="absolute top-36 right-52 w-px h-10 bg-gray-200"></div>
-    <div class=" text-white py-2 px-4 rounded-lg absolute top-36 right-24 font-sans">
-        No due date 
-    </div>
-    <div class=" text-sm py-2 px-4 rounded-lg absolute top-44 left-24 font-sans text-gray-400">about an hour ago</div>
-    <div class="absolute top-56 left-0 w-full h-px bg-gray-600"></div>
-    <div class=" text-white py-2 px-4 rounded-lg absolute top-60 left-24 font-sans">
-        You recieved a new task
-    </div>
-    <div class="absolute top-60 right-52 w-px h-10 bg-gray-200"></div>
-    <div class=" text-white py-2 px-4 rounded-lg absolute top-60 right-24 font-sans">
-        No due date
-    </div>
-    <div class="absolute bottom-44 left-0 w-full h-px bg-gray-600"></div> 
-</div>
-<div class="absolute top-24 left-60">
-    unread notif
-</div>
 
-<div class="absolute top-64 left-8">
-<svg width="51" height="52" viewBox="0 0 51 52" fill="none" xmlns="http://www.w3.org/2000/svg" x="10" y="10">
-    <path d="M16.1327 36.1406H27.6289V47.6369L16.1327 36.1406ZM19.1289 25.5156H14.8789V31.8906H25.5039C23.8132 31.8906 22.1916 31.219 20.9961 30.0234C19.8006 28.8279 19.1289 27.2064 19.1289 25.5156ZM44.6289 2.14062H17.0039C16.4403 2.14063 15.8998 2.36451 15.5013 2.76302C15.1028 3.16154 14.8789 3.70204 14.8789 4.26562V12.7656H19.1289C19.13 11.5056 19.5045 10.2741 20.2051 9.2268C20.9056 8.17947 21.9009 7.36323 23.0651 6.88119C24.2292 6.39914 25.5102 6.2729 26.7461 6.51842C27.982 6.76394 29.1174 7.3702 30.0089 8.26063L36.3839 14.6356C36.9911 15.237 37.4621 15.9616 37.7652 16.7606C38.403 18.3274 38.403 20.0814 37.7652 21.6481C37.4516 22.4418 36.9819 23.1644 36.3839 23.7731L30.0089 30.1481C28.7939 31.2974 27.176 31.9232 25.5039 31.8906H29.7539C30.3175 31.8906 30.858 32.1145 31.2565 32.513C31.655 32.9115 31.8789 33.452 31.8789 34.0156V48.8906H44.6289C45.1925 48.8906 45.733 48.6667 46.1315 48.2682C46.53 47.8697 46.7539 47.3292 46.7539 46.7656V4.26562C46.7539 3.70204 46.53 3.16154 46.1315 2.76302C45.733 2.36451 45.1925 2.14063 44.6289 2.14062ZM33.8339 19.9481C34.0464 19.4308 34.0464 18.8505 33.8339 18.3331C33.7328 18.0723 33.5811 17.834 33.3877 17.6319L27.0127 11.2569C26.6125 10.8567 26.0698 10.6319 25.5039 10.6319C24.938 10.6319 24.3953 10.8567 23.9952 11.2569C23.595 11.657 23.3702 12.1997 23.3702 12.7656C23.3702 13.3315 23.595 13.8742 23.9952 14.2744L26.7577 17.0156H6.37891C5.81532 17.0156 5.27482 17.2395 4.8763 17.638C4.47779 18.0365 4.25391 18.577 4.25391 19.1406C4.25391 19.7042 4.47779 20.2447 4.8763 20.6432C5.27482 21.0417 5.81532 21.2656 6.37891 21.2656H26.7577L23.9952 24.0069C23.796 24.2044 23.6379 24.4394 23.53 24.6984C23.4221 24.9573 23.3666 25.2351 23.3666 25.5156C23.3666 25.7962 23.4221 26.0739 23.53 26.3329C23.6379 26.5918 23.796 26.8268 23.9952 27.0244C24.1927 27.2235 24.4277 27.3816 24.6867 27.4895C24.9456 27.5974 25.2234 27.6529 25.5039 27.6529C25.7844 27.6529 26.0622 27.5974 26.3211 27.4895C26.5801 27.3816 26.8151 27.2235 27.0127 27.0244L33.3877 20.6494C33.5811 20.4473 33.7328 20.209 33.8339 19.9481Z" fill="#C595FF"/>
-    </svg>
+        <div class="absolute top-6 left-12 custom-container bg- w-1/3 p-60 rounded-2xl shadow-lg text-white relative h-96"
+            style="background-color: #2D2A44;">
+            <div class=" absolute top-8 left-12 font-sans text-3xl">
+                Notification
+            </div>
+            <div class=" text-white py-2 px-4 rounded-lg absolute top-20 right-8 font-sans">
+                Mark all as read
+            </div>
 
-</div>
+            <div>
+            <div class="absolute top-32 left-0 w-full h-px bg-gray-600"></div>
+            <div class=" text-white py-2 px-4 rounded-lg absolute top-36 left-24 font-sans">
+                You recieved a new task
+            </div>
 
+            <div class="absolute top-36 right-52 w-px h-10 bg-gray-200"></div>
+            <div class=" text-white py-2 px-4 rounded-lg absolute top-36 right-24 font-sans">
+                No due date
+            </div>
+            <div class=" text-sm py-2 px-4 rounded-lg absolute top-44 left-24 font-sans text-gray-400">about an hour ago
+            </div>
+            <div class="absolute top-56 left-0 w-full h-px bg-gray-600"></div>
 
+            <div class="absolute top-40 left-8">
+                <svg width="51" height="52" viewBox="0 0 51 52" fill="none" xmlns="http://www.w3.org/2000/svg" x="10"
+                    y="10">
+                    <path
+                        d="M16.1327 36.1406H27.6289V47.6369L16.1327 36.1406ZM19.1289 25.5156H14.8789V31.8906H25.5039C23.8132 31.8906 22.1916 31.219 20.9961 30.0234C19.8006 28.8279 19.1289 27.2064 19.1289 25.5156ZM44.6289 2.14062H17.0039C16.4403 2.14063 15.8998 2.36451 15.5013 2.76302C15.1028 3.16154 14.8789 3.70204 14.8789 4.26562V12.7656H19.1289C19.13 11.5056 19.5045 10.2741 20.2051 9.2268C20.9056 8.17947 21.9009 7.36323 23.0651 6.88119C24.2292 6.39914 25.5102 6.2729 26.7461 6.51842C27.982 6.76394 29.1174 7.3702 30.0089 8.26063L36.3839 14.6356C36.9911 15.237 37.4621 15.9616 37.7652 16.7606C38.403 18.3274 38.403 20.0814 37.7652 21.6481C37.4516 22.4418 36.9819 23.1644 36.3839 23.7731L30.0089 30.1481C28.7939 31.2974 27.176 31.9232 25.5039 31.8906H29.7539C30.3175 31.8906 30.858 32.1145 31.2565 32.513C31.655 32.9115 31.8789 33.452 31.8789 34.0156V48.8906H44.6289C45.1925 48.8906 45.733 48.6667 46.1315 48.2682C46.53 47.8697 46.7539 47.3292 46.7539 46.7656V4.26562C46.7539 3.70204 46.53 3.16154 46.1315 2.76302C45.733 2.36451 45.1925 2.14063 44.6289 2.14062ZM33.8339 19.9481C34.0464 19.4308 34.0464 18.8505 33.8339 18.3331C33.7328 18.0723 33.5811 17.834 33.3877 17.6319L27.0127 11.2569C26.6125 10.8567 26.0698 10.6319 25.5039 10.6319C24.938 10.6319 24.3953 10.8567 23.9952 11.2569C23.595 11.657 23.3702 12.1997 23.3702 12.7656C23.3702 13.3315 23.595 13.8742 23.9952 14.2744L26.7577 17.0156H6.37891C5.81532 17.0156 5.27482 17.2395 4.8763 17.638C4.47779 18.0365 4.25391 18.577 4.25391 19.1406C4.25391 19.7042 4.47779 20.2447 4.8763 20.6432C5.27482 21.0417 5.81532 21.2656 6.37891 21.2656H26.7577L23.9952 24.0069C23.796 24.2044 23.6379 24.4394 23.53 24.6984C23.4221 24.9573 23.3666 25.2351 23.3666 25.5156C23.3666 25.7962 23.4221 26.0739 23.53 26.3329C23.6379 26.5918 23.796 26.8268 23.9952 27.0244C24.1927 27.2235 24.4277 27.3816 24.6867 27.4895C24.9456 27.5974 25.2234 27.6529 25.5039 27.6529C25.7844 27.6529 26.0622 27.5974 26.3211 27.4895C26.5801 27.3816 26.8151 27.2235 27.0127 27.0244L33.3877 20.6494C33.5811 20.4473 33.7328 20.209 33.8339 19.9481Z"
+                        fill="#C595FF" />
+                </svg>
 
+            </div>
+
+            </div> 
     
 
 
 
 
-    
-    
+
+
+
+
+
+
+
 
 </body>
+
 </html>
