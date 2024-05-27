@@ -142,20 +142,35 @@ const getEachUserProgression = async (req, res, next) => {
 
     const userID = req.params.id
     const { startDate, endDate } = req.body;
-    const dateToday = new Date();
+    const dateToday = new Date().toISOString().split('T')[0]
 
     
 
     if(userID) {
-      const filter = {
-        assignee: userID,
-        createdAt: { $lte: endDate, $gte: startDate }
-      };
+      let filter = {}
+      let completeFilter= {}
+
+      if(startDate.trim() == "" && endDate.trim() == "" || startDate.trim() =="" || endDate.trim() == ""){
+        filter = {
+          assignee: userID,
+        }
+      }else{
+        filter = {
+          assignee: userID,
+          createdAt: { $lte: endDate, $gte: startDate }
+      
+        }
+        completeFilter.completedAt = { $gte: startDate, $lte: endDate };
+      }
+     
+       
 
       const getTotalTask = await Task.countDocuments(filter);
-      const getTotalCompleted = await Task.countDocuments({ ...filter,status: "Completed", completedAt: { $lte: endDate, $gte: startDate } });
-      const getTotalTodo = await Task.countDocuments({ ...filter, status: "To-do" , dueDate: { $lte: dateToday }});
+      const getTotalCompleted = await Task.countDocuments({ ...filter,status: "Completed", ...completeFilter});
+      const getTotalTodo = await Task.countDocuments({ ...filter, status: "To do" });
       const getTotalInprogress = await Task.countDocuments({ ...filter, status: "In progress" });
+
+      const TotalClaimedTask = await Task.countDocuments({...filter,isClaimed:"true"})
 
       
 
@@ -175,7 +190,11 @@ const getEachUserProgression = async (req, res, next) => {
       const getTotalNeutral = await countDocumentsWithPriorityLevel("Neutral");
     
 
-      const getTotalLateTask = await Task.countDocuments({ ...filter, dueDate: { $gt: dateToday } });
+      const getTotalLateTask = await Task.countDocuments({ ...filter, dueDate: { $lt: dateToday } });
+      const getTotalLateToDo = await Task.countDocuments({ ...filter,status:"To do", dueDate: { $lt: dateToday } });
+      const getTotalLateInProgress = await Task.countDocuments({ ...filter,status:"In progress" , dueDate: { $lt: dateToday } });
+
+
 
       const total = getTotalTask;
       const totalCompleted = getTotalCompleted;
@@ -185,20 +204,23 @@ const getEachUserProgression = async (req, res, next) => {
       const response = {
         successful: true,
         message: total ? "Successfully retrieved total task." : "No task assigned to the user",
-        totalCount: total,
+        totalTask: total,
         completedCount: totalCompleted,
         totalInprogress: getTotalInprogress,
-        totalLateTask: getTotalLateTask,
         totalToDo: getTotalTodo,
         taskProgress: taskProgress,
         totalUrgent: getTotalUrgent,
         totalHigh: getTotalHigh,
-        totalNeutral: getTotalNeutral
+        totalNeutral: getTotalNeutral,
+        totalClaimed : TotalClaimedTask,
+        totalLateTask: getTotalLateTask,
+        totalLateTodo : getTotalLateToDo,
+        totalLateInProgress: getTotalLateInProgress
       };
 
-      res.status(200).json(response);
+      res.status(200).send(response);
     } else {
-      res.status(404).json({
+      res.status(404).send({
         successful: false,
         message: "User ID is required "
       });

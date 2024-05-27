@@ -493,8 +493,8 @@
       </div>
 
       <h1 class="text-3xl text-black dark:text-white  font-bold mt-3">Overall stats</h1>
-
-      <div id="progress-content " class="">
+      
+      <div id="progress-content" class="">
         <div class=" border  bg-white dark:border-0 dark:bg-task-bg mt-5 rounded-2xl">
           <div class=" grid md:grid-cols-1 lg:grid-cols-3  sm: grid-cols-1 py-5 px-10 ">
             <div class=" xs:border-b sm:border-b lg:border-r lg:border-b-0 border-gray-500">
@@ -591,26 +591,39 @@
 
 
 
-
+  </div>
     </main>
 
+    <div id="progression-modal-container">
+
+    </div>
+    
   </div>
 
 
 
 
 
-  <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   <script src="../API/routes.js"></script>
   <script src="../API/api_client.js"></script>
   <script src="../API/get_users.js"></script>
   <script src="../API/get_userProgression.js"></script>
 
+  <script src="../node_modules/lodash/lodash.min.js"></script>
+  <script src="../node_modules/apexcharts/dist/apexcharts.min.js"></script>
+  <script src="https://preline.co/assets/js/hs-apexcharts-helpers.js"></script>
+
   <script src="../Components/PerformanceTab_components/userProgression_card.js"></script>
   <script src="../Components/PerformanceTab_components/userProgression_card_container.js"></script>
+  <script src="../Controllers/GetCookie.js"></script>
+  <script src="../Components/spinner.js"></script>
+  <script src="../Components/PerformanceTab_components/userProgression_modal.js"></script>
+<script src="../Controllers/Performance_tab_overview_controller.js/userProgression_controller.js"></script>
+<script src="../Controllers/Performance_tab_overview_controller.js/render_progression_controller.js"></script>
+<script src="../Controllers/Performance_tab_overview_controller.js/Progression_chart_controller.js"></script>
   <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
   <script src="../node_modules/flowbite/dist/datepicker.js"></script>
-  <script>
+  
 
   </script>
   <script src="../Controllers/Search_bar.js"></script>

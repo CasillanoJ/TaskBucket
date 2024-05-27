@@ -1,11 +1,11 @@
-const UserProgressionCard = ()=>{
+const UserProgressionCard = (id,userFname,userLname,performance)=>{
     return`
-    <div class="performance-overview-container">
-    <h1 class="performance-overview-name">Employee 1</h1>
-    <h2 class="performance-overview-text">Owned task: <span class="performance-text-counter">15</span></h2>
-    <h2 class="performance-overview-text">Completed task: <span class="performance-text-counter">5</span></h2>
-    <h2 class="performance-overview-text">In Porgress tasks: <span class="performance-text-counter">7</span></h2>
-    <h2 class="performance-overview-text">Claimed tasks: <span class="performance-text-counter">11</span></h2>
+    <div class="performance-overview-container" onclick="my_modal_${id}.showModal()">
+    <h1 class="performance-overview-name">${userFname} ${userLname}</h1>
+    <h2 class="performance-overview-text">Owned task: <span class="performance-text-counter">${performance.totalTask}</span></h2>
+    <h2 class="performance-overview-text">Completed task: <span class="performance-text-counter">${performance.completedCount}</span></h2>
+    <h2 class="performance-overview-text">In Porgress tasks: <span class="performance-text-counter">${performance.totalInprogress}</span></h2>
+    <h2 class="performance-overview-text">Claimed tasks: <span class="performance-text-counter">${performance.totalClaimed}</span></h2>
   </div>
     
     `

@@ -218,6 +218,12 @@ const updateStatus = async (req, res) => {
     }
 
     if(status == "Unassigned"){
+      if(updatedStats.isClaimed == true || updatedStats.isClaimed == "true"){
+        return  res.status(409).send({
+          successful: false,
+          message: "Task Is Already Claimed",
+        });
+      }
       updatedStats.status = "To do"
       updatedStats.isClaimed = true
       updatedStats.assignee = user

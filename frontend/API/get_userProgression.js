@@ -1,4 +1,4 @@
-const getEachUserProgression =async (id,start,end)=>{
+const GetEachUserProgression =async (id,start,end)=>{
     const AccessToken = GetCookie("accessToken")
     const RefreshToken = GetCookie("refreshToken");
   
@@ -20,7 +20,6 @@ const getEachUserProgression =async (id,start,end)=>{
   
     let data = await api_client(`${getEnv("dev")}${getEndpoint("task")}/getProgress/${id}`, options())
 
-    console.log(data)
 
-    return{"data": data.data}
+    return{"data": data}
 }
