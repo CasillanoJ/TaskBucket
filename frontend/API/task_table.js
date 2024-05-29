@@ -1,13 +1,13 @@
 export const getTask = async () => {
-  const AccessToken = GetCookie("accessToken")
-  
+  const AccessToken = GetCookie("accessToken");
+
   let options = () => {
     return {
       method: "POST",
       body: JSON.stringify({}),
       headers: {
         "Content-Type": "application/json",
-        "Authorization" :`${AccessToken}`,
+        Authorization: `${AccessToken}`,
       },
     };
   };

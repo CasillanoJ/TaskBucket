@@ -3846,6 +3846,10 @@ details.collapse summary::-webkit-details-marker {
   right: 0.5rem;
 }
 
+.right-3 {
+  right: 0.75rem;
+}
+
 .right-5 {
   right: 1.25rem;
 }
@@ -4196,10 +4200,6 @@ details.collapse summary::-webkit-details-marker {
   width: 91.666667%;
 }
 
-.w-24 {
-  width: 6rem;
-}
-
 .w-3 {
   width: 0.75rem;
 }
@@ -4489,12 +4489,6 @@ details.collapse summary::-webkit-details-marker {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(0.5rem * var(--tw-space-y-reverse));
-}
-
-.space-y-3 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(0.75rem * var(--tw-space-y-reverse));
 }
 
 .space-y-4 > :not([hidden]) ~ :not([hidden]) {
@@ -4934,11 +4928,6 @@ details.collapse summary::-webkit-details-marker {
   padding-right: 1.5rem;
 }
 
-.px-8 {
-  padding-left: 2rem;
-  padding-right: 2rem;
-}
-
 .py-0 {
   padding-top: 0px;
   padding-bottom: 0px;
@@ -4995,10 +4984,6 @@ details.collapse summary::-webkit-details-marker {
   padding-bottom: 6rem;
 }
 
-.pb-8 {
-  padding-bottom: 2rem;
-}
-
 .pl-10 {
   padding-left: 2.5rem;
 }
@@ -5031,16 +5016,8 @@ details.collapse summary::-webkit-details-marker {
   padding-top: 1.25rem;
 }
 
-.text-left {
-  text-align: left;
-}
-
 .text-center {
   text-align: center;
-}
-
-.text-right {
-  text-align: right;
 }
 
 .font-baloo {
@@ -5975,6 +5952,7 @@ details.collapse summary::-webkit-details-marker {
 }
 
 .table-row {
+  cursor: pointer;
   border-bottom-width: 1px;
 }
 
@@ -5989,7 +5967,6 @@ details.collapse summary::-webkit-details-marker {
 }
 
 .table-row:hover {
-  cursor: pointer;
   --tw-bg-opacity: 1;
   background-color: rgb(221 214 254 / var(--tw-bg-opacity));
 }
@@ -6084,7 +6061,6 @@ details.collapse summary::-webkit-details-marker {
 }
 
 .table-item-row:hover {
-  cursor: pointer;
   --tw-bg-opacity: 1;
   background-color: rgb(237 226 250 / var(--tw-bg-opacity));
 }
@@ -6410,6 +6386,11 @@ html {
 .focus\:border-light-primary:focus {
   --tw-border-opacity: 1;
   border-color: rgb(114 50 194 / var(--tw-border-opacity));
+}
+
+.focus\:border-primary-100:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(197 149 255 / var(--tw-border-opacity));
 }
 
 .focus\:bg-light-active:focus {
@@ -6998,10 +6979,6 @@ html {
     width: 24rem;
   }
 
-  .md\:w-\[600px\] {
-    width: 600px;
-  }
-
   .md\:w-full {
     width: 100%;
   }
@@ -7243,10 +7220,6 @@ html {
 
   .xl\:w-40 {
     width: 10rem;
-  }
-
-  .xl\:w-\[1400px\] {
-    width: 1400px;
   }
 
   .xl\:grid-cols-2 {

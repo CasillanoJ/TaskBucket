@@ -1,12 +1,5 @@
 import { CreateTable } from "../Components/TaskList/task_table.js";
-import { CreateFeatures } from "../Components/TaskList/task_features.js";
-import { CreateFilterSidebar } from "../Components/TaskList/filter_sidebar.js";
 import { getTask } from "../API/task_table.js";
-import { sortTask } from "../API/sort_task.js";
-import { getFilterTasks } from "../API/get_filter_task.js"; // Import filterTasks
-import { toggleFilter, filterTasks } from "./filter_task.js";
-import { search } from "./search_handler.js";
-import { sort } from "./sort_handler.js";
 
 const FetchTaskList = async (
   query = "",
@@ -48,9 +41,6 @@ const FetchTaskList = async (
     }
 
     taskContainer.innerHTML += tableHtml;
-    
-    search();
-    sort();
   } catch (error) {
     console.error("Error fetching task list:", error);
   }

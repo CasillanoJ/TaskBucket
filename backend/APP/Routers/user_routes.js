@@ -1,5 +1,11 @@
 const express = require('express');
-const {getAllUsers, changePassword, LogoutUser} = require('../Controllers/userController');
+const {
+  getAllVerifiedUsers,
+  getAllUnverifiedUsers,
+  changePassword,
+  LogoutUser,
+  RejectUser,
+} = require("../Controllers/userController");
 
 
 const router = express.Router();
@@ -14,7 +20,8 @@ const { getTask} = require('../Controllers/userTaskController')
 
 router.use(VerifyToken)
 
-router.post('/', getAllUsers)
+router.post("/", getAllVerifiedUsers);
+router.post("/unverified", getAllUnverifiedUsers);
 
 // For testing Only need to fix
 router.post('/getTaskList/:count', getTaskList)
@@ -26,7 +33,8 @@ router.get('/exportAsExcel', exportDataAsExcel)
 
 router.post('/changePassword' ,changePassword)
 
-router.post('/verfiyUser', VerifyUser)
+router.post('/verifyUser', VerifyUser)
+router.post('/rejectUser', RejectUser)
 
 router.post('/logout',LogoutUser)
 

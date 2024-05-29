@@ -361,7 +361,9 @@ const sortBy = async (req, res) => {
         return (aPriority - bPriority) * sortValue;
       });
     } else {
-      tasks = await Task.find().sort({ [sortCat]: sortValue });
+      tasks = await Task.find()
+        .sort({ [sortCat]: sortValue })
+        .populate("assignee", "first_name last_name");
     }
 
     handleTaskMethod(res, tasks, "sorted");
