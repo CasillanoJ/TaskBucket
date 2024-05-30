@@ -1,5 +1,6 @@
 import { searchTask } from "../API/search_task.js";
 import { FetchTaskList } from "./fetch_tasks.js";
+import { RenderTaskTable } from "./render_task_table.js";
 
 export const search = () => {
   const searchForm = document.getElementById("searchBar");
@@ -7,7 +8,7 @@ export const search = () => {
 
   // Prevent form submission on Enter key press
   searchForm.addEventListener("submit", (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
   });
 
   // Listen for keypress event
@@ -15,15 +16,23 @@ export const search = () => {
     if (event.key === "Enter" || event.keyCode === 13) {
       event.preventDefault();
       const searchValue = searchInput.value;
+      if (searchValue.trim() == "") {
+        await RenderTaskTable("viewTaskList");
+        return;
+      }
       const data = await searchTask(searchValue);
-      await FetchTaskList("searchTask", data); 
+      await FetchTaskList("searchTask", data);
     }
   });
 
   // Listen for input event
-  // searchInput.addEventListener("input", async () => {
-  //   const searchValue = searchInput.value;
-  //   const data = await searchTask(searchValue);
-  //   await FetchTaskList("searchTask", data); 
-  // });
+  searchInput.addEventListener("input", async () => {
+    const searchValue = searchInput.value;
+    if (searchValue.trim() == "") {
+      await RenderTaskTable("viewTaskList");
+      return;
+    }
+    const data = await searchTask(searchValue);
+    await FetchTaskList("searchTask", data);
+  });
 };

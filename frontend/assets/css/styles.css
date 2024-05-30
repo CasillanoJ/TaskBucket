@@ -4164,6 +4164,10 @@ details.collapse summary::-webkit-details-marker {
   height: calc(100% - 1rem);
 }
 
+.h-\[calc\(100\%-6rem\)\] {
+  height: calc(100% - 6rem);
+}
+
 .h-auto {
   height: auto;
 }
@@ -4435,12 +4439,6 @@ details.collapse summary::-webkit-details-marker {
 
 .gap-y-5 {
   row-gap: 1.25rem;
-}
-
-.space-x-0 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(0px * var(--tw-space-x-reverse));
-  margin-left: calc(0px * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-x-10 > :not([hidden]) ~ :not([hidden]) {
@@ -5016,6 +5014,22 @@ details.collapse summary::-webkit-details-marker {
   padding-top: 1.25rem;
 }
 
+.pt-10 {
+  padding-top: 2.5rem;
+}
+
+.pt-1 {
+  padding-top: 0.25rem;
+}
+
+.pt-14 {
+  padding-top: 3.5rem;
+}
+
+.pb-6 {
+  padding-bottom: 1.5rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -5301,6 +5315,11 @@ details.collapse summary::-webkit-details-marker {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(144 97 249 / var(--tw-bg-opacity));
+}
+
 .btn:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(33 33 47 / var(--tw-text-opacity));
@@ -5546,6 +5565,11 @@ details.collapse summary::-webkit-details-marker {
   letter-spacing: 0.05em;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.clear-btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(144 97 249 / var(--tw-bg-opacity));
 }
 
 .clear-btn:is(.dark *) {
@@ -5814,6 +5838,11 @@ details.collapse summary::-webkit-details-marker {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.secondary-btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(144 97 249 / var(--tw-bg-opacity));
+}
+
 .secondary-btn:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(33 33 47 / var(--tw-text-opacity));
@@ -5828,6 +5857,11 @@ details.collapse summary::-webkit-details-marker {
     font-size: 1.125rem;
     line-height: 1.75rem;
   }
+}
+
+.secondary-btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 215 254 / var(--tw-bg-opacity));
 }
 
 .secondary-btn:focus {
@@ -5847,6 +5881,11 @@ details.collapse summary::-webkit-details-marker {
   background-color: rgb(18 18 28 / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: rgb(197 149 255 / var(--tw-text-opacity));
+}
+
+.secondary-btn:hover:is(.dark *) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 56 84 / var(--tw-bg-opacity));
 }
 
 .secondary-btn:focus:is(.dark *) {
@@ -6317,6 +6356,11 @@ html {
 .hover\:border-gray-300:hover {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
+.hover\:bg-black:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-blue-800:hover {
@@ -6861,6 +6905,10 @@ html {
     margin-right: 0.5rem;
   }
 
+  .sm\:mt-5 {
+    margin-top: 1.25rem;
+  }
+
   .sm\:block {
     display: block;
   }
@@ -6873,16 +6921,8 @@ html {
     display: none;
   }
 
-  .sm\:h-\[calc\(100\%-6rem\)\] {
-    height: calc(100% - 6rem);
-  }
-
   .sm\:h-auto {
     height: auto;
-  }
-
-  .sm\:w-1\/3 {
-    width: 33.333333%;
   }
 
   .sm\:w-auto {
@@ -6915,6 +6955,15 @@ html {
   .sm\:border-b {
     border-bottom-width: 1px;
   }
+
+  .sm\:p-4 {
+    padding: 1rem;
+  }
+
+  .sm\:text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -6945,6 +6994,10 @@ html {
 
   .md\:mt-12 {
     margin-top: 3rem;
+  }
+
+  .md\:mt-5 {
+    margin-top: 1.25rem;
   }
 
   .md\:block {
@@ -7025,6 +7078,10 @@ html {
     margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
   }
 
+  .md\:p-10 {
+    padding: 2.5rem;
+  }
+
   .md\:p-16 {
     padding: 4rem;
   }
@@ -7046,11 +7103,6 @@ html {
   .md\:text-4xl {
     font-size: 2.25rem;
     line-height: 2.5rem;
-  }
-
-  .md\:text-5xl {
-    font-size: 3rem;
-    line-height: 1;
   }
 
   .md\:text-6xl {
@@ -7123,6 +7175,10 @@ html {
 
   .lg\:h-screen-70 {
     height: 70vh;
+  }
+
+  .lg\:w-1\/3 {
+    width: 33.333333%;
   }
 
   .lg\:w-40 {
@@ -7201,6 +7257,16 @@ html {
   .lg\:px-5 {
     padding-left: 1.25rem;
     padding-right: 1.25rem;
+  }
+
+  .lg\:text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+  }
+
+  .lg\:text-4xl {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
   }
 
   .lg\:text-xl {

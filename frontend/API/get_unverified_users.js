@@ -16,7 +16,6 @@ export const getUnverifiedUsers = async () => {
     `${getEnv("dev")}${getEndpoint("user")}/unverified`,
     options()
   );
-
   return {
     data: data.data,
     message: data.message,

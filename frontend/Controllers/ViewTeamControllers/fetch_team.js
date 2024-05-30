@@ -1,14 +1,14 @@
-const FetchTeam = async (query) => {
+import { getUnverifiedUsers } from "../../API/get_unverified_users.js";
+
+export const FetchTeam = async (query) => {
   const teamContainer = document.getElementById("rows-team");
+  const unverifiedCount = document.getElementById("unverifiedCount");
 
   teamContainer.innerHTML = "";
 
   try {
     let data;
-
-    // if (query === "myTeam") {
-    //     data = await getUsers()
-    // }
+    
     data = await getUsers();
 
     let tableHtml = ``;
@@ -19,6 +19,15 @@ const FetchTeam = async (query) => {
       });
     }
     teamContainer.innerHTML += tableHtml;
+
+    let unverifiedUsers = await getUnverifiedUsers()
+
+    if (unverifiedUsers.count > 0) {
+      unverifiedCount.classList.remove("hidden");
+      unverifiedCount.innerHTML = unverifiedUsers.count;
+    } else {
+      unverifiedCount.classList.add("hidden");
+    }
 
   } catch (error) {
     console.error("Error fetching team list:", error);

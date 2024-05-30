@@ -607,27 +607,27 @@
       </aside>
 
       <main
-        class="p-4 md:ml-24 lg:ml-64 sm:ml-10 bg-light-bg h-full pt-20 dark:bg-main-body transition-all duration-100"
+        class="pb-6 md:ml-24 lg:ml-64 sm:ml-10 bg-light-bg h-full pt-14 dark:bg-main-body transition-all duration-100"
         id="main-container"
       >
         <div class="mt-10 mx-16">
           <div
-            class="md:grid md:grid-cols2 md:space-y-6 lg:flex lg:justify-between mt-5 md:mt-12"
+            class="md:grid md:grid-cols2 space-y-2 md:space-y-6 lg:flex lg:justify-between"
           >
             <div>
               <ul
                 class="text-sm font-medium text-center bg-white border-none dark:border-0 w-full text-primary-100 rounded-lg shadow sm:flex dark:divide-gray-700 dark:bg-task-content mb-10 lg:mb-0 md:mb-0"
               >
-                <li class="w-full focus-within:z-10 p-1 lg:p-2">
+                <li class="w-full focus-within:z-10 p-2">
                   <button
                     id="viewTeamBtn"
-                    class="w-full sm:w-full lg:w-48 xl:w-40 2xl md:w-40 lg:px-4 lg:h-12 h-10 flex space-x-3 mt-1 text-light-primary dark:text-primary-100 md:text-xl text-base lg:text-xl font-bold rounded-xl"
+                    class="w-full lg:px-4 lg:h-12 h-10 flex items-center space-x-3 text-light-primary dark:text-primary-100 md:text-xl text-base lg:text-xl font-bold rounded-xl indicator hover:bg-black"
                   >
                     <svg
                       width="39"
                       height="35"
                       viewBox="0 0 39 35"
-                      class="mt-1.5 fill-light-primary dark:fill-primary-100"
+                      class="fill-light-primary dark:fill-primary-100"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
@@ -638,13 +638,15 @@
                       />
                     </svg>
 
-                    <span class="mt-2"> My Team</span>
+                    <div class="flex justify-center w-full whitespace-nowrap">
+                      My Team
+                    </div>
                   </button>
                 </li>
                 <li class="w-full focus-within:z-10 p-2">
                   <button
                     id="toBeMembersBtn"
-                    class="w-full sm:w-full lg:w-48 xl:w-40 2xl md:w-40 lg:px-4 lg:h-12 h-10 flex items-center space-x-3 mt-1 text-light-primary dark:text-primary-100 md:text-xl text-base lg:text-xl font-bold rounded-xl indicator bg-light-active dark:bg-black"
+                    class="w-full lg:px-4 lg:h-12 h-10 flex items-center space-x-3 text-light-primary dark:text-primary-100 md:text-xl text-base lg:text-xl font-bold rounded-xl indicator bg-light-active dark:bg-black"
                   >
                     <svg
                       width="39"
@@ -662,10 +664,12 @@
                       />
                     </svg>
                     <span
-                      class="indicator-item badge bg-red-600 text-black dark:text-white mt-1 right-5 border-0 h-5 w-6"
-                      >4</span
-                    >
-                    <span class="">To-be Members</span>
+                      class="indicator-item badge hidden bg-red-500 text-sm p-1 sm:text-xl sm:p-4 text-black dark:text-white right-5 border-0 h-5 w-6"
+                      id="unverifiedCount"
+                    ></span>
+                    <div class="flex justify-center w-full whitespace-nowrap">
+                      Verify Members
+                    </div>
                   </button>
                 </li>
               </ul>
@@ -673,7 +677,7 @@
           </div>
 
           <div
-            class="md:grid md:grid-cols2 md:space-y-6 lg:flex lg:justify-between mt-5 md:mt-12"
+            class="md:grid md:grid-cols2 space-y-2 md:space-y-6 lg:flex lg:justify-between sm:mt-5"
           >
             <div class="space-x-2 font-semibold text-black mt-4">
               <button
@@ -753,12 +757,12 @@
                     <th scope="col" class="p-4">
                       <div class="flex items-center">
                         <input
-                          id="checkbox-table-search-1"
+                          id="checkbox-for-all"
                           type="checkbox"
                           class="w-5 h-5 text-primary-100 bg-white border-black rounded focus:ring-blue-500 dark:focus:ring-primary-100 dark:ring-offset-gray-800 dark:focus:ring-offset-primary-100 focus:ring-2 dark:bg-transparent dark:border-black"
                         />
-                        <label for="checkbox-table-search-1" class="sr-only"
-                          >checkbox</label
+                        <label for="checkbox-for-all" class="sr-only"
+                          >Select All</label
                         >
                       </div>
                     </th>

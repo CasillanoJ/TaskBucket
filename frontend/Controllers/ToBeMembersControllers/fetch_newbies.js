@@ -5,6 +5,7 @@ import { getUnverifiedUsers } from "../../API/get_unverified_users.js";
 
 const FetchUnverifiedUsers = async () => {
   const unverifiedContainer = document.getElementById("rows-newbies");
+  const unverifiedCount = document.getElementById("unverifiedCount");
   unverifiedContainer.innerHTML = "";
 
   try {
@@ -13,6 +14,7 @@ const FetchUnverifiedUsers = async () => {
     let newUsersTable = "";
 
     if (data.data && data.data.length > 0) {
+      console.log("Count:", data.count);
       data.data.forEach((user) => {
         newUsersTable += CreateNewbieTable(user);
       });
@@ -24,10 +26,41 @@ const FetchUnverifiedUsers = async () => {
                       </tr>`;
     }
 
+    if (data.count > 0) {
+      unverifiedCount.classList.remove("hidden")
+      unverifiedCount.innerHTML = data.count;
+    }
+    else {
+      unverifiedCount.classList.add("hidden");
+    }
+
     unverifiedContainer.innerHTML += newUsersTable;
   } catch (error) {
     console.error("Error fetching team list:", error);
   }
+};
+
+export const SelectAllCheckbox = () => {
+  const selectAllCheckbox = document.getElementById("checkbox-for-all");
+  const userCheckboxes = document.querySelectorAll(".user-checkbox");
+
+  selectAllCheckbox.addEventListener("change", function () {
+    const isChecked = selectAllCheckbox.checked;
+    userCheckboxes.forEach((checkbox) => {
+      checkbox.checked = isChecked;
+    });
+  });
+
+  userCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", function () {
+      if (!checkbox.checked) {
+        selectAllCheckbox.checked = false;
+      } else {
+        const allChecked = Array.from(userCheckboxes).every((cb) => cb.checked);
+        selectAllCheckbox.checked = allChecked;
+      }
+    });
+  });
 };
 
 export const AcceptRejectList = () => {
@@ -37,19 +70,19 @@ export const AcceptRejectList = () => {
         const row = event.target.closest("tr");
         const userId = row.dataset.userId;
         const response = await updateUserVerification([userId]);
-        handleApiResponse(response, "accepted", row);
+        handleApiResponse(response, row);
       } else if (event.target.classList.contains("reject-btn")) {
         const row = event.target.closest("tr");
         const userId = row.dataset.userId;
         const response = await rejectUser([userId]);
-        handleApiResponse(response, "rejected", row);
+        handleApiResponse(response, row);
       } else if (event.target.classList.contains("main-accept-btn")) {
         const selectedUserIds = getSelectedUserIds();
         if (selectedUserIds.length > 0) {
           const response = await updateUserVerification(selectedUserIds);
           selectedUserIds.forEach((id) => {
             const row = document.querySelector(`tr[data-user-id="${id}"]`);
-            handleApiResponse(response, "accepted", row);
+            handleApiResponse(response, row);
           });
         }
       } else if (event.target.classList.contains("main-reject-btn")) {
@@ -58,7 +91,7 @@ export const AcceptRejectList = () => {
           const response = await rejectUser(selectedUserIds);
           selectedUserIds.forEach((id) => {
             const row = document.querySelector(`tr[data-user-id="${id}"]`);
-            handleApiResponse(response, "rejected", row);
+            handleApiResponse(response, row);
           });
         }
       }
@@ -78,14 +111,11 @@ const getSelectedUserIds = () => {
   return userIds;
 };
 
-const handleApiResponse = (response, action, row) => {
+const handleApiResponse = (response, row) => {
   if (response.successful) {
     if (row) {
       row.parentNode.removeChild(row);
     }
-    console.log(`User successfully ${action}.`);
-  } else {
-    console.error(`Failed to ${action} user:`, response.message);
   }
 };
 

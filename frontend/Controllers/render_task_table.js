@@ -5,20 +5,20 @@ import { toggleFilter, filterTasks } from "./filter_task.js";
 import { sort } from "./sort_handler.js";
 import { search } from "./search_handler.js";
 
-const RenderTaskTable = async (query) => {
+export const RenderTaskTable = async (query) => {
   await FetchTaskList("", query);
 };
 
-
 document.addEventListener("DOMContentLoaded", async function () {
-   const filterSidebar = document.getElementById("filter-sidebar");
-   filterSidebar.innerHTML = CreateFilterSidebar();
-   const taskFeatures = document.getElementById("features");
-   taskFeatures.innerHTML = CreateFeatures();
-   toggleFilter()
-   filterTasks()
-   sort()
-   search()
-  await RenderTaskTable("viewTaskList");
-});
 
+  const filterSidebar = document.getElementById("filter-sidebar");
+  filterSidebar.innerHTML = CreateFilterSidebar();
+  const taskFeatures = document.getElementById("features");
+  taskFeatures.innerHTML = CreateFeatures();
+  toggleFilter();
+  filterTasks();
+  sort();
+  search();
+  await RenderTaskTable("viewTaskList");
+
+});
