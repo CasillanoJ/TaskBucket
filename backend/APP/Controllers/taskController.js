@@ -134,7 +134,7 @@ const getTasks = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-  const { title, description, priorityLevel, assignee, dueDate } = req.body;
+  const { title, description, priorityLevel, assignee, dueDate,status } = req.body;
   try {
     let task = await Task.findById(req.params.id);
 
@@ -147,8 +147,14 @@ const updateTask = async (req, res) => {
       task.assignee = null;
       task.status = "Unassigned"
     } else {
-      task.assignee = assignee;
-      task.status = "To do"
+      if(status =="In progress"){
+        task.assignee = assignee;
+        task.status = "In progress"
+      }else{
+        task.assignee = assignee;
+        task.status = "To do"
+      }
+     
     }
 
     task.title = title;

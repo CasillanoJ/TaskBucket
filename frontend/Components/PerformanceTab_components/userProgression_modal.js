@@ -1,4 +1,6 @@
 const ProgressionModal = async(id,firstName,lastName,data)=>{
+
+  const userProgressBar = await UserProgressBar(data.taskProgress,data.completedCount,data.totalTask);
   return`
   <dialog id="my_modal_${id}" class="modal">
       <div class="relative bg-white dark:bg-task-bg rounded-lg shadow  modal-box  overflow-hidden w-11/12 max-w-2xl border border-black">
@@ -11,15 +13,7 @@ const ProgressionModal = async(id,firstName,lastName,data)=>{
         </form>
         <div class="mt-5">
           <h1 class=" text-progress-count">Total completed tasks / Total tasks</h1>
-          <div class="flex  space-x-5 ">
-            <div class="w-96 bg-gray-200 rounded-sm dark:bg-gray-700">
-              <div
-                class="bg-progress-green  text-lg  font-medium text-blue-100 text-center p-2 leading-none rounded-sm"
-                style="width: ${data.taskProgress}%"> ${data.taskProgress}%</div>
-  
-            </div>
-            <span class="text-progress-count text-xl mt-1 ">${data.completedCount}/${data.totalTask}</span>
-          </div>
+          ${userProgressBar}
           <div class="bg-light-overiew-bg dark:bg-task-content h-60 lg:h-96 xl:h-64  rounded-xl mt-2 px-2 py-5 w-auto grid grid-cols-2">
             <div class="border-r ">
               <h2 class="performance-overview-text">Owned task: <span class="performance-text-counter">${data.totalTask}</span></h2>

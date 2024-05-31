@@ -1,4 +1,4 @@
-const UpdateSpecificTask = async(id,title,description,assignee,dueDate,priorityLevel)=>{
+const UpdateSpecificTask = async(id,title,description,assignee,dueDate,priorityLevel,status)=>{
   const AccessToken = GetCookie("accessToken")
   const RefreshToken = GetCookie("refreshToken");
 
@@ -16,6 +16,7 @@ const UpdateSpecificTask = async(id,title,description,assignee,dueDate,priorityL
             priorityLevel: priorityLevel ,
             assignee: assignee,
             dueDate: dueDate,
+            status: status
 
           }),
           headers :{

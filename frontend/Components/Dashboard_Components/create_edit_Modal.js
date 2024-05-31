@@ -30,7 +30,8 @@ const CreateEditModal = async() => {
                 
               </div>
                 <div class="ml-8 mt-5 mb-0 flex"> 
-                  <p class="text-black dark:text-white  flex" data-tip="" id="edit-modal-status" > Status:  
+                  <p class="text-black dark:text-white  flex" data-tip=""  > Status:      
+              <span id="edit-modal-status"></span>
                    
                     
                   </p>

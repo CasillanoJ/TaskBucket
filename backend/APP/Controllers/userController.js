@@ -57,13 +57,17 @@ const addUser = async (req, res, next) => {
 };
 
 const getAllUsers = async (req, res, next)=>{
+  const count = req.query.count
+  const limit = req.query.limit
 
   try{
-      const users = await User.find({isVerified:true}).select('-password')
+    const usersCount = await User.countDocuments({isVerified:true}).select('-password')
+      const users = await User.find({isVerified:true}).select('-password').limit(limit).skip(count)
       if(users.length != 0){
           res.status(200).json({
               successful: true,
               message: "Succesfully retrieved User details.",
+              totalUsers: usersCount,
               count: users.length,
                data: users
       })
@@ -89,6 +93,12 @@ const changePassword = async (req, res, next) => {
     const {  oldPassword, newPassword, confirmPassword } = req.body;
     const userId = req.user.userId
 
+    if(!oldPassword || !newPassword || !confirmPassword){
+      return res.status(400).json({
+        successful: false,
+        message: 'Mandatory field is missing',
+      });
+    }
 
     if (newPassword !== confirmPassword) {
       return res.status(400).json({
@@ -176,7 +186,8 @@ const LoginUser = async (req, res, next)=>{
          "Refresh Token" : refreshToken,
          user: {
           isAdmin: user.isAdmin,
-          isVerified: user.isVerified, 
+          isVerified: user.isVerified,
+          userId: user._id 
         }
       });
     }
@@ -332,7 +343,7 @@ const VerifiyCode = async(req,res,next) =>{
 
  
    if (expirationTime > new Date()) {
-     return res.status(200).json({
+     return res.status(200).send({
        successful: true,
        message: "Successfully Validated Code",
      });
@@ -353,6 +364,39 @@ const VerifiyCode = async(req,res,next) =>{
   }
 }
 
+const GetUser =async (req,res,next)=>{
+  try {
+    let userId = req.user.userId
+
+    if(!userId){
+      return res.status(404).send({
+        successful: false,
+        message: "User ID is required "
+    })
+    }
+
+    const user = await User.findOne({ isVerified: true, _id: userId }).select('-password -createdAt -updatedAt');
+    if(!user){
+      return res.status(404).json({
+        successful: false,
+        message: `Cannot Find the user`,
+      })
+    }
+  return res.status(200).json({
+    successful: true,
+    message: "Succesfully retrieved User detail.",
+     data: user
+})
+
+    
+  } catch (error) {
+    res.status(500).send({
+      successful: false,
+      message: error.message
+  })
+  }
+}
+
 
 module.exports = {
   addUser,
@@ -363,4 +407,5 @@ module.exports = {
   LogoutUser,
   GetChangePasswordCode,
   VerifiyCode,
+  GetUser
 };

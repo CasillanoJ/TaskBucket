@@ -31,7 +31,9 @@ const LoginUser =async()=>{
       }
       
       
-      if (data.successful ){
+      if (!data.successful ){
+        return
+      }
         
 
         if(!data.user.isVerified){
@@ -39,29 +41,21 @@ const LoginUser =async()=>{
           document.getElementById('email').value = ''
         document.getElementById('password').value = ''
           Unverified.showModal()
-        }else{
+          return
+        }
        
+
 
         document.cookie = `accessToken=${data.accessToken}`;
         document.cookie = `refreshToken=${data.refreshToken}`;
         document.cookie = `isAdmin=${data.user.isAdmin}`;
+        document.cookie = `userId =${data.user.userId}`;
 
 
         messageContainer.innerHTML =""; 
         document.getElementById('email').value = ''
         document.getElementById('password').value = ''
-        window.location.href = '/frontend/views/dashboard.html'
-        
-
-        }
-        
-       
-        email = ''
-        password=''
-        
-
-      }
-     
+        window.location.href = 'dashboard.html'
     })
 
   

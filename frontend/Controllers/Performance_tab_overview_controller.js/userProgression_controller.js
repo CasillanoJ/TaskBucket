@@ -2,11 +2,15 @@ const UserProgression = async()=>{
   const isAdmin = GetCookie("isAdmin")
 
 
-
-
-  if(isAdmin){
-    document.getElementById('progression-modal-container').innerHTML =  ''
-   let containerCount = 0;
+if(!isAdmin){
+    return
+}
+document.getElementById('total-task-created').innerHTML = '';
+document.getElementById('total-task-duedate').innerHTML = '';
+document.getElementById('total-task-completed-count').innerHTML = '';
+ 
+document.getElementById('progression-modal-container').innerHTML =  ''
+let containerCount = 0;
 let userCounter = 0;
 
 const mainContainer = document.getElementById('progress-content');
@@ -23,7 +27,14 @@ addCardContainer();
 const startDate = document.getElementById('performance-startDate');
 const endDate = document.getElementById('performance-endDate');
 
-const userList = await getUsers();
+const getTotalProgression = await GetAllUsersTotalProgression(startDate.value,endDate.value)
+document.getElementById('total-task-created').innerHTML = getTotalProgression.data.totalTask;
+document.getElementById('total-task-duedate').innerHTML = getTotalProgression.data.totalTaskwithDueDate;
+document.getElementById('total-task-completed-count').innerHTML = getTotalProgression.data.totalCompleted;
+
+
+
+const userList = await getUsers(0,0);
 for (const user of userList.data) {
     const data = await GetEachUserProgression(user._id, startDate.value, endDate.value);
     const userProgressionCard = UserProgressionCard(user._id, user.first_name, user.last_name, data.data);
@@ -54,7 +65,7 @@ for (const user of userList.data) {
     );
 
     userCounter++;
-}
+
 
   }
 

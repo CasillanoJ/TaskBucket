@@ -140,13 +140,22 @@ const getTaskList = async (req, res , next) =>{
 const getEachUserProgression = async (req, res, next) => {
   try {
 
-    const userID = req.params.id
+    let userID = req.params.id
     const { startDate, endDate } = req.body;
     const dateToday = new Date().toISOString().split('T')[0]
 
-    
+    const isAdmin = req.user.isAdmin
 
-    if(userID) {
+    if(!isAdmin){
+      userID = req.user.userId
+    }
+
+    if(!userID){
+      return res.status(404).send({
+        successful: false,
+        message: "User ID is required "
+    })}
+
       let filter = {}
       let completeFilter= {}
 
@@ -193,8 +202,8 @@ const getEachUserProgression = async (req, res, next) => {
       const getTotalLateTask = await Task.countDocuments({ ...filter, dueDate: { $lt: dateToday } });
       const getTotalLateToDo = await Task.countDocuments({ ...filter,status:"To do", dueDate: { $lt: dateToday } });
       const getTotalLateInProgress = await Task.countDocuments({ ...filter,status:"In progress" , dueDate: { $lt: dateToday } });
-
-
+      
+    
 
       const total = getTotalTask;
       const totalCompleted = getTotalCompleted;
@@ -219,13 +228,8 @@ const getEachUserProgression = async (req, res, next) => {
       };
 
       res.status(200).send(response);
-    } else {
-      res.status(404).send({
-        successful: false,
-        message: "User ID is required "
-      });
-    }
-  } catch (error) {
+
+    }catch (error) {
     res.status(500).send({
       successful: false,
       message: error.message
@@ -352,10 +356,89 @@ const exportDataAsExcel = async (req, res, next)=>{
 
  }
 
+ const GetAllTaskProgress = async (req, res, next) => {
+ 
+  try {
+    const { startDate, endDate } = req.body;
+    const dateToday = new Date().toISOString().split('T')[0];
+    const isAdmin = req.user.isAdmin;
+
+    if (!isAdmin) {
+      return res.status(401).send({
+        successful: false,
+        message: "Unauthorized"
+      });
+    }
+
+    let dateFilter = {};
+    if (startDate && endDate) {
+      dateFilter = {
+        createdAt: {
+          $gte: startDate,
+          $lte: endDate
+        }
+      };
+    }
+
+  console.log(dateFilter)
+    const getTotalTask = await Task.countDocuments(dateFilter);
+    const getTotalLateTask = await Task.countDocuments({
+      ...dateFilter,
+      dueDate: { $lt: dateToday }
+    });
+    const getTotalUnassignedTask = await Task.countDocuments({
+      ...dateFilter,
+      status: "Unassigned"
+    });
+    const getTotalCompleted = await Task.countDocuments({
+      ...dateFilter,
+      status: "Completed",
+      completedAt: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    });
+    const getTotalTodo = await Task.countDocuments({
+      ...dateFilter,
+      status: "To do"
+    });
+    const getTotalInprogress = await Task.countDocuments({
+      ...dateFilter,
+      status: "In progress"
+    });
+
+    const getTotalTaskWithDueDate = await Task.countDocuments({...dateFilter, dueDate:{$ne: null}})
+
+    const response = {
+      successful: true,
+      message: getTotalTask ? "Successfully retrieved total task." : "No tasks found in the specified date range",
+      data:{
+        totalTask: getTotalTask,
+        totalLateTask: getTotalLateTask,
+        totalUnassigned: getTotalUnassignedTask,
+        totalCompleted: getTotalCompleted,
+        totalTodo: getTotalTodo,
+        totalInprogress: getTotalInprogress,
+        totalTaskwithDueDate:getTotalTaskWithDueDate
+      }
+    };
+
+    res.status(200).send(response);
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({
+      successful: false,
+      message: error.message
+    });
+  }
+};
+
+
 module.exports ={
    getTaskList,
   getEachUserProgression,
   exportDataAsExcel,
-  getTask
+  getTask,
+  GetAllTaskProgress
 
 }

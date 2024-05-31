@@ -4,11 +4,11 @@ const {getAllUsers, changePassword, LogoutUser} = require('../Controllers/userCo
 
 const router = express.Router();
 
-const { getTaskList,  exportDataAsExcel} = require('../Controllers/userTaskController')
+const { getTaskList,  exportDataAsExcel, GetAllTaskProgress} = require('../Controllers/userTaskController')
 const {VerifyUser} = require('../Controllers/userController')
 const {VerifyToken} = require('../Controllers/Authentication_Controller')
 const { getTask} = require('../Controllers/userTaskController')
-
+const{GetUser} = require('../Controllers/userController')
 
 
 
@@ -32,4 +32,6 @@ router.post('/logout',LogoutUser)
 
 router.post('/getTask',getTask)
 
+router.post('/getTotalProgression', GetAllTaskProgress)
+router.get('/getSpecificUser' , GetUser)
 module.exports = router;
