@@ -1,3 +1,5 @@
+import { OpenDeleteModal } from "./delete_modal_controllers.js";
+
 export const switchButton = () => {
   const viewTeamBtn = document.getElementById("viewTeamBtn");
   const toBeMembersBtn = document.getElementById("toBeMembersBtn");
@@ -19,3 +21,11 @@ export const switchButton = () => {
   }
 };
 
+export const deleteMember = () => {
+  document.addEventListener("click", function (event) {
+    const deleteButton = event.target.closest(".deleteMember");
+    if (deleteButton) {
+      OpenDeleteModal(deleteButton);
+    }
+  });
+};

@@ -1,22 +1,20 @@
 const CreateTeamTable = (user) => {
+  let role;
 
-    let role
+  if (user.isAdmin && user.isVerified) {
+    role = "Admin";
+  } else if (!user.isAdmin && user.isVerified) {
+    role = "User";
+  }
 
-    if (user.isAdmin && user.isVerified) {
-        role = "Admin"
-    }
-    else if (!user.isAdmin && user.isVerified) {
-        role = "User"
-    }
-
-    return `
-        <tr class="table-row group">
+  return `
+        <tr class="table-row group" data-user-id="${user._id}">
                   <td class="px-6 py-3">${user.first_name} ${user.last_name}</td>
                   <td class="px-6 py-3">${user.email}</td>
                   <td class="px-6 py-3">${role}</td>
 
                   <td class="px-6 py-4">
-                    <button class="px-2 invisible group-hover:visible">
+                    <button class="deleteMember px-2 invisible group-hover:visible" data-id="${user._id}">
                       <svg
                         class="w-6 h-6 text-gray-800 dark:text-primary-100"
                         aria-hidden="true"
@@ -38,4 +36,4 @@ const CreateTeamTable = (user) => {
                   </td>
                 </tr>
     `;
-}
+};

@@ -1,7 +1,7 @@
 const OpenDeleteModal = (button)=>{
   const dataId = button.getAttribute("data-id");
 
- const confirmBttn = document.getElementById('confirm-delete-modal-bttn')
+ const confirmBttn = document.getElementById('confirm-delete-modal-btn')
 
  confirmBttn.setAttribute('data-id',dataId)
  

@@ -15,10 +15,10 @@ export const CreateNewbieTable = (user) => {
       </td>
       <td class="px-20 py-4 text-black font-medium text-right">
         <div class="space-x-10 space-y-2">
-          <button class="bg-green-400 w-24 px-4 py-0.5 rounded-xl accept-btn">
+          <button class="bg-green-400 w-24 px-4 py-0.5 rounded-xl accept-btn" data-id="${user._id}">
             Accept
           </button>
-          <button class="bg-red-500 w-24 px-4 py-0.5 rounded-xl reject-btn">
+          <button class="bg-red-500 w-24 px-4 py-0.5 rounded-xl reject-btn" data-id="${user._id}">
             Reject
           </button>
         </div>

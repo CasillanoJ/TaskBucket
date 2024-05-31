@@ -1,6 +1,7 @@
 export const CreateFeatures = () => {
 
-  return `
+  return `  
+          <div id="add-buttons">
             <button
                class="feature-button btn xl:inline-flex items-center hidden me-3 lg:me-5 mb-2 lg:mb-0 lg:mr-4 lg:order-1  bg-light-primary focus:ring-4 dark:hover:bg-primary-200 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-full lg:w-auto lg:px-10 py-2.5 text-center dark:bg-primary-100  dark:focus:ring-primary-100"
             >
@@ -25,11 +26,12 @@ export const CreateFeatures = () => {
                 />
               </svg>
             </button>
+            </div>
 
             <div class="flex items-center lg:order-3">
               <!-- Grouping Filter and Search buttons -->
               <form
-                action="#"
+                action="javascript:void(0)" novalidate
                 method="GET"
                 class="md:pl-2 me-3 lg:me-5 mb-2 lg:mb-0 lg:order-2"
                 id="searchBar"

@@ -2,6 +2,7 @@ import { CreateNewbieTable } from "../../Components/TeamList/unverified_users_ta
 import { rejectUser } from "../../API/reject_user.js";
 import { updateUserVerification } from "../../API/verify_user.js";
 import { getUnverifiedUsers } from "../../API/get_unverified_users.js";
+import { OpenAcceptModal, OpenRejectModal } from "./accept_reject_modal_controller.js";
 
 const FetchUnverifiedUsers = async () => {
   const unverifiedContainer = document.getElementById("rows-newbies");
@@ -14,7 +15,6 @@ const FetchUnverifiedUsers = async () => {
     let newUsersTable = "";
 
     if (data.data && data.data.length > 0) {
-      console.log("Count:", data.count);
       data.data.forEach((user) => {
         newUsersTable += CreateNewbieTable(user);
       });
@@ -69,30 +69,20 @@ export const AcceptRejectList = () => {
       if (event.target.classList.contains("accept-btn")) {
         const row = event.target.closest("tr");
         const userId = row.dataset.userId;
-        const response = await updateUserVerification([userId]);
-        handleApiResponse(response, row);
+        OpenAcceptModal("accept", [userId]);
       } else if (event.target.classList.contains("reject-btn")) {
         const row = event.target.closest("tr");
         const userId = row.dataset.userId;
-        const response = await rejectUser([userId]);
-        handleApiResponse(response, row);
+        OpenRejectModal("reject", [userId]);
       } else if (event.target.classList.contains("main-accept-btn")) {
         const selectedUserIds = getSelectedUserIds();
         if (selectedUserIds.length > 0) {
-          const response = await updateUserVerification(selectedUserIds);
-          selectedUserIds.forEach((id) => {
-            const row = document.querySelector(`tr[data-user-id="${id}"]`);
-            handleApiResponse(response, row);
-          });
+          OpenAcceptModal("accept", selectedUserIds);
         }
       } else if (event.target.classList.contains("main-reject-btn")) {
         const selectedUserIds = getSelectedUserIds();
         if (selectedUserIds.length > 0) {
-          const response = await rejectUser(selectedUserIds);
-          selectedUserIds.forEach((id) => {
-            const row = document.querySelector(`tr[data-user-id="${id}"]`);
-            handleApiResponse(response, row);
-          });
+          OpenRejectModal("reject", selectedUserIds);
         }
       }
     });
@@ -111,11 +101,11 @@ const getSelectedUserIds = () => {
   return userIds;
 };
 
-const handleApiResponse = (response, row) => {
-  if (response.successful) {
-    if (row) {
-      row.parentNode.removeChild(row);
-    }
+export const handleApiResponse = (response, row) => {
+  if (response.successful && row) {
+    row.parentNode.removeChild(row);
+  } else {
+    console.error("Error handling API response:", response);
   }
 };
 
