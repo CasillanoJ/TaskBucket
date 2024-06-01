@@ -1,31 +1,38 @@
-export const CreateFeatures = () => {
+export const CreateFeatures = (isAdmin) => {
+  let addTaskButton = ''
+  if(isAdmin == "true" || isAdmin == true){
+    addTaskButton = `<button
+               
+    class="feature-button btn xl:inline-flex items-center hidden me-3 lg:me-5 mb-2 lg:mb-0 lg:mr-4 lg:order-1  bg-light-primary focus:ring-4 dark:hover:bg-primary-200 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-full lg:w-auto lg:px-10 py-2.5 text-center dark:bg-primary-100  dark:focus:ring-primary-100" onclick="OpenAddTaskModal()"
+ >
+   ADD TASK
+ </button>
+
+ <button
+   class="feature-button btn mb-2 lg:mb-0 xl:hidden inline-flex items-center text-main-body bg-primary-100 hover:bg-primary-200 focus:ring-4 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-fit lg:px-4 py-2.5 text-center dark:bg-primary-100 dark:hover:bg-primary-200 dark:focus:ring-primary-100" onclick="OpenAddTaskModal()"
+ >
+   <svg
+     xmlns="http://www.w3.org/2000/svg"
+     fill="none"
+     viewBox="0 0 24 24"
+     stroke="currentColor"
+     class="w-6 h-6"
+   >
+     <path
+       stroke-linecap="round"
+       stroke-linejoin="round"
+       stroke-width="2"
+       d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+     />
+   </svg>
+ </button>`
+  }
+
   return `  
           <div id="add-buttons">
-            <button
-               
-               class="feature-button btn xl:inline-flex items-center hidden me-3 lg:me-5 mb-2 lg:mb-0 lg:mr-4 lg:order-1  bg-light-primary focus:ring-4 dark:hover:bg-primary-200 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-full lg:w-auto lg:px-10 py-2.5 text-center dark:bg-primary-100  dark:focus:ring-primary-100" onclick="OpenAddTaskModal()"
-            >
-              ADD TASK
-            </button>
-
-            <button
-              class="feature-button btn mb-2 lg:mb-0 xl:hidden inline-flex items-center text-main-body bg-primary-100 hover:bg-primary-200 focus:ring-4 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-fit lg:px-4 py-2.5 text-center dark:bg-primary-100 dark:hover:bg-primary-200 dark:focus:ring-primary-100" onclick="OpenAddTaskModal()"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-                />
-              </svg>
-            </button>
+            ${addTaskButton}
+      
+       
             </div>
 
             <div class="flex items-center lg:order-3">
