@@ -17,7 +17,7 @@
   </head>
 
   <body
-    class="font-rubik overflow-y-auto overflow-x-hidden bg-light-bg dark:bg-main-body h-screen w-screen "
+    class="font-rubik overflow-y-auto overflow-x-hidden bg-light-bg dark:bg-main-body h-screen w-screen"
   >
     <div class="antialiased bg-light-bg dark:bg-main-body">
       <!-- Header -->
@@ -659,7 +659,7 @@
                     <th scope="col" class="px-6 py-3">Status</th>
                     <th scope="col" class="px-6 py-3">Priority Level</th>
                     <th scope="col" class="px-6 py-3">Owner</th>
-                    <th scope="col" class="px-6 py-3"></th>
+                    <!-- <th scope="col" class="px-6 py-3"></th> -->
                   </tr>
                 </thead>
                 <tbody id="rows"></tbody>
@@ -676,8 +676,20 @@
       </main>
     </div>
 
+    <div id="modal-container"></div>
+    <div id="confirm-delete-container"></div>
+    <div id="edit-modal"></div>
+    <div id="add-task-modal-container"></div>
+
     <script src="../API/api_client.js"></script>
     <script src="../API/routes.js"></script>
+    <script src="../API/get_users.js"></script>
+    <script src="../API/update_task.js"></script>
+    <script src="../API/get_specific_task.js"></script>
+    <script src="../API/delete_task.js"></script>
+    <script src="../API/add_task.js"></script>
+    <script src="../API/updatate_status.js"></script>
+    <script src="../API/task_table.js" type="module"></script>
 
     <script src="../Components/TaskList/task_table.js" type="module"></script>
     <script
@@ -689,10 +701,23 @@
       type="module"
     ></script>
 
+    <script src="../Components/Dashboard_Components/create_View_modal.js"></script>
+    <script src="../Components/Dashboard_Components/create_edit_Modal.js"></script>
+    <script src="../Components/Dashboard_Components/delete_modal.js"></script>
+    <script src="../Components/Dashboard_Components/Addtask_Btn.js"></script>
+
     <script src="../Controllers/sidebar_controller.js"></script>
-    <script src="../Controllers/fetch_tasks.js" type="module"></script>
-    <script src="../Controllers/render_task_table.js" type="module"></script>
+    <script
+      src="../Controllers/TaskListControllers/fetch_tasks.js"
+      type="module"
+    ></script>
+    <script
+      src="../Controllers/TaskListControllers/render_task_table.js"
+      type="module"
+    ></script>
     <script src="../Controllers/GetCookie.js"></script>
+    <script src="../Controllers/TaskListControllers/edit_delete_controller.js"></script>
+    <script src="../Controllers/TaskListControllers/add_task_modal.js"></script>
 
     <script src="../node_modules/flowbite/dist/flowbite.min.js"></script>
     <script src="../node_modules/flowbite/dist/datepicker.js"></script>

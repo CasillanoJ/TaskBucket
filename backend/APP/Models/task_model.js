@@ -28,19 +28,19 @@ const taskSchema = new mongoose.Schema(
     dueDate: {
       type: Date,
       default: null,
-      validate: {
-        validator: function (value) {
-          if (value === null) {
-            return true;
-          }
-          const inputValue = new Date(value);
-          const currentDate = new Date();
-          currentDate.setHours(0, 0, 0, 0);
+      // validate: {
+      //   validator: function (value) {
+      //     if (value === null) {
+      //       return true;
+      //     }
+      //     const inputValue = new Date(value);
+      //     const currentDate = new Date();
+      //     currentDate.setHours(0, 0, 0, 0);
 
-          return inputValue >= currentDate;
-        },
-        message: "Date must be the current date or in the future",
-      },
+      //     return inputValue >= currentDate;
+      //   },
+      //   message: "Date must be the current date or in the future",
+      // },
     },
     startedAt: {
       type: Date,

@@ -7,13 +7,14 @@ import { CreateAcceptModal } from "../../Components/TeamList/accept_modal.js";
 
 const RenderUserTable = async () => {
   await FetchUnverifiedUsers();
+  SelectAllCheckbox();
+
 };
 
 document.addEventListener("DOMContentLoaded", async function () {
   CreateRejectModal();
   CreateAcceptModal();
   RenderUserTable();
-  SelectAllCheckbox();
   switchButton();
   AcceptRejectList();
 });

@@ -1,4 +1,4 @@
-import { searchTask } from "../API/search_task.js";
+import { searchTask } from "../../API/search_task.js";
 import { FetchTaskList } from "./fetch_tasks.js";
 import { RenderTaskTable } from "./render_task_table.js";
 

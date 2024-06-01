@@ -1,16 +1,16 @@
-import { CreateTable } from "../Components/TaskList/task_table.js";
-import { getTask } from "../API/task_table.js";
+import { CreateTable } from "../../Components/TaskList/task_table.js";
+import { getTask } from "../../API/task_table.js";
 
-const FetchTaskList = async (
-  query = "",
-  dataParams = null
-) => {
+const FetchTaskList = async (query = "", isAdmin ,dataParams = null) => {
   const taskContainer = document.getElementById("rows");
+  const modalContainer = document.getElementById("modal-container");
 
   taskContainer.innerHTML = "";
+  modalContainer.innerHTML = "";
+
+  isAdmin = GetCookie("isAdmin");
 
   try {
-
     let data;
 
     if (query === "searchTask" && dataParams) {
@@ -30,6 +30,7 @@ const FetchTaskList = async (
 
     if (data.data && data.data.length > 0) {
       data.data.forEach((task) => {
+        modalContainer.innerHTML += CreateModal(task, isAdmin);
         tableHtml += CreateTable(task);
       });
     } else {

@@ -31,26 +31,26 @@ window.ConfirmRejectModal = async (button) => {
     const response = await rejectUser(userIds);
     document.getElementById("confirm_reject_modal").close();
     document.getElementById("successfully_reject_modal").showModal();
-    handleApiResponse(
-      response,
-      document.querySelector(`tr[data-user-id='${userIds}']`)
-    );
+    userIds.forEach((userId) => {
+      const row = document.querySelector(`tr[data-user-id='${userId}']`);
+      handleApiResponse(response, row);
+    });
   }
-  
 };
 
 window.ConfirmAcceptModal = async (button) => {
   const action = button.getAttribute("data-action");
   const userIds = JSON.parse(button.getAttribute("data-user-ids"));
-  console.log("ID",userIds);
-  console.log("action", action);
+
   if (action === "accept") {
     const response = await updateUserVerification(userIds);
     document.getElementById("confirm_accept_modal").close();
     document.getElementById("successfully_accept_modal").showModal();
-    handleApiResponse(
-      response,
-      document.querySelector(`tr[data-user-id='${userIds}']`)
-    );
+
+    userIds.forEach((userId) => {
+      const row = document.querySelector(`tr[data-user-id='${userId}']`);
+      console.log("Selected row for userId:", userId, row);
+      handleApiResponse(response, row);
+    });
   }
 };

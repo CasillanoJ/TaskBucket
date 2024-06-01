@@ -40,29 +40,6 @@ const FetchUnverifiedUsers = async () => {
   }
 };
 
-export const SelectAllCheckbox = () => {
-  const selectAllCheckbox = document.getElementById("checkbox-for-all");
-  const userCheckboxes = document.querySelectorAll(".user-checkbox");
-
-  selectAllCheckbox.addEventListener("change", function () {
-    const isChecked = selectAllCheckbox.checked;
-    userCheckboxes.forEach((checkbox) => {
-      checkbox.checked = isChecked;
-    });
-  });
-
-  userCheckboxes.forEach((checkbox) => {
-    checkbox.addEventListener("change", function () {
-      if (!checkbox.checked) {
-        selectAllCheckbox.checked = false;
-      } else {
-        const allChecked = Array.from(userCheckboxes).every((cb) => cb.checked);
-        selectAllCheckbox.checked = allChecked;
-      }
-    });
-  });
-};
-
 export const AcceptRejectList = () => {
   try {
     document.addEventListener("click", async function (event) {
@@ -91,6 +68,30 @@ export const AcceptRejectList = () => {
   }
 };
 
+export const SelectAllCheckbox = () => {
+  const selectAllCheckbox = document.getElementById("checkbox-for-all");
+  const userCheckboxes = document.querySelectorAll(".user-checkbox");
+
+  selectAllCheckbox.addEventListener("change", function () {
+    const isChecked = selectAllCheckbox.checked;
+    userCheckboxes.forEach((checkbox) => {
+      checkbox.checked = isChecked;
+    });
+  });
+
+  userCheckboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", function () {
+      if (!checkbox.checked) {
+        selectAllCheckbox.checked = false;
+      } else {
+        const allChecked = Array.from(userCheckboxes).every((cb) => cb.checked);
+        selectAllCheckbox.checked = allChecked;
+      }
+    });
+  });
+};
+
+
 const getSelectedUserIds = () => {
   const checkboxes = document.querySelectorAll(".user-checkbox:checked");
   const userIds = [];
@@ -105,8 +106,10 @@ export const handleApiResponse = (response, row) => {
   if (response.successful && row) {
     row.parentNode.removeChild(row);
   } else {
-    console.error("Error handling API response:", response);
+    console.error("Error handling API response:", response, "Row:", row);
   }
 };
+
+
 
 export { FetchUnverifiedUsers };
