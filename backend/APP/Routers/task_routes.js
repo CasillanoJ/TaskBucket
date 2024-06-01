@@ -7,7 +7,6 @@ const {
   filterTasks,
   updateTask,
   updateStatus,
-  isClaimed,
   searchTasks,
   deleteTask,
 } = require("../Controllers/taskController");
@@ -24,7 +23,8 @@ router.get("/search/", searchTasks);
 router.post("/:id", updateTask);
 router.post("/stats/:id", updateStatus);
 
-router.get('/getProgress', getEachUserProgression)
+router.post('/getProgress/:id', getEachUserProgression)
 router.post('/deleteTask/:id', deleteTask)
+
 
 module.exports = router;

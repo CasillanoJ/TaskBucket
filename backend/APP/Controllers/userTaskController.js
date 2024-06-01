@@ -15,7 +15,6 @@ const getTaskList = async (req, res , next) =>{
   const count = req.params.count
   const limit = req.query.limit
 
-  console.log(status)
 
 
   let dateToday = new Date();
@@ -47,16 +46,16 @@ const getTaskList = async (req, res , next) =>{
       if(isAdmin){
         getTask = await Task.find({
           completedAt: {
-            $lte: dateTodayISO,
-            $gte: currentDateISO
+            $lte: currentDateISO ,
+            $gte: dateTodayISO
           },
           status: "Completed"
         }).populate('assignee', 'first_name last_name').limit(limit).skip(count);
 
         taskCount = await Task.find({
           completedAt: {
-            $lte: dateTodayISO,
-            $gte: currentDateISO
+            $lte: currentDateISO,
+            $gte: dateTodayISO
           },
           status: "Completed"
         }).countDocuments()
@@ -64,8 +63,8 @@ const getTaskList = async (req, res , next) =>{
       }else{
         getTask = await Task.find({
           completedAt: {
-            $lte: dateTodayISO,
-            $gte: currentDateISO
+            $lte: currentDateISO,
+            $gte: dateTodayISO
           },
           status: "Completed",
           assignee: userId
@@ -74,10 +73,10 @@ const getTaskList = async (req, res , next) =>{
         
         taskCount = await Task.find({
           completedAt: {
-            $lte: dateTodayISO,
-            $gte: currentDateISO
+            $lte: currentDateISO,
+            $gte: dateTodayISO
           },
-          status: "Completed",
+          status: "Completed",  
           assignee: userId
         }).countDocuments()
 
@@ -141,22 +140,46 @@ const getTaskList = async (req, res , next) =>{
 const getEachUserProgression = async (req, res, next) => {
   try {
 
+    let userID = req.params.id
+    const { startDate, endDate } = req.body;
+    const dateToday = new Date().toISOString().split('T')[0]
 
-    const { id: userID, startDate, endDate } = req.body;
-    const dateToday = new Date();
+    const isAdmin = req.user.isAdmin
 
-    
+    if(!isAdmin){
+      userID = req.user.userId
+    }
 
-    if(userID) {
-      const filter = {
-        assignee: userID,
-        createdAt: { $lte: endDate, $gte: startDate }
-      };
+    if(!userID){
+      return res.status(404).send({
+        successful: false,
+        message: "User ID is required "
+    })}
+
+      let filter = {}
+      let completeFilter= {}
+
+      if(startDate.trim() == "" && endDate.trim() == "" || startDate.trim() =="" || endDate.trim() == ""){
+        filter = {
+          assignee: userID,
+        }
+      }else{
+        filter = {
+          assignee: userID,
+          createdAt: { $lte: endDate, $gte: startDate }
+      
+        }
+        completeFilter.completedAt = { $gte: startDate, $lte: endDate };
+      }
+     
+       
 
       const getTotalTask = await Task.countDocuments(filter);
-      const getTotalCompleted = await Task.countDocuments({ ...filter,status: "Completed", completedAt: { $lte: endDate, $gte: startDate } });
-      const getTotalTodo = await Task.countDocuments({ ...filter, status: "To-do" , dueDate: { $lte: dateToday }});
+      const getTotalCompleted = await Task.countDocuments({ ...filter,status: "Completed", ...completeFilter});
+      const getTotalTodo = await Task.countDocuments({ ...filter, status: "To do" });
       const getTotalInprogress = await Task.countDocuments({ ...filter, status: "In progress" });
+
+      const TotalClaimedTask = await Task.countDocuments({...filter,isClaimed:"true"})
 
       
 
@@ -176,7 +199,11 @@ const getEachUserProgression = async (req, res, next) => {
       const getTotalNeutral = await countDocumentsWithPriorityLevel("Neutral");
     
 
-      const getTotalLateTask = await Task.countDocuments({ ...filter, dueDate: { $gt: dateToday } });
+      const getTotalLateTask = await Task.countDocuments({ ...filter, dueDate: { $lt: dateToday } });
+      const getTotalLateToDo = await Task.countDocuments({ ...filter,status:"To do", dueDate: { $lt: dateToday } });
+      const getTotalLateInProgress = await Task.countDocuments({ ...filter,status:"In progress" , dueDate: { $lt: dateToday } });
+      
+    
 
       const total = getTotalTask;
       const totalCompleted = getTotalCompleted;
@@ -186,25 +213,23 @@ const getEachUserProgression = async (req, res, next) => {
       const response = {
         successful: true,
         message: total ? "Successfully retrieved total task." : "No task assigned to the user",
-        totalCount: total,
+        totalTask: total,
         completedCount: totalCompleted,
         totalInprogress: getTotalInprogress,
-        totalLateTask: getTotalLateTask,
         totalToDo: getTotalTodo,
         taskProgress: taskProgress,
         totalUrgent: getTotalUrgent,
         totalHigh: getTotalHigh,
-        totalNeutral: getTotalNeutral
+        totalNeutral: getTotalNeutral,
+        totalClaimed : TotalClaimedTask,
+        totalLateTask: getTotalLateTask,
+        totalLateTodo : getTotalLateToDo,
+        totalLateInProgress: getTotalLateInProgress
       };
 
-      res.status(200).json(response);
-    } else {
-      res.status(404).json({
-        successful: false,
-        message: "User ID is required "
-      });
-    }
-  } catch (error) {
+      res.status(200).send(response);
+
+    }catch (error) {
     res.status(500).send({
       successful: false,
       message: error.message
@@ -331,10 +356,89 @@ const exportDataAsExcel = async (req, res, next)=>{
 
  }
 
+ const GetAllTaskProgress = async (req, res, next) => {
+ 
+  try {
+    const { startDate, endDate } = req.body;
+    const dateToday = new Date().toISOString().split('T')[0];
+    const isAdmin = req.user.isAdmin;
+
+    if (!isAdmin) {
+      return res.status(401).send({
+        successful: false,
+        message: "Unauthorized"
+      });
+    }
+
+    let dateFilter = {};
+    if (startDate && endDate) {
+      dateFilter = {
+        createdAt: {
+          $gte: startDate,
+          $lte: endDate
+        }
+      };
+    }
+
+  console.log(dateFilter)
+    const getTotalTask = await Task.countDocuments(dateFilter);
+    const getTotalLateTask = await Task.countDocuments({
+      ...dateFilter,
+      dueDate: { $lt: dateToday }
+    });
+    const getTotalUnassignedTask = await Task.countDocuments({
+      ...dateFilter,
+      status: "Unassigned"
+    });
+    const getTotalCompleted = await Task.countDocuments({
+      ...dateFilter,
+      status: "Completed",
+      completedAt: {
+        $gte: startDate,
+        $lte: endDate
+      }
+    });
+    const getTotalTodo = await Task.countDocuments({
+      ...dateFilter,
+      status: "To do"
+    });
+    const getTotalInprogress = await Task.countDocuments({
+      ...dateFilter,
+      status: "In progress"
+    });
+
+    const getTotalTaskWithDueDate = await Task.countDocuments({...dateFilter, dueDate:{$ne: null}})
+
+    const response = {
+      successful: true,
+      message: getTotalTask ? "Successfully retrieved total task." : "No tasks found in the specified date range",
+      data:{
+        totalTask: getTotalTask,
+        totalLateTask: getTotalLateTask,
+        totalUnassigned: getTotalUnassignedTask,
+        totalCompleted: getTotalCompleted,
+        totalTodo: getTotalTodo,
+        totalInprogress: getTotalInprogress,
+        totalTaskwithDueDate:getTotalTaskWithDueDate
+      }
+    };
+
+    res.status(200).send(response);
+  } catch (error) {
+    console.log(error)
+    res.status(500).send({
+      successful: false,
+      message: error.message
+    });
+  }
+};
+
+
 module.exports ={
    getTaskList,
   getEachUserProgression,
   exportDataAsExcel,
-  getTask
+  getTask,
+  GetAllTaskProgress
 
 }

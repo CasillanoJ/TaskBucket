@@ -10,6 +10,9 @@ const getEndpoint = (data)=>{
         case "login":
            endpoint = "/login"
           break;
+        case "register":
+            endpoint = "/register"
+           break; 
         default:
             endpoint =""
             break;

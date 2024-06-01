@@ -1,4 +1,5 @@
 const ClaimTaskModal =async()=>{
+
   return`
   
 
@@ -12,7 +13,7 @@ const ClaimTaskModal =async()=>{
   
     <h3 class="font-bold text-lg text-center text-black dark:text-txt-100">Are you sure?</h3>
     
-    <p class="py-4 text-center text-black dark:text-txt-100">You’re about to CLAIM this task </p>
+    <p class="py-4 text-center text-black dark:text-txt-100">You’re about to   <span id="confirmation-task-message"></span> this task </p>
 
     <div class="flex justify-center space-x-12 mt-5">
       <button id="confirm-claim-modal-bttn" class="text-white dark:text-black rounded-full bg-light-primary px-5 py-2 dark:bg-primary-100 dark:hover:bg-primary-200 hover:bg-light-primary-active"   onclick="ConfirmStartTask(this)">Confirm</button>
@@ -31,7 +32,7 @@ const ClaimTaskModal =async()=>{
 
 <dialog id="succesfully_claimTask_modal" class="modal">
     <div class="modal-box bg-white dark:bg-secondary">
-      <h3 class="font-bold text-lg text-center text-black dark:text-txt-100">Succesfully Claimed the task</h3>
+      <h3 class="font-bold text-lg text-center text-black dark:text-txt-100">Succesfully <span id="succesfully-task-message"></span> the task</h3>
       <div class="flex justify-center mt-5">
         <form method="dialog">
           <button class="text-white dark:text-black px-5 py-2 rounded-full  border-0 bg-light-primary dark:bg-primary-100 dark:hover:bg-primary-200 hover:bg-light-primary-active">Confirm</button>

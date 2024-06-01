@@ -6,7 +6,29 @@ const StartTask = (button)=>{
   ConfirmModalBttn.setAttribute("data-id",taskID)
   ConfirmModalBttn.setAttribute("data-status",taskStatus)
 
+  let confirmMessage = ''
+  let succesfullyMessage = ''
 
+  switch (taskStatus) {
+    case "Unassigned":
+      confirmMessage = 'Claim'
+      succesfullyMessage = 'Claimed'
+      break;
+   case "To do":
+       confirmMessage = 'Start'
+        succesfullyMessage = 'Started'
+        break;
+  case "In progress":
+      confirmMessage = 'Complete'
+      succesfullyMessage = 'Completed'
+      break;     
+    
+    default:
+      break;
+  }
+
+  document.getElementById('confirmation-task-message').innerHTML = confirmMessage
+  document.getElementById('succesfully-task-message').innerHTML = succesfullyMessage
   confirm_claimTask_modal.showModal()
 
 }

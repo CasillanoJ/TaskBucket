@@ -2,9 +2,9 @@ const OpenAddTaskModal =async ()=>{
   const addTaskAssignee = document.getElementById('add-task-modal-assignee')
   console.log(addTaskAssignee.innerHTML)
 
-  const users = await getUsers();
+  const users = await getUsers(0,0);
 
-  console.log(users.data)
+
 
 
   const userOptions = (usersList) => {
@@ -20,7 +20,7 @@ const OpenAddTaskModal =async ()=>{
   };
 
   addTaskAssignee.innerHTML =  userOptions(users.data);
-  console.log(addTaskAssignee.innerHTML)
+ 
 
   add_task_modal.showModal()
 }

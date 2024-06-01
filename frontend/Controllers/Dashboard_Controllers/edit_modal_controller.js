@@ -8,14 +8,14 @@ async function OpenEditModal(button) {
   const taskPriorityLevel = document.getElementById("edit-modal-priorityLevel");
   const taskDescription = document.getElementById("edit-modal-description");
 
-  const users = await getUsers();
+  const users = await getUsers(0,0);
   const data = await getTask(dataId);
   const taskData = data.data[0];
   
 
 
   taskTitle.value = taskData.title;
-  taskStatus.innerHTML = `Status: ${taskData.status}`;
+  taskStatus.innerHTML = ` ${taskData.status}`;
 
   const userOptions = (users, assignee) => {
   let selectHtml = '<option value="">None</option>';
@@ -105,9 +105,11 @@ async function ConfirmSaveBtn(button){
   const taskPriorityLevel = document.getElementById("edit-modal-priorityLevel");
   const taskDescription = document.getElementById("edit-modal-description");
   const messageContainer = document.getElementById('edit-modal-warningMsg')
+  const taskStatus = document.getElementById("edit-modal-status");
 
 
- const data = await UpdateSpecificTask(dataId,taskTitle.value,taskDescription.value,taskAssignee.value,taskDueDate.value,taskPriorityLevel.value)
+
+ const data = await UpdateSpecificTask(dataId,taskTitle.value,taskDescription.value,taskAssignee.value,taskDueDate.value,taskPriorityLevel.value,taskStatus.innerHTML.trim())
 
   
  console.log(data.status) 

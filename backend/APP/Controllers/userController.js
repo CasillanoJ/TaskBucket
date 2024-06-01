@@ -10,11 +10,27 @@ const addUser = async (req, res, next) => {
   const saltRound = 10;
 
   try {
-    let { first_name, last_name, email, password } = req.body;
+    let { first_name, last_name, email, password,  } = req.body;
+
+    const isStrongPassword = (password) => {
+      const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return strongPasswordRegex.test(password);
+    };
+  
+   
 
     const checkUser = await User.findOne({ email: email });
 
+    if (!isStrongPassword(password)) {
+      return res.status(400).send({
+        successful: false,
+        message: `Weak password : Password should be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character`,
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, saltRound);
+
+
 
     if (checkUser == null) {
       const newUser = new User({
@@ -42,7 +58,7 @@ const addUser = async (req, res, next) => {
           });
         });
     } else {
-      res.status(400).send({
+     return res.status(409).send({
         successful: false,
         message: `Email is already taken`,
       });
@@ -55,44 +71,22 @@ const addUser = async (req, res, next) => {
   }
 };
 
-const getAllVerifiedUsers = async (req, res, next) => {
-  try {
-    const users = await User.find({ isVerified: true }).select("-password");
+const getAllUsers = async (req, res, next)=>{
+  const count = req.query.count
+  const limit = req.query.limit
 
-    if (users.length != 0) {
-      res.status(200).json({
-        successful: true,
-        message: "Succesfully retrieved User details.",
-        count: users.length,
-        data: users,
-      });
-    } else {
-      res.status(200).json({
-        successful: true,
-        message: "No User data yet",
-        count: users.length,
-      });
-    }
-  } catch (error) {
-    res.status(500).send({
-      successful: false,
-      message: error.message,
-    });
-  }
-};
-
-const getAllUnverifiedUsers = async (req, res, next) => {
-  try {
-    const users = await User.find({ isVerified: false }).select("-password");
-
-    if (users.length != 0) {
-      res.status(200).json({
-        successful: true,
-        message: "Succesfully retrieved User details.",
-        count: users.length,
-        data: users,
-      });
-    } else {
+  try{
+    const usersCount = await User.countDocuments({isVerified:true}).select('-password')
+      const users = await User.find({isVerified:true}).select('-password').limit(limit).skip(count)
+      if(users.length != 0){
+          res.status(200).json({
+              successful: true,
+              message: "Succesfully retrieved User details.",
+              totalUsers: usersCount,
+              count: users.length,
+               data: users
+      })
+    }else{
       res.status(200).json({
         successful: true,
         message: "No User data yet",
@@ -111,8 +105,15 @@ const changePassword = async (req, res, next) => {
   const saltRound = 10;
 
   try {
-    const { oldPassword, newPassword, confirmPassword } = req.body;
-    const userId = req.user.userId;
+    const {  oldPassword, newPassword, confirmPassword } = req.body;
+    const userId = req.user.userId
+
+    if(!oldPassword || !newPassword || !confirmPassword){
+      return res.status(400).json({
+        successful: false,
+        message: 'Mandatory field is missing',
+      });
+    }
 
     if (newPassword !== confirmPassword) {
       return res.status(400).json({
@@ -202,7 +203,8 @@ const LoginUser = async (req, res, next) => {
         user: {
           isAdmin: user.isAdmin,
           isVerified: user.isVerified,
-        },
+          userId: user._id 
+        }
       });
     }
   } catch (error) {
@@ -410,28 +412,63 @@ const VerifiyCode = async (req, res, next) => {
       });
     }
 
-    if (user.forgot_password_code != code) {
-      return res.status(400).json({
+   if(user.forgot_password_code !=  code ){
+    return res.status(400).json({
+      successful: false,
+      message: "Invalid Verification Code",
+    })
+   }
+  
+   const expirationTime = new Date(user.forgot_password_code_created_at.getTime() + 10 * 60 * 1000);
+
+ 
+   if (expirationTime > new Date()) {
+     return res.status(200).send({
+       successful: true,
+       message: "Successfully Validated Code",
+     });
+   } else {
+     return res.status(400).json({
+       successful: false,
+       message: "Verification Code is already Expired",
+     });
+   }
+
+
+    
+  } catch (error) {
+    res.status(500).send({
+      successful: false,
+      message: error.message
+  })
+  }
+}
+
+const GetUser =async (req,res,next)=>{
+  try {
+    let userId = req.user.userId
+
+    if(!userId){
+      return res.status(404).send({
         successful: false,
-        message: "Invalid Verification Code",
-      });
+        message: "User ID is required "
+    })
     }
 
-    const expirationTime = new Date(
-      user.forgot_password_code_created_at.getTime() + 10 * 60 * 1000
-    );
-
-    if (expirationTime > new Date()) {
-      return res.status(200).json({
-        successful: true,
-        message: "Successfully Validated Code",
-      });
-    } else {
-      return res.status(400).json({
+    const user = await User.findOne({ isVerified: true, _id: userId }).select('-password -createdAt -updatedAt');
+    if(!user){
+      return res.status(404).json({
         successful: false,
-        message: "Verification Code is already Expired",
-      });
+        message: `Cannot Find the user`,
+      })
     }
+  return res.status(200).json({
+    successful: true,
+    message: "Succesfully retrieved User detail.",
+     data: user
+})
+
+    
   } catch (error) {
     res.status(500).send({
       successful: false,
@@ -451,4 +488,5 @@ module.exports = {
   LogoutUser,
   GetChangePasswordCode,
   VerifiyCode,
+  GetUser
 };

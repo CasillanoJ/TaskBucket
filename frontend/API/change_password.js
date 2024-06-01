@@ -1,4 +1,4 @@
-const getUsers = async(skip,limit)=>{
+const ChangePassword = async(oldpassword,newPassword,confirmPassword) =>{
   const AccessToken = GetCookie("accessToken")
   const RefreshToken = GetCookie("refreshToken");
 
@@ -7,7 +7,9 @@ const getUsers = async(skip,limit)=>{
       return{
           method: "POST",
           body: JSON.stringify({
-             
+            oldPassword:oldpassword ,
+            newPassword: newPassword,
+            confirmPassword: confirmPassword
           }),
           headers :{
               "Content-Type" : 'application/json',
@@ -17,9 +19,9 @@ const getUsers = async(skip,limit)=>{
       }
   }
 
-  let data = await api_client(`${getEnv("dev")}${getEndpoint("user")}/?limit=${limit}&count=${skip}`, options())
+  let data = await api_client(`${getEnv("dev")}${getEndpoint("user")}/changePassword`, options())
 
+  
 
-return { "data":data.data , "status": data.status , "message" : data.message , "count" : data.count ,"total" : data.totalUsers, "successful": data.successful}
+return { "status": data.status , "message" : data.message , "successful": data.successful}
 }
-
