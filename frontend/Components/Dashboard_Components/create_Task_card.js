@@ -30,7 +30,7 @@ const CreateCard = (task,isAdmin)=> {
     }
 
     let editBttn = ''
-    let deleteBttn = ''
+ 
 
 
     const EditButton = (id)=>{
@@ -44,22 +44,11 @@ const CreateCard = (task,isAdmin)=> {
                   </button>
       `
     }
-    const DeleteButton = (id)=>{
-    //   return`
-    //   <button class="group ms-2 group-hover:visible invisible" data-id="${id}" onclick="OpenDeleteModal(this)">
-    //   <svg class="w-6 h-6 text-light-primary dark:text-white " aria-hidden="true"
-    //     xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-    //     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-    //       d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z" />
-    //   </svg>
-
-    // </button>
-    //   `
-    }
+  
 
     if(isAdmin == true || isAdmin == "true"){
       editBttn = EditButton(task._id)
-      // deleteBttn = DeleteButton(task._id)
+     
 
     }
 
@@ -82,7 +71,6 @@ const CreateCard = (task,isAdmin)=> {
       </div>
       <div class="flex p-3 mt-14 justify-end space-x-2">
         ${editBttn}
-        ${deleteBttn}
       </div>
     </div>
   </div>
