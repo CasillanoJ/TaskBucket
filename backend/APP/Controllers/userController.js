@@ -11,11 +11,26 @@ const addUser = async (req, res, next) => {
 
   try {
     let { first_name, last_name, email, password,  } = req.body;
+
+    const isStrongPassword = (password) => {
+      const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      return strongPasswordRegex.test(password);
+    };
+  
    
 
     const checkUser = await User.findOne({ email: email });
 
+    if (!isStrongPassword(password)) {
+      return res.status(400).send({
+        successful: false,
+        message: `Weak password : Password should be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character`,
+      });
+    }
+
     const hashedPassword = await bcrypt.hash(password, saltRound);
+
+
 
     if (checkUser == null) {
       const newUser = new User({
@@ -43,7 +58,7 @@ const addUser = async (req, res, next) => {
           });
         });
     } else {
-      res.status(400).send({
+     return res.status(409).send({
         successful: false,
         message: `Email is already taken`,
       });

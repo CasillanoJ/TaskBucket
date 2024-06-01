@@ -49,10 +49,8 @@ const RenderUserProfileProgress  = async(isAdmin)=>{
   }
 
   const dateToday = new Date().toISOString().split('T')[0]
-  console.log(dateToday)
 
   const data = await GetEachUserProgression(user.data._id,dateToday,dateToday)
-  console.log(data)
 
   document.getElementById('user-name').innerHTML = `${user.data.first_name} ${user.data.last_name}`
   if(isAdmin == true){
