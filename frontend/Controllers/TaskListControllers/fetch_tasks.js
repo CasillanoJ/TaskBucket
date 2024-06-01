@@ -1,14 +1,14 @@
 import { CreateTable } from "../../Components/TaskList/task_table.js";
 import { getTask } from "../../API/task_table.js";
 
-const FetchTaskList = async (query = "", isAdmin ,dataParams = null) => {
+const FetchTaskList = async (query = "" ,dataParams = null) => {
   const taskContainer = document.getElementById("rows");
   const modalContainer = document.getElementById("modal-container");
 
   taskContainer.innerHTML = "";
   modalContainer.innerHTML = "";
 
-  isAdmin = GetCookie("isAdmin");
+  let isAdmin = GetCookie("isAdmin");
 
   try {
     let data;
