@@ -75,7 +75,6 @@ function VerifyToken(req, res, next) {
       } else {
 
           req.user = decoded;
-          console.log(req.user)
           next();
       }
   });

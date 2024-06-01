@@ -1,5 +1,5 @@
 const CreateEditModal = async() => {
-    return`
+    return `
     <dialog id="edit_modal" class="modal" data-id=""> 
       <div class="relative bg-white dark:bg-task-bg rounded-lg shadow dark:bg-dashboardBG modal-box  overflow-hidden w-11/12 max-w-2xl ">
             <!-- Modal header -->
@@ -30,8 +30,8 @@ const CreateEditModal = async() => {
                 
               </div>
                 <div class="ml-8 mt-5 mb-0 flex"> 
-                  <p class="text-black dark:text-white  flex" data-tip="" id="edit-modal-status" > Status:  
-                   
+                  <p class="text-black dark:text-white  flex" data-tip="" > Status:  
+                   <span id="edit-modal-status"></span>
                     
                   </p>
                  
@@ -180,7 +180,7 @@ const CreateEditModal = async() => {
     </dialog>
 
     
-    `
+    `;
   }
   
   

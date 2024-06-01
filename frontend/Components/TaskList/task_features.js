@@ -1,13 +1,15 @@
 export const CreateFeatures = () => {
-  return `
+  return `  
+          <div id="add-buttons">
             <button
-               class="feature-button btn xl:inline-flex items-center hidden me-3 lg:me-5 mb-2 lg:mb-0 lg:mr-4 lg:order-1  bg-light-primary focus:ring-4 dark:hover:bg-primary-200 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-full lg:w-auto lg:px-10 py-2.5 text-center dark:bg-primary-100  dark:focus:ring-primary-100"
+               
+               class="feature-button btn xl:inline-flex items-center hidden me-3 lg:me-5 mb-2 lg:mb-0 lg:mr-4 lg:order-1  bg-light-primary focus:ring-4 dark:hover:bg-primary-200 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-full lg:w-auto lg:px-10 py-2.5 text-center dark:bg-primary-100  dark:focus:ring-primary-100" onclick="OpenAddTaskModal()"
             >
               ADD TASK
             </button>
 
             <button
-              class="feature-button btn mb-2 lg:mb-0 xl:hidden inline-flex items-center text-main-body bg-primary-100 hover:bg-primary-200 focus:ring-4 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-fit lg:px-4 py-2.5 text-center dark:bg-primary-100 dark:hover:bg-primary-200 dark:focus:ring-primary-100"
+              class="feature-button btn mb-2 lg:mb-0 xl:hidden inline-flex items-center text-main-body bg-primary-100 hover:bg-primary-200 focus:ring-4 focus:outline-none focus:ring-primary-200 font-semibold rounded-xl w-fit lg:px-4 py-2.5 text-center dark:bg-primary-100 dark:hover:bg-primary-200 dark:focus:ring-primary-100" onclick="OpenAddTaskModal()"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -24,11 +26,12 @@ export const CreateFeatures = () => {
                 />
               </svg>
             </button>
+            </div>
 
             <div class="flex items-center lg:order-3">
               <!-- Grouping Filter and Search buttons -->
               <form
-                action="#"
+                action="javascript:void(0)" novalidate
                 method="GET"
                 class="md:pl-2 me-3 lg:me-5 mb-2 lg:mb-0 lg:order-2"
                 id="searchBar"
@@ -123,7 +126,7 @@ export const CreateFeatures = () => {
                 />
               </svg>
 
-              <span class="text-light-primary dark:text-primary-100 font-semibold">Priority Level</span>
+              <span class="text-light-primary dark:text-primary-100 font-semibold" id="sortLabel">Oldest Task</span>
             </button>
             
               <button
@@ -171,20 +174,20 @@ export const CreateFeatures = () => {
               <div id="sortBtn2" class="z-30 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-nav">
                 <ul class="py-2 text-md text-gray-700 dark:text-task" aria-labelledby="dropdownButton2">
                   <li>
-                    <button type="button" category="1" class="priority-lvl-item sort-option">Latest Task</button>
-                  </li>
-                  <li>
-                    <button type="button" category="2" class="priority-lvl-item sort-option">Oldest Task</button>
-                  </li>
-                  <li>
-                    <button type="button" category="3" class="priority-lvl-item sort-option">Highest Priority</button>
-                  </li>
-                  <li>
-                    <button type="button" category="4" class="priority-lvl-item sort-option">Lowest Priority</button>
-                  </li>
-                  <li>
-                    <button type="button" category="5" class="priority-lvl-item sort-option">Due Date</button>
-                  </li>
+                      <a href="#" category="1" class="priority-lvl-item sort-option">Latest Task</a>
+                    </li>
+                    <li>
+                      <a href="#" category="2" class="priority-lvl-item sort-option">Oldest Task</a>
+                    </li>
+                    <li>
+                      <a href="#" category="3" class="priority-lvl-item sort-option">Highest Priority </a>
+                    </li>
+                    <li>
+                      <a href="#" category="4" class="priority-lvl-item sort-option">Lowest Priority </a>
+                    </li>
+                    <li>
+                      <a href="#" category="5" class="priority-lvl-item sort-option">Due Date</a>
+                    </li>
                 </ul>
               </div>
           `;

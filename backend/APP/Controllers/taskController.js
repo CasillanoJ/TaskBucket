@@ -25,17 +25,21 @@ const createTask = async (req, res) => {
           .json({ successful: false, message: err.message });
       }
 
-      let { title, description, priorityLevel, assignee, dueDate } =
-        req.body;
+      let { title, description, priorityLevel, assignee, dueDate } = req.body;
       const attachedFiles = req.file ? [req.file.originalname] : []; // Get the filename if file is uploaded, otherwise set to empty array
 
       try {
-        let status = ''
+        let status = "";
         const isAdmin = req.user.isAdmin;
 
-        if (assignee == null || assignee.trim() === "" || assignee == "None" || !assignee) {
+        if (
+          assignee == null ||
+          assignee.trim() === "" ||
+          assignee == "None" ||
+          !assignee
+        ) {
           status = "Unassigned";
-          assignee = null
+          assignee = null;
         } else {
           status = "To do";
         }
@@ -51,11 +55,9 @@ const createTask = async (req, res) => {
             attachedFiles: attachedFiles || [], // Set attached_files to empty array if not provided
           });
 
-       
-
           const savedTask = await newTask.save(); // Make sure to await the save operation
           console.log("Saved task:", savedTask);
-          
+
           // const populatedTask = await savedTask
           //   .populate("assignee", "email")
           //   .execPopulate();
@@ -88,10 +90,10 @@ const createTask = async (req, res) => {
           return res.status(201).send({
             successful: true,
             message: `Successfully added Task: ${savedTask.title}`,
-            task:{
+            task: {
               id: savedTask._id,
-              status: savedTask.status
-            } ,
+              status: savedTask.status,
+            },
           });
         } else {
           return res.status(401).json({
@@ -134,7 +136,8 @@ const getTasks = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-  const { title, description, priorityLevel, assignee, dueDate } = req.body;
+  const { title, description, priorityLevel, assignee, dueDate, status } =
+    req.body;
   try {
     let task = await Task.findById(req.params.id);
 
@@ -142,13 +145,15 @@ const updateTask = async (req, res) => {
       return handleTaskMethod(res, task, "");
     }
 
-    
     if (!assignee || assignee.trim() === "" || assignee == "None") {
       task.assignee = null;
-      task.status = "Unassigned"
+      task.status = "Unassigned";
+    } else if (status === "In progress") {
+      task.assignee = assignee;
+      task.status = "In progress";
     } else {
       task.assignee = assignee;
-      task.status = "To do"
+      task.status = "To do";
     }
 
     task.title = title;
@@ -166,7 +171,6 @@ const updateTask = async (req, res) => {
       taskUpdate.title
     );
 
-
     if (taskUpdate.assignee && taskUpdate.assignee.email) {
       SendEmail(
         notificationMessage,
@@ -177,11 +181,7 @@ const updateTask = async (req, res) => {
       const users = await User.find();
       const emailPromises = users.map(async (user) => {
         if (user.email) {
-          await SendEmail(
-            notificationMessage,
-            "Updated Task",
-            user.email
-          );
+          await SendEmail(notificationMessage, "Updated Task", user.email);
         }
       });
       await Promise.all(emailPromises);
@@ -202,33 +202,32 @@ const updateTask = async (req, res) => {
   }
 };
 
-
 const updateStatus = async (req, res) => {
   try {
     let updatedStats = await Task.findById(req.params.id);
     const status = req.body.status;
-    const user = req.user.userId
-    const dateToday = new Date().toISOString().split('T')[0]
+    const user = req.user.userId;
+    const dateToday = new Date().toISOString().split("T")[0];
 
-    if(!status){
+    if (!status) {
       return res.status(404).send({
         successful: false,
         message: "Status is required",
       });
     }
 
-    if(status == "Unassigned"){
-      updatedStats.status = "To do"
-      updatedStats.isClaimed = true
-      updatedStats.assignee = user
+    if (status == "Unassigned") {
+      updatedStats.status = "To do";
+      updatedStats.isClaimed = true;
+      updatedStats.assignee = user;
     }
-    if(status == "To do"){
-      updatedStats.status = "In progress"
-      updatedStats.startedAt = dateToday
+    if (status == "To do") {
+      updatedStats.status = "In progress";
+      updatedStats.startedAt = dateToday;
     }
-    if(status == "In progress"){
-      updatedStats.status = "Completed"
-      updatedStats.completedAt = dateToday
+    if (status == "In progress") {
+      updatedStats.status = "Completed";
+      updatedStats.completedAt = dateToday;
     }
 
     updatedStats = await updatedStats.save();
@@ -256,8 +255,6 @@ const updateStatus = async (req, res) => {
     });
   }
 };
-
-
 
 const deleteTask = async (req, res) => {
   try {
@@ -361,7 +358,9 @@ const sortBy = async (req, res) => {
         return (aPriority - bPriority) * sortValue;
       });
     } else {
-      tasks = await Task.find().sort({ [sortCat]: sortValue });
+      tasks = await Task.find()
+        .sort({ [sortCat]: sortValue })
+        .populate("assignee", "first_name last_name");
     }
 
     handleTaskMethod(res, tasks, "sorted");
@@ -452,7 +451,7 @@ const searchTasks = async (req, res) => {
       { score: { $meta: "textScore" } }
     ) // Sorting by textScore to show best matches first
       .sort({ score: { $meta: "textScore" } })
-      .limit(10);
+      .populate("assignee", "first_name last_name");
 
     if (tasks.length === 0) {
       const partialTasks = await Task.find({
@@ -475,21 +474,19 @@ const searchTasks = async (req, res) => {
 };
 
 async function emailForAdmin() {
-
   try {
-    const admin = await User.find()
+    const admin = await User.find();
     let id;
 
-    admin.forEach(element => {
+    admin.forEach((element) => {
       if (element.isAdmin == true) {
-        id = element.email
+        id = element.email;
       }
     });
 
     return id;
-
   } catch (error) {
-    throw new Error(error)
+    throw new Error(error);
   }
 }
 

@@ -1,23 +1,16 @@
-import { CreateTable } from "../Components/TaskList/task_table.js";
-import { CreateFeatures } from "../Components/TaskList/task_features.js";
-import { CreateFilterSidebar } from "../Components/TaskList/filter_sidebar.js";
-import { getTask } from "../API/task_table.js";
-import { sortTask } from "../API/sort_task.js";
-import { getFilterTasks } from "../API/get_filter_task.js"; // Import filterTasks
-import { toggleFilter, filterTasks } from "./filter_task.js";
-import { search } from "./search_handler.js";
-import { sort } from "./sort_handler.js";
+import { CreateTable } from "../../Components/TaskList/task_table.js";
+import { getTask } from "../../API/task_table.js";
 
-const FetchTaskList = async (
-  query = "",
-  dataParams = null
-) => {
+const FetchTaskList = async (query = "" ,dataParams = null) => {
   const taskContainer = document.getElementById("rows");
+  const modalContainer = document.getElementById("modal-container");
 
   taskContainer.innerHTML = "";
+  modalContainer.innerHTML = "";
+
+  let isAdmin = GetCookie("isAdmin");
 
   try {
-
     let data;
 
     if (query === "searchTask" && dataParams) {
@@ -37,6 +30,7 @@ const FetchTaskList = async (
 
     if (data.data && data.data.length > 0) {
       data.data.forEach((task) => {
+        modalContainer.innerHTML += CreateModal(task, isAdmin);
         tableHtml += CreateTable(task);
       });
     } else {
@@ -48,11 +42,6 @@ const FetchTaskList = async (
     }
 
     taskContainer.innerHTML += tableHtml;
-    
-    toggleFilter();
-    filterTasks();
-    search();
-    sort();
   } catch (error) {
     console.error("Error fetching task list:", error);
   }

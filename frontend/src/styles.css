@@ -5,7 +5,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400..800&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
 
 .btn {
-  @apply text-white  dark:text-main-body rounded-xl py-1 px-2 md:py-2 md:px-3 text-xs md:text-lg font-bold cursor-pointer tracking-wider;
+  @apply text-white dark:text-main-body hover:bg-purple-500 rounded-xl py-1 px-2 md:py-2 md:px-3 text-xs md:text-lg font-bold cursor-pointer tracking-wider;
 }
 
 .clear-btn {
@@ -13,7 +13,7 @@
 }
 
 .secondary-btn {
-  @apply border-2 bg-white dark:bg-nav flex justify-start rounded-lg border-light-primary dark:border-primary-100 space-x-2 text-light-primary dark:text-primary-100 py-1 px-2 md:py-2 md:px-3 text-base md:text-lg font-semibold btn focus:ring-4 focus:outline-none focus:ring-primary-200 w-auto text-center dark:focus:ring-primary-100;
+  @apply border-2 hover:bg-purple-200 dark:hover:bg-task-content bg-light-bg dark:bg-nav flex justify-start rounded-lg border-light-primary dark:border-primary-100 space-x-2 text-light-primary dark:text-primary-100 py-1 px-2 md:py-2 md:px-3 text-base md:text-lg font-semibold btn focus:ring-4 focus:outline-none focus:ring-primary-200 w-auto text-center dark:focus:ring-primary-100;
 }
 
 /* .filter-checkbox {
@@ -33,7 +33,7 @@
 }
 
 .table-row {
-  @apply odd:bg-white odd:dark:bg-secondary even:bg-light-row even:dark:bg-row border-b dark:border-gray-700 dark:hover:bg-task-content hover:bg-violet-200 hover:cursor-pointer;
+  @apply odd:bg-white odd:dark:bg-secondary even:bg-light-row even:dark:bg-row border-b dark:border-gray-700 dark:hover:bg-task-content hover:bg-violet-200 cursor-pointer;
 }
 
 .bg-hero {
@@ -70,7 +70,7 @@
   @apply flex items-center p-2 text-base font-medium text-gray-900  dark:text-white hover:bg-light-active hover:text-light-primary dark:hover:bg-task dark:hover:text-black hover:rounded-full rounded-full;
 }
 .table-item-row {
-  @apply odd:bg-white odd:dark:bg-task-bg even:bg-light-row even:dark:bg-row dark:border-gray-700 dark:hover:bg-task-content hover:bg-light-active hover:cursor-pointer;
+  @apply odd:bg-white odd:dark:bg-task-bg even:bg-light-row even:dark:bg-row dark:border-gray-700 dark:hover:bg-task-content hover:bg-light-active ;
 }
 
 .performance-overview-name {

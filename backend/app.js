@@ -9,14 +9,6 @@ const app = express()
 app.use(cookieParser());
 
 
-
-// ROUTERS
-const loginRoutes = require('./APP/Routers/login_routes')
-const userRouter = require('./APP/Routers/user_routes')
-const taskRouter = require('./APP/Routers/task_routes');
-const notificationRouter = require('./APP/Routers/notification_routes')
-
-
 app.use(morgan("dev"));
 
 
@@ -33,7 +25,7 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    "*"
   );
   if (req.method === "OPTIONS") {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
@@ -41,6 +33,12 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+// ROUTERS
+const loginRoutes = require('./APP/Routers/login_routes')
+const userRouter = require('./APP/Routers/user_routes')
+const taskRouter = require('./APP/Routers/task_routes');
+const notificationRouter = require('./APP/Routers/notification_routes')
 
 //MIDDLEWARE
 app.use(loginRoutes);

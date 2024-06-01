@@ -19,7 +19,6 @@ const getUsers = async(id)=>{
 
   let data = await api_client(`${getEnv("dev")}${getEndpoint("user")}/`, options())
 
-  
-
 return { "data":data.data , "status": data.status , "message" : data.message , "count" : data.count ,"total" : data.totalTask}
 }
+
