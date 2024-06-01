@@ -8,28 +8,35 @@ import { search } from "./search_handler.js";
 // import { deleteMember } from "../ViewTeamControllers/navigate_content.js";
 // import { OpenEditModal } from "./edit_delete_controller.js";
 
+
 export const RenderTaskTable = async (query) => {
   await FetchTaskList("", query);
 };
 
-const RenderEditModal = async () => {
-  const editModalContainer = document.getElementById("edit-modal");
-  const addTaskModalContainer = document.getElementById(
-    "add-task-modal-container"
-  );
-  const deleteModalContainer = document.getElementById(
-    "confirm-delete-container"
-  );
-  editModalContainer.innerHTML += await CreateEditModal();
-  deleteModalContainer.innerHTML += await CreateDeleteModal();
-  addTaskModalContainer.innerHTML += await AddTaskButton();
+const RenderEditModal = async (isAdmin) => {
+  if(isAdmin == true || isAdmin =="true"){
+    const editModalContainer = document.getElementById("edit-modal");
+    const addTaskModalContainer = document.getElementById(
+      "add-task-modal-container"
+    );
+    const deleteModalContainer = document.getElementById(
+      "confirm-delete-container"
+    );
+    editModalContainer.innerHTML += await CreateEditModal();
+    deleteModalContainer.innerHTML += await CreateDeleteModal();
+    addTaskModalContainer.innerHTML += await AddTaskButton();
+    return
+  }
+ 
 };
 document.addEventListener("DOMContentLoaded", async function () {
-  RenderEditModal();
+  const isAdmin = GetCookie('isAdmin')
+  RenderEditModal(isAdmin);
   const filterSidebar = document.getElementById("filter-sidebar");
   filterSidebar.innerHTML = CreateFilterSidebar();
+
   const taskFeatures = document.getElementById("features");
-  taskFeatures.innerHTML = CreateFeatures();
+  taskFeatures.innerHTML = CreateFeatures(isAdmin);
   toggleFilter();
   filterTasks();
   sort();
