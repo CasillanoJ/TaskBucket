@@ -12,20 +12,20 @@ export const RenderTaskTable = async (query) => {
   await FetchTaskList("", query);
 };
 
-// const RenderEditModal = async () => {
-//   const editModalContainer = document.getElementById("edit-modal");
-//   const addTaskModalContainer = document.getElementById(
-//     "add-task-modal-container"
-//   );
-//   const deleteModalContainer = document.getElementById(
-//     "confirm-delete-container"
-//   );
-//   editModalContainer.innerHTML += await CreateEditModal();
-//   deleteModalContainer.innerHTML += await CreateDeleteModal();
-//   addTaskModalContainer.innerHTML += await AddTaskButton();
-// };
+const RenderEditModal = async () => {
+  const editModalContainer = document.getElementById("edit-modal");
+  const addTaskModalContainer = document.getElementById(
+    "add-task-modal-container"
+  );
+  const deleteModalContainer = document.getElementById(
+    "confirm-delete-container"
+  );
+  editModalContainer.innerHTML += await CreateEditModal();
+  deleteModalContainer.innerHTML += await CreateDeleteModal();
+  addTaskModalContainer.innerHTML += await AddTaskButton();
+};
 document.addEventListener("DOMContentLoaded", async function () {
-  // RenderEditModal();
+  RenderEditModal();
   const filterSidebar = document.getElementById("filter-sidebar");
   filterSidebar.innerHTML = CreateFilterSidebar();
   const taskFeatures = document.getElementById("features");

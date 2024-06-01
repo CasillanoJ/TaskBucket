@@ -3,8 +3,6 @@ const OpenAddTaskModal = async () => {
 
   const users = await getUsers(0,0);
 
-  console.log(users.data);
-
   const userOptions = (usersList) => {
     let selectHtml = '<option value="">None</option>';
 
