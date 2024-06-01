@@ -71,7 +71,7 @@ const addUser = async (req, res, next) => {
   }
 };
 
-const getAllUsers = async (req, res, next)=>{
+const getAllVerifiedUsers = async (req, res, next)=>{
   const count = req.query.count
   const limit = req.query.limit
 
@@ -87,6 +87,32 @@ const getAllUsers = async (req, res, next)=>{
                data: users
       })
     }else{
+      res.status(200).json({
+        successful: true,
+        message: "No User data yet",
+        count: users.length,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      successful: false,
+      message: error.message,
+    });
+  }
+};
+
+const getAllUnverifiedUsers = async (req, res, next) => {
+  try {
+    const users = await User.find({ isVerified: false }).select("-password");
+
+    if (users.length != 0) {
+      res.status(200).json({
+        successful: true,
+        message: "Succesfully retrieved User details.",
+        count: users.length,
+        data: users,
+      });
+    } else {
       res.status(200).json({
         successful: true,
         message: "No User data yet",
