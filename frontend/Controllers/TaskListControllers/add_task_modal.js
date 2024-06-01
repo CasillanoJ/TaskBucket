@@ -1,7 +1,9 @@
 const OpenAddTaskModal = async () => {
   const addTaskAssignee = document.getElementById("add-task-modal-assignee");
 
-  const users = await getUsers();
+  const users = await getUsers(0,0);
+
+  console.log(users.data);
 
   const userOptions = (usersList) => {
     let selectHtml = '<option value="">None</option>';

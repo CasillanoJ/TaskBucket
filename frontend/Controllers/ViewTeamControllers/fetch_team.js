@@ -9,7 +9,7 @@ export const FetchTeam = async (query) => {
   try {
     let data;
     
-    data = await getUsers();
+    data = await getUsers(0,0);
 
     let tableHtml = ``;
 
